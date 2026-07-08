@@ -179,7 +179,7 @@
     }
     panel.className = 'idr-panel';
     var head = el('div', { class: 'idr-head' }, [
-      el('div', { class: 'idr-brand' }, [ el('span', { class: 'idr-dot' }), el('strong', { text: "iDesign's Creative + Marketing Site Reviewer" }) ]),
+      el('div', { class: 'idr-brand' }, [ el('span', { class: 'idr-dot' }), el('strong', { text: "Creative + Marketing Site Reviewer | iDesign" }) ]),
       el('button', { class: 'idr-x', text: '–', title: 'Minimize', onclick: function () { state.open = false; renderPanel(); } })
     ]);
     var who = el('div', { class: 'idr-who' }, [
@@ -358,7 +358,7 @@
       setName(nm); setEmail(v); scrim.style.display = 'none'; scrim.innerHTML = ''; renderPanel(); schedulePins();
     } });
     var box = el('div', { class: 'idr-gate' }, [
-      el('div', { class: 'idr-gate-brand' }, [ el('span', { class: 'idr-dot' }), el('strong', { text: "iDesign's Creative + Marketing Site Reviewer" }) ]),
+      el('div', { class: 'idr-gate-brand' }, [ el('span', { class: 'idr-dot' }), el('strong', { text: "Creative + Marketing Site Reviewer | iDesign" }) ]),
       el('div', { class: 'idr-gate-h', text: 'Sign in to review' }),
       el('div', { class: 'idr-note', text: 'So the team knows who left each comment. Then click any element or text on the page to leave a note.' }),
       nameInp,

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creative + Marketing Site Reviewer | iDesign</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+  :root{--bg:#001E2E;--surf:#002B40;--surf2:#0A3A52;--field:#00263A;--line:rgba(137,242,247,.16);--primary:#017FAE;--primary2:#00A5E1;--green:#6FEEAC;--text:#E9F3F7;--muted:#7FA6B8}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Lato',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg)}
+  header{background:linear-gradient(135deg,#00263A,#013A52);color:#fff;padding:18px 32px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+  header .dot{width:16px;height:16px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(1,127,174,.28)}
+  header h1{font-size:17px;margin:0;font-weight:900}
+  header .spacer{flex:1}
+  .wrap{max-width:1080px;margin:0 auto;padding:26px 24px 90px}
+  .lead{color:var(--muted);font-size:14px;margin:2px 0 18px}
+  .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+  .searchwrap{position:relative;flex:1;min-width:220px}
+  .searchwrap input{width:100%;background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--text);font-size:14px;font-family:inherit}
+  .searchwrap input::placeholder{color:#5C7E90}
+  .tab{border:none;background:rgba(137,242,247,.08);color:var(--muted);border-radius:20px;padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer}
+  .tab.on{background:var(--primary);color:#fff}
+  .btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-weight:700;font-size:13.5px;cursor:pointer}
+  .btn:hover{background:var(--primary2)}
+  .btn.ghost{background:transparent;color:var(--text);border:1.5px solid var(--line)}
+  .btn.ghost:hover{background:var(--surf2)}
+  .btn.sm{padding:7px 14px;font-size:12.5px;border-radius:9px}
+  /* new-review form */
+  .newform{display:none;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+  .newform.show{display:block}
+  .newform label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#CCE5EF;margin:0 0 5px}
+  .newform .fields{display:flex;gap:12px;flex-wrap:wrap}
+  .newform .f{flex:1;min-width:220px}
+  .newform input{width:100%;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--text);font-size:14px;font-family:inherit}
+  .newform input::placeholder{color:#5C7E90}
+  .newform .row{display:flex;gap:8px;margin-top:14px}
+  .err{color:#FF8A7A;font-size:13px;margin-top:8px}
+  /* cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:14px}
+  .card{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,transform .15s}
+  .card:hover{border-color:rgba(0,165,225,.5);transform:translateY(-2px)}
+  .ctop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .cname{font-size:16px;font-weight:900;color:#fff;line-height:1.2;word-break:break-word}
+  .ctag{flex:none;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 9px;border-radius:20px;background:rgba(1,127,174,.22);color:#7FD3EE;border:1px solid rgba(1,127,174,.4)}
+  .curl{font-size:12.5px;color:var(--muted);word-break:break-all}
+  .counts{display:flex;gap:7px;flex-wrap:wrap}
+  .pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+  .pill.open{background:rgba(1,127,174,.20);color:#7FD3EE}
+  .pill.res{background:rgba(111,238,172,.16);color:#6FEEAC}
+  .pill.none{background:rgba(137,242,247,.08);color:var(--muted)}
+  .cmeta{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .cactions{display:flex;gap:8px;margin-top:6px}
+  .muted{color:var(--muted);text-align:center;padding:50px 10px;font-size:14px}
+  a.plain{text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+  <span class="dot"></span><h1>Creative + Marketing Site Reviewer | iDesign</h1>
+  <span class="spacer"></span>
+  <button class="btn" onclick="toggleNew()">+ New review</button>
+</header>
+<div class="wrap">
+  <div class="lead">iDesign's shared library of site reviews — send a link, collect feedback, track what's open.</div>
+
+  <div class="newform" id="newform">
+    <div class="fields">
+      <div class="f"><label>Site URL to review</label><input id="nurl" type="text" placeholder="https://your-site.webflow.io/"></div>
+      <div class="f"><label>Label (optional)</label><input id="nname" type="text" placeholder="e.g. Brand site refresh"></div>
+    </div>
+    <div class="row">
+      <button class="btn" onclick="createReview()">Create review</button>
+      <button class="btn ghost" onclick="toggleNew()">Cancel</button>
+    </div>
+    <div class="err" id="nerr"></div>
+  </div>
+
+  <div class="toolbar">
+    <div class="searchwrap"><input id="search" type="text" placeholder="Search reviews by name or URL…" oninput="render()"></div>
+    <button class="tab on" data-f="all" onclick="setF('all')">All</button>
+    <button class="tab" data-f="open" onclick="setF('open')">Has open</button>
+    <button class="tab" data-f="done" onclick="setF('done')">All resolved</button>
+    <button class="btn ghost sm" onclick="load()">Refresh</button>
+  </div>
+
+  <div id="grid"><div class="muted">Loading…</div></div>
+</div>
+
+<script>
+var CFG = {
+  url: 'https://puytjdeavhowngzqdymh.supabase.co',
+  key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY'
+};
+var PROXY = CFG.url + '/functions/v1/review';
+var H = { apikey: CFG.key, Authorization: 'Bearer ' + CFG.key };
+var REVIEWS = [], COMMENTS = [], FILTER = 'all';
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
+function toggleNew(){ $('newform').classList.toggle('show'); $('nerr').textContent=''; if($('newform').classList.contains('show')) $('nurl').focus(); }
+function setF(f){ FILTER=f; [].forEach.call(document.querySelectorAll('.tab'),function(t){t.classList.toggle('on',t.dataset.f===f);}); render(); }
+
+function load(){
+  Promise.all([
+    fetch(CFG.url+'/rest/v1/reviews?select=*&order=created_at.desc',{headers:H}).then(function(r){return r.ok?r.json():Promise.reject('reviews '+r.status);}),
+    fetch(CFG.url+'/rest/v1/review_comments?select=project,resolved,parent_id',{headers:H}).then(function(r){return r.ok?r.json():[];})
+  ]).then(function(res){ REVIEWS=res[0]; COMMENTS=res[1]||[]; render(); })
+   .catch(function(e){ $('grid').innerHTML='<div class="muted">Could not load ('+e+'). Make sure the <b>reviews</b> table exists (run the setup SQL).</div>'; });
+}
+function counts(project){
+  var open=0,res=0;
+  COMMENTS.forEach(function(c){ if(c.parent_id) return; if(c.project!==project) return; if(c.resolved) res++; else open++; });
+  return {open:open,res:res};
+}
+function reviewLink(url){ return PROXY+'?url='+encodeURIComponent(url); }
+function render(){
+  var q=($('search').value||'').toLowerCase();
+  var list=REVIEWS.filter(function(r){
+    var hay=((r.name||'')+' '+(r.url||'')+' '+(r.project||'')).toLowerCase();
+    if(q && hay.indexOf(q)<0) return false;
+    var c=counts(r.project);
+    if(FILTER==='open') return c.open>0;
+    if(FILTER==='done') return c.open===0 && c.res>0;
+    return true;
+  });
+  if(!list.length){ $('grid').innerHTML='<div class="muted">'+(REVIEWS.length?'No reviews match.':'No reviews yet. Click <b>+ New review</b> to add one.')+'</div>'; return; }
+  $('grid').innerHTML=list.map(function(r){
+    var c=counts(r.project);
+    var pills = (c.open?'<span class="pill open">'+c.open+' open</span>':'')
+              + (c.res?'<span class="pill res">'+c.res+' resolved</span>':'')
+              + (!c.open&&!c.res?'<span class="pill none">No comments yet</span>':'');
+    var when = r.created_at ? new Date(r.created_at).toLocaleDateString() : '';
+    return '<div class="card">'
+      +'<div class="ctop"><div class="cname">'+esc(r.name||r.project)+'</div><span class="ctag">Review</span></div>'
+      +'<div class="curl">'+esc(r.url)+'</div>'
+      +'<div class="counts">'+pills+'</div>'
+      +'<div class="cmeta">'+esc(r.created_by||'iDesign')+(when?' · '+when:'')+'</div>'
+      +'<div class="cactions">'
+        +'<a class="plain" href="'+esc(reviewLink(r.url))+'" target="_blank"><button class="btn sm">View site</button></a>'
+        +'<a class="plain" href="./dashboard.html?site='+encodeURIComponent(r.project)+'" target="_blank"><button class="btn ghost sm">Feedback</button></a>'
+      +'</div></div>';
+  }).join('');
+}
+function createReview(){
+  $('nerr').textContent='';
+  var raw=($('nurl').value||'').trim();
+  if(!raw){ $('nerr').textContent='Enter a site URL.'; return; }
+  if(!/^https?:\/\//i.test(raw)) raw='https://'+raw;
+  var u; try{ u=new URL(raw); }catch(e){ $('nerr').textContent='That doesn’t look like a valid URL.'; return; }
+  var body={ url:u.href, name:($('nname').value||'').trim()||null, project:u.hostname, created_by:'iDesign' };
+  fetch(CFG.url+'/rest/v1/reviews',{method:'POST',headers:Object.assign({'Content-Type':'application/json',Prefer:'return=minimal'},H),body:JSON.stringify([body])})
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); $('nurl').value=''; $('nname').value=''; toggleNew(); load(); })
+    .catch(function(e){ $('nerr').textContent='Could not save ('+e.message+'). Did you run the reviews-table SQL?'; });
+}
+load();
+setInterval(load, 20000);
+</script>
+</body>
+</html>
