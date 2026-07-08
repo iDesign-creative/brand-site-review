@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iDesign Review — Create a Review Link</title>
+<style>
+  :root{--navy:#0a2540;--red:#e8482b;--blue:#5b9bd5;--ink:#33475b;--line:#e6eaef;--bg:#f5f7f9}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--navy);background:var(--bg)}
+  header{background:var(--navy);color:#fff;padding:20px 28px;display:flex;align-items:center;gap:12px}
+  header .dot{width:20px;height:20px;border-radius:50%;background:conic-gradient(var(--red),var(--blue),var(--navy))}
+  header h1{font-size:18px;margin:0;font-weight:700}
+  .wrap{max-width:720px;margin:0 auto;padding:28px 22px 80px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:20px}
+  h2{font-size:16px;margin:0 0 4px}
+  .sub{color:var(--ink);font-size:14px;margin:2px 0 16px;line-height:1.55}
+  label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em}
+  input[type=text]{width:100%;border:1px solid #cfd8e0;border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit}
+  input:focus{outline:none;border-color:var(--blue)}
+  .btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:14px;cursor:pointer;margin-top:12px}
+  .btn.ghost{background:#eef1f4;color:var(--ink)}
+  .out{margin-top:18px;display:none}
+  .out.show{display:block}
+  .linkbox{display:flex;gap:8px;align-items:center;background:#eef2f6;border-radius:10px;padding:10px 12px;margin-top:6px}
+  .linkbox input{background:transparent;border:none;font-size:13px;flex:1;color:var(--navy)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .btn.sm{padding:9px 14px;font-size:13px;margin-top:0}
+  .ok{color:#2fa36b;font-weight:600;font-size:13px}
+  .err{color:var(--red);font-size:13px;margin-top:8px}
+  .hist{margin-top:10px}
+  .hist a{display:block;font-size:13px;color:var(--blue);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--line);word-break:break-all}
+  .note{font-size:12.5px;color:#8a97a4;margin-top:14px;line-height:1.5}
+  a.link{color:var(--blue);font-weight:600}
+</style>
+</head>
+<body>
+<header><span class="dot"></span><h1>iDesign Review — Create a Review Link</h1></header>
+<div class="wrap">
+  <div class="card">
+    <h2>Paste the site you want reviewed</h2>
+    <div class="sub">Enter the full URL of the page (or homepage) to review. You'll get a link to send reviewers — they just open it and comment, nothing to install.</div>
+    <label>Site URL</label>
+    <input id="site" type="text" placeholder="https://your-site.webflow.io/" autofocus>
+    <button class="btn" onclick="gen()">Generate review link</button>
+    <div class="err" id="err"></div>
+
+    <div class="out" id="out">
+      <label style="margin-top:16px">Share this link with reviewers</label>
+      <div class="linkbox"><input id="link" type="text" readonly></div>
+      <div class="row">
+        <button class="btn sm" onclick="copy()">Copy link</button>
+        <button class="btn sm ghost" onclick="openLink()">Open it</button>
+        <span class="ok" id="copied"></span>
+      </div>
+    </div>
+    <div class="note">Works on your Webflow/marketing sites. Each site's comments are kept separate automatically and show up in the dashboard.</div>
+  </div>
+
+  <div class="card">
+    <h2>Recent links</h2>
+    <div class="hist" id="hist"><div class="sub">Links you generate will appear here (saved in this browser).</div></div>
+  </div>
+
+  <div class="card">
+    <h2>See all feedback</h2>
+    <div class="sub">Every comment across every site, grouped by site → page:</div>
+    <a class="link" href="./dashboard.html">→ Open the feedback dashboard</a>
+  </div>
+</div>
+
+<script>
+// The proxy Edge Function you deployed to Supabase:
+var PROXY = 'https://puytjdeavhowngzqdymh.supabase.co/functions/v1/review';
+function $(id){return document.getElementById(id);}
+function gen(){
+  $('err').textContent=''; $('copied').textContent='';
+  var raw=$('site').value.trim();
+  if(!raw){ $('err').textContent='Enter a site URL.'; return; }
+  if(!/^https?:\/\//i.test(raw)) raw='https://'+raw;
+  var u; try{ u=new URL(raw); }catch(e){ $('err').textContent='That doesn’t look like a valid URL.'; return; }
+  var link = PROXY + '?url=' + encodeURIComponent(u.href);
+  $('link').value = link;
+  $('out').classList.add('show');
+  save(u.href, link);
+  renderHist();
+}
+function copy(){ var i=$('link'); i.select(); navigator.clipboard.writeText(i.value).then(function(){ $('copied').textContent='Copied ✓'; }); }
+function openLink(){ window.open($('link').value, '_blank'); }
+function save(site,link){
+  var h=JSON.parse(localStorage.getItem('idr_links')||'[]');
+  h=h.filter(function(x){return x.link!==link;});
+  h.unshift({site:site,link:link,t:Date.now()});
+  localStorage.setItem('idr_links', JSON.stringify(h.slice(0,20)));
+}
+function renderHist(){
+  var h=JSON.parse(localStorage.getItem('idr_links')||'[]');
+  if(!h.length){ return; }
+  $('hist').innerHTML = h.map(function(x){ return '<a href="'+x.link+'" target="_blank">'+x.site+'</a>'; }).join('');
+}
+renderHist();
+$('site').addEventListener('keydown',function(e){ if(e.key==='Enter') gen(); });
+</script>
+</body>
+</html>
