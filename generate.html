@@ -5,33 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>iDesign Review — Create a Review Link</title>
 <style>
-  :root{--navy:#0a2540;--red:#e8482b;--blue:#5b9bd5;--ink:#33475b;--line:#e6eaef;--bg:#f5f7f9}
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+  :root{--bg:#001E2E;--surf:#002B40;--surf2:#0A3A52;--field:#00263A;--line:rgba(137,242,247,.16);--primary:#017FAE;--primary2:#00A5E1;--green:#6FEEAC;--text:#E9F3F7;--muted:#7FA6B8}
   *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--navy);background:var(--bg)}
-  header{background:var(--navy);color:#fff;padding:20px 28px;display:flex;align-items:center;gap:12px}
-  header .dot{width:20px;height:20px;border-radius:50%;background:conic-gradient(var(--red),var(--blue),var(--navy))}
-  header h1{font-size:18px;margin:0;font-weight:700}
+  body{margin:0;font-family:'Lato',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg)}
+  header{background:linear-gradient(135deg,#00263A,#013A52);color:#fff;padding:20px 28px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+  header .dot{width:16px;height:16px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(1,127,174,.28)}
+  header h1{font-size:18px;margin:0;font-weight:900}
   .wrap{max-width:720px;margin:0 auto;padding:28px 22px 80px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:20px}
-  h2{font-size:16px;margin:0 0 4px}
-  .sub{color:var(--ink);font-size:14px;margin:2px 0 16px;line-height:1.55}
-  label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em}
-  input[type=text]{width:100%;border:1px solid #cfd8e0;border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit}
-  input:focus{outline:none;border-color:var(--blue)}
-  .btn{background:var(--red);color:#fff;border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:14px;cursor:pointer;margin-top:12px}
-  .btn.ghost{background:#eef1f4;color:var(--ink)}
+  .card{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:20px}
+  h2{font-size:16px;margin:0 0 4px;color:#fff;font-weight:900}
+  .sub{color:var(--muted);font-size:14px;margin:2px 0 16px;line-height:1.55}
+  label{display:block;font-size:12px;font-weight:700;color:#CCE5EF;margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em}
+  input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit;background:var(--field);color:var(--text)}
+  input::placeholder{color:#5C7E90}
+  input:focus{outline:none;border-color:var(--primary)}
+  .btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:14px;cursor:pointer;margin-top:12px}
+  .btn:hover{background:var(--primary2)}
+  .btn.ghost{background:transparent;color:var(--text);border:1.5px solid var(--line)}
+  .btn.ghost:hover{background:var(--surf2)}
   .out{margin-top:18px;display:none}
   .out.show{display:block}
-  .linkbox{display:flex;gap:8px;align-items:center;background:#eef2f6;border-radius:10px;padding:10px 12px;margin-top:6px}
-  .linkbox input{background:transparent;border:none;font-size:13px;flex:1;color:var(--navy)}
+  .linkbox{display:flex;gap:8px;align-items:center;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:6px}
+  .linkbox input{background:transparent;border:none;font-size:13px;flex:1;color:var(--text)}
   .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
   .btn.sm{padding:9px 14px;font-size:13px;margin-top:0}
-  .ok{color:#2fa36b;font-weight:600;font-size:13px}
-  .err{color:var(--red);font-size:13px;margin-top:8px}
+  .ok{color:var(--green);font-weight:700;font-size:13px}
+  .err{color:#FF8A7A;font-size:13px;margin-top:8px}
   .hist{margin-top:10px}
-  .hist a{display:block;font-size:13px;color:var(--blue);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--line);word-break:break-all}
-  .note{font-size:12.5px;color:#8a97a4;margin-top:14px;line-height:1.5}
-  a.link{color:var(--blue);font-weight:600}
+  .hist a{display:block;font-size:13px;color:var(--primary2);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--line);word-break:break-all}
+  .note{font-size:12.5px;color:var(--muted);margin-top:14px;line-height:1.5}
+  a.link{color:var(--primary2);font-weight:700}
 </style>
 </head>
 <body>
