@@ -18,12 +18,14 @@
   .tab.on{background:var(--navy);color:#fff}
   .btn{background:#e7ebf0;color:var(--ink);border:none;border-radius:8px;padding:8px 14px;font-weight:600;font-size:12.5px;cursor:pointer}
   .btn.red{background:var(--red);color:#fff}
+  select{border:1px solid #cfd8e0;border-radius:8px;padding:8px 10px;font-size:12.5px;font-weight:600;color:var(--navy);background:#fff}
   .spacer{flex:1}
   .kpis{display:flex;gap:12px;flex-wrap:wrap;margin:4px 0 8px}
-  .kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 18px;min-width:110px}
+  .kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 18px;min-width:104px}
   .kpi .n{font-size:26px;font-weight:800}
   .kpi .l{font-size:11px;color:#8a97a4;text-transform:uppercase;letter-spacing:.04em}
-  .grp{font-weight:800;font-size:14px;margin:20px 0 6px}
+  .site{font-weight:800;font-size:15px;margin:22px 0 2px;padding:6px 10px;background:#eef2f6;border-radius:8px;display:inline-block}
+  .grp{font-weight:700;font-size:13px;margin:12px 0 6px;color:var(--ink)}
   .grp .c{font-weight:600;color:#8a97a4;font-size:12px}
   .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;gap:12px}
   .card.done{opacity:.6}
@@ -39,7 +41,6 @@
   .reply b{color:var(--navy)}
   .muted{color:#8a97a4;text-align:center;padding:40px 10px}
   .err{color:var(--red)}
-  a.actions{font-size:11.5px;color:var(--blue);text-decoration:none;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body>
@@ -50,6 +51,7 @@
 <div class="wrap">
   <div class="kpis" id="kpis"></div>
   <div class="bar">
+    <select id="siteSel" onchange="SITE=this.value;render()"></select>
     <button class="tab on" data-f="open" onclick="setF('open')">Open</button>
     <button class="tab" data-f="all" onclick="setF('all')">All</button>
     <button class="tab" data-f="resolved" onclick="setF('resolved')">Resolved</button>
@@ -63,57 +65,66 @@
 <script>
 var CFG = {
   url: 'https://puytjdeavhowngzqdymh.supabase.co',
-  key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY',
-  project: 'idesign-brand-site'
+  key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY'
 };
-var DATA=[], FILTER='open';
+var DATA=[], FILTER='open', SITE='';   // SITE '' = all sites
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
 function ago(iso){var s=Math.max(1,(Date.now()-new Date(iso))/1000);if(s<60)return'just now';var m=s/60;if(m<60)return Math.floor(m)+'m ago';var h=m/60;if(h<24)return Math.floor(h)+'h ago';return Math.floor(h/24)+'d ago';}
 function setF(f){FILTER=f;[].forEach.call(document.querySelectorAll('.tab'),function(t){t.classList.toggle('on',t.dataset.f===f);});render();}
 function load(){
-  fetch(CFG.url+'/rest/v1/review_comments?project=eq.'+encodeURIComponent(CFG.project)+'&select=*&order=created_at.asc',
-        {headers:{apikey:CFG.key,Authorization:'Bearer '+CFG.key}})
+  fetch(CFG.url+'/rest/v1/review_comments?select=*&order=created_at.asc',{headers:{apikey:CFG.key,Authorization:'Bearer '+CFG.key}})
    .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
-   .then(function(rows){DATA=rows;render();})
+   .then(function(rows){DATA=rows;syncSiteSelector();render();})
    .catch(function(e){$('board').innerHTML='<div class="muted err">Could not load ('+e.message+').</div>';});
 }
+function sites(){var s={};DATA.forEach(function(c){s[c.project]=1;});return Object.keys(s).sort();}
+function syncSiteSelector(){
+  var cur=SITE, opts='<option value="">All sites</option>';
+  sites().forEach(function(p){opts+='<option value="'+esc(p)+'"'+(p===cur?' selected':'')+'>'+esc(p)+'</option>';});
+  $('siteSel').innerHTML=opts;
+}
 function render(){
-  var parents=DATA.filter(function(c){return !c.parent_id;});
+  var parents=DATA.filter(function(c){return !c.parent_id && (!SITE || c.project===SITE);});
   var open=parents.filter(function(c){return !c.resolved;}).length;
   var res=parents.length-open;
   var people=Object.keys(parents.reduce(function(a,c){a[c.author]=1;return a;},{})).length;
-  $('kpis').innerHTML=
-    kpi(parents.length,'comments')+kpi(open,'open')+kpi(res,'resolved')+kpi(people,'reviewers');
+  var nSites=SITE?1:sites().length;
+  $('kpis').innerHTML=kpi(parents.length,'comments')+kpi(open,'open')+kpi(res,'resolved')+kpi(people,'reviewers')+(SITE?'':kpi(nSites,'sites'));
   var shown=parents.filter(function(c){return FILTER==='all'?true:FILTER==='open'?!c.resolved:c.resolved;});
-  if(!shown.length){$('board').innerHTML='<div class="muted">No '+FILTER+' comments yet.</div>';return;}
-  var byPage={};shown.forEach(function(c){(byPage[c.page]=byPage[c.page]||[]).push(c);});
+  if(!shown.length){$('board').innerHTML='<div class="muted">No '+FILTER+' comments'+(SITE?' for this site':'')+' yet.</div>';return;}
+  // group by site -> page
+  var bySite={};shown.forEach(function(c){(bySite[c.project]=bySite[c.project]||[]).push(c);});
   var html='';
-  Object.keys(byPage).sort().forEach(function(pg){
-    html+='<div class="grp">'+esc(pg)+' <span class="c">· '+byPage[pg].length+'</span></div>';
-    byPage[pg].forEach(function(c,i){
-      var reps=DATA.filter(function(r){return r.parent_id===c.id;});
-      var repHtml=reps.map(function(r){return '<div class="reply"><b>'+esc(r.author)+':</b> '+esc(r.body)+'</div>';}).join('');
-      html+='<div class="card '+(c.resolved?'done':'')+'">'
-        +'<span class="badge '+(c.resolved?'done':'')+'">'+(c.resolved?'✓':(i+1))+'</span>'
-        +'<div class="body"><div class="top"><span class="who">'+esc(c.author)+'</span><span class="when">'+ago(c.created_at)+'</span></div>'
-        +'<div class="txt">'+esc(c.body)+'</div>'
-        +(c.anchor&&c.anchor.tx?'<div class="where">on: “'+esc(c.anchor.tx.slice(0,80))+'”</div>':'')
-        +repHtml+'</div></div>';
+  Object.keys(bySite).sort().forEach(function(site){
+    html+='<div class="site">🌐 '+esc(site)+'</div>';
+    var byPage={};bySite[site].forEach(function(c){(byPage[c.page]=byPage[c.page]||[]).push(c);});
+    Object.keys(byPage).sort().forEach(function(pg){
+      html+='<div class="grp">'+esc(pg)+' <span class="c">· '+byPage[pg].length+'</span></div>';
+      byPage[pg].forEach(function(c,i){
+        var reps=DATA.filter(function(r){return r.parent_id===c.id;});
+        var repHtml=reps.map(function(r){return '<div class="reply"><b>'+esc(r.author)+':</b> '+esc(r.body)+'</div>';}).join('');
+        html+='<div class="card '+(c.resolved?'done':'')+'">'
+          +'<span class="badge '+(c.resolved?'done':'')+'">'+(c.resolved?'✓':(i+1))+'</span>'
+          +'<div class="body"><div class="top"><span class="who">'+esc(c.author)+'</span><span class="when">'+ago(c.created_at)+'</span></div>'
+          +'<div class="txt">'+esc(c.body)+'</div>'
+          +(c.anchor&&c.anchor.tx?'<div class="where">on: “'+esc(c.anchor.tx.slice(0,80))+'”</div>':'')
+          +repHtml+'</div></div>';
+      });
     });
   });
   $('board').innerHTML=html;
 }
 function kpi(n,l){return '<div class="kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
 function exportCsv(){
-  if(!DATA.length){alert('Nothing to export yet.');return;}
-  var rows=[['page','status','comment','element_text','author','created_at','type']];
-  DATA.forEach(function(c){rows.push([c.page,c.resolved?'resolved':'open',c.body,(c.anchor&&c.anchor.tx)||'',c.author,c.created_at,c.parent_id?'reply':'comment']);});
+  var rows=[['site','page','status','comment','element_text','author','created_at','type']];
+  DATA.filter(function(c){return !SITE||c.project===SITE;}).forEach(function(c){rows.push([c.project,c.page,c.resolved?'resolved':'open',c.body,(c.anchor&&c.anchor.tx)||'',c.author,c.created_at,c.parent_id?'reply':'comment']);});
+  if(rows.length<2){alert('Nothing to export yet.');return;}
   var csv=rows.map(function(r){return r.map(function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
   var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='idesign-site-review.csv';a.click();
 }
 load();
-setInterval(load, 15000);  // stay live
+setInterval(load, 15000);
 </script>
 </body>
 </html>

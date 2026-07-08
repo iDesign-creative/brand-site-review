@@ -16,7 +16,9 @@
   window.__idrLoaded = true;
 
   var CFG = window.IDR_CONFIG || {};
-  var PROJECT = CFG.project || 'idesign-review';
+  // Universal: if no project is set, auto-scope to the site's domain so each
+  // site's feedback stays separate. Mirror pages still pass an explicit project.
+  var PROJECT = CFG.project || location.hostname || 'idesign-review';
   var SB = (CFG.url && CFG.key) ? { url: CFG.url.replace(/\/+$/, ''), key: CFG.key } : null;
   var PAGE = CFG.page || location.pathname || '/';   // mirror pages pass the real path via CFG.page
 
