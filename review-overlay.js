@@ -48,6 +48,10 @@
   // ---- identity ------------------------------------------------------------
   function getEmail() { try { return localStorage.getItem('idr_email') || ''; } catch (e) { return ''; } }
   function setEmail(v) { try { localStorage.setItem('idr_email', v); } catch (e) {} }
+  function getName() { try { return localStorage.getItem('idr_name') || ''; } catch (e) { return ''; } }
+  function setName(v) { try { localStorage.setItem('idr_name', v); } catch (e) {} }
+  // What gets stored/shown as the comment author: "Name (email)" when a name exists.
+  function getAuthor() { var n = getName(), e = getEmail(); return n ? (e ? n + ' (' + e + ')' : n) : e; }
 
   // ---- storage backends ----------------------------------------------------
   var Store = SB ? supabaseStore() : localStore();
@@ -165,7 +169,7 @@
   // ---- panel (control bar + comment list) ----------------------------------
   function renderPanel() {
     var parents = topLevel();
-    var mine = parents.filter(function (c) { return c.author === getEmail(); }).length;
+    var mine = parents.filter(function (c) { return c.author === getAuthor(); }).length;
     var openN = parents.filter(function (c) { return !c.resolved; }).length;
     panel.innerHTML = '';
     if (!state.open) {
@@ -179,7 +183,7 @@
       el('button', { class: 'idr-x', text: '–', title: 'Minimize', onclick: function () { state.open = false; renderPanel(); } })
     ]);
     var who = el('div', { class: 'idr-who' }, [
-      el('span', { text: getEmail() || 'not signed in' }),
+      el('span', { text: getAuthor() || 'not signed in' }),
       el('button', { class: 'idr-link', text: getEmail() ? 'change' : 'sign in', onclick: askEmail })
     ]);
     var addBtn = el('button', {
@@ -217,7 +221,7 @@
     var p = topLevel();
     if (state.filter === 'open') return p.filter(function (c) { return !c.resolved; });
     if (state.filter === 'resolved') return p.filter(function (c) { return c.resolved; });
-    if (state.filter === 'mine') return p.filter(function (c) { return c.author === getEmail(); });
+    if (state.filter === 'mine') return p.filter(function (c) { return c.author === getAuthor(); });
     return p;
   }
   function topLevel() { return state.comments.filter(function (c) { return c.page === PAGE && !c.parent_id; }).sort(function (a, b) { return new Date(a.created_at) - new Date(b.created_at); }); }
@@ -260,7 +264,7 @@
         el('button', { class: 'idr-btn ghost', text: 'Cancel', onclick: clearPop }),
         el('button', { class: 'idr-btn', text: 'Post', onclick: function () {
           var body = ta.value.trim(); if (!body) { ta.focus(); return; }
-          Store.add({ project: PROJECT, page: PAGE, author: getEmail(), body: body, anchor: anchor, parent_id: null, resolved: false })
+          Store.add({ project: PROJECT, page: PAGE, author: getAuthor(), body: body, anchor: anchor, parent_id: null, resolved: false })
             .then(function () { clearPop(); refresh(); }).catch(err);
         } })
       ])
@@ -276,7 +280,7 @@
       return el('div', { class: 'idr-msg' + (isReply ? ' reply' : '') }, [
         el('div', { class: 'idr-msg-top' }, [ el('span', { class: 'idr-au', text: item.author }), el('span', { class: 'idr-ago', text: timeAgo(item.created_at) }) ]),
         el('div', { class: 'idr-msg-txt', text: item.body }),
-        item.author === getEmail() ? el('button', { class: 'idr-trash', title: 'Delete', text: '🗑', onclick: function () { Store.remove(item.id).then(function () { clearPop(); refresh(); }).catch(err); } }) : null
+        item.author === getAuthor() ? el('button', { class: 'idr-trash', title: 'Delete', text: '🗑', onclick: function () { Store.remove(item.id).then(function () { clearPop(); refresh(); }).catch(err); } }) : null
       ]);
     }
     wrap.appendChild(line(c, false));
@@ -293,7 +297,7 @@
         el('button', { class: 'idr-btn', text: 'Reply', onclick: function () {
           var body = ta.value.trim(); if (!body) { if (!getEmail()) askEmail(); ta.focus(); return; }
           if (!getEmail()) { askEmail(); return; }
-          Store.add({ project: PROJECT, page: PAGE, author: getEmail(), body: body, anchor: null, parent_id: c.id, resolved: false })
+          Store.add({ project: PROJECT, page: PAGE, author: getAuthor(), body: body, anchor: null, parent_id: c.id, resolved: false })
             .then(function () { refresh().then(function () { openThread(c); }); }).catch(err);
         } })
       ])
@@ -336,42 +340,51 @@
   function emailGate() {
     clearPop();
     scrim.innerHTML = '';
+    var nameInp = el('input', { class: 'idr-input', type: 'text', placeholder: 'Your name', value: getName() });
     var inp = el('input', { class: 'idr-input', type: 'email', placeholder: 'you@idesignedu.org', value: getEmail() });
     var save = el('button', { class: 'idr-btn', text: 'Start reviewing', onclick: function () {
-      var v = inp.value.trim(); if (!/.+@.+\..+/.test(v)) { inp.focus(); return; }
-      setEmail(v); scrim.style.display = 'none'; scrim.innerHTML = ''; renderPanel(); schedulePins();
+      var nm = nameInp.value.trim(); var v = inp.value.trim();
+      if (!nm) { nameInp.focus(); return; }
+      if (!/.+@.+\..+/.test(v)) { inp.focus(); return; }
+      setName(nm); setEmail(v); scrim.style.display = 'none'; scrim.innerHTML = ''; renderPanel(); schedulePins();
     } });
     var box = el('div', { class: 'idr-gate' }, [
       el('div', { class: 'idr-gate-brand' }, [ el('span', { class: 'idr-dot' }), el('strong', { text: 'iDesign Review' }) ]),
-      el('div', { class: 'idr-gate-h', text: 'Enter your email to review' }),
+      el('div', { class: 'idr-gate-h', text: 'Sign in to review' }),
       el('div', { class: 'idr-note', text: 'So the team knows who left each comment. Then click any element or text on the page to leave a note.' }),
+      nameInp,
       inp,
       el('div', { class: 'idr-pop-a' }, [ save ])
     ]);
-    inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') save.click(); });
+    function onKey(e) { if (e.key === 'Enter') save.click(); }
+    nameInp.addEventListener('keydown', onKey); inp.addEventListener('keydown', onKey);
     scrim.appendChild(box);
     scrim.style.display = 'flex';
     setTimeout(function () { inp.focus(); }, 30);
   }
 
-  // ---- email prompt (dismissible, for changing email later) ----------------
+  // ---- identity prompt (dismissible, for changing name/email later) --------
   function askEmail() {
     clearPop();
+    var nameInp = el('input', { class: 'idr-input', type: 'text', placeholder: 'Your name', value: getName() });
     var inp = el('input', { class: 'idr-input', type: 'email', placeholder: 'you@idesignedu.org', value: getEmail() });
+    inp.style.marginTop = '8px';
     var box = el('div', { class: 'idr-pop center' }, [
-      el('div', { class: 'idr-pop-h', text: 'Your email' }),
+      el('div', { class: 'idr-pop-h', text: 'Who are you?' }),
       el('div', { class: 'idr-note', text: 'So the team knows who left each comment.' }),
-      inp,
+      nameInp, inp,
       el('div', { class: 'idr-pop-a' }, [
         el('button', { class: 'idr-btn', text: 'Save', onclick: function () {
-          var v = inp.value.trim(); if (!/.+@.+\..+/.test(v)) { inp.focus(); return; }
-          setEmail(v); clearPop(); renderPanel();
+          var nm = nameInp.value.trim(); var v = inp.value.trim();
+          if (!nm) { nameInp.focus(); return; }
+          if (!/.+@.+\..+/.test(v)) { inp.focus(); return; }
+          setName(nm); setEmail(v); clearPop(); renderPanel();
         } })
       ])
     ]);
     popHost.appendChild(box);
     box.style.left = (window.innerWidth / 2 - 160) + 'px'; box.style.top = '80px';
-    inp.focus();
+    nameInp.focus();
   }
 
   // ---- data refresh --------------------------------------------------------
@@ -456,7 +469,7 @@
     '.idr-gate{width:380px;max-width:calc(100vw - 40px);background:var(--surf);border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 80px rgba(0,8,16,.75);padding:26px 24px}',
     '.idr-gate-brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:14px;color:#fff;margin-bottom:16px}',
     '.idr-gate-h{font-weight:900;font-size:19px;color:#fff;margin-bottom:6px;letter-spacing:.2px}',
-    '.idr-gate .idr-input{margin-top:4px}',
+    '.idr-gate .idr-input{margin-top:10px}',
     '.idr-gate .idr-btn{width:100%;padding:12px}'
   ].join('\n'); }
 

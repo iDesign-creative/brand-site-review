@@ -5,30 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>iDesign Review — Get the Comment Button</title>
 <style>
-  :root{--navy:#0a2540;--red:#e8482b;--blue:#5b9bd5;--ink:#33475b;--line:#e6eaef;--bg:#f5f7f9}
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+  :root{--bg:#001E2E;--surf:#002B40;--surf2:#0A3A52;--field:#00263A;--line:rgba(137,242,247,.16);--primary:#017FAE;--primary2:#00A5E1;--green:#6FEEAC;--text:#E9F3F7;--muted:#7FA6B8}
   *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--navy);background:var(--bg)}
-  header{background:var(--navy);color:#fff;padding:20px 28px;display:flex;align-items:center;gap:12px}
-  header .dot{width:20px;height:20px;border-radius:50%;background:conic-gradient(var(--red),var(--blue),var(--navy))}
-  header h1{font-size:18px;margin:0;font-weight:700}
+  body{margin:0;font-family:'Lato',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg)}
+  header{background:linear-gradient(135deg,#00263A,#013A52);color:#fff;padding:20px 28px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+  header .dot{width:16px;height:16px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(1,127,174,.28)}
+  header h1{font-size:18px;margin:0;font-weight:900}
   .wrap{max-width:760px;margin:0 auto;padding:26px 22px 80px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:20px}
-  h2{font-size:16px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
-  .sub{color:var(--ink);font-size:14px;margin:2px 0 14px;line-height:1.55}
-  .bm{display:inline-block;background:var(--red);color:#fff !important;text-decoration:none;padding:13px 24px;border-radius:28px;font-weight:700;font-size:16px;box-shadow:0 6px 18px rgba(232,72,43,.35);cursor:grab}
+  .card{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:20px}
+  h2{font-size:16px;margin:0 0 4px;display:flex;align-items:center;gap:8px;color:#fff;font-weight:900}
+  .sub{color:var(--muted);font-size:14px;margin:2px 0 14px;line-height:1.55}
+  .sub b{color:var(--text)}
+  .bm{display:inline-block;background:var(--primary);color:#fff !important;text-decoration:none;padding:13px 24px;border-radius:28px;font-weight:700;font-size:16px;box-shadow:0 6px 18px rgba(1,127,174,.4);cursor:grab}
   .bm:active{cursor:grabbing}
-  .or{display:flex;align-items:center;gap:12px;color:#9aa7b3;font-size:12px;font-weight:700;margin:18px 0;text-transform:uppercase;letter-spacing:.06em}
+  .or{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px;font-weight:700;margin:18px 0;text-transform:uppercase;letter-spacing:.06em}
   .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
   code,.codebox{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
-  .codebox{display:block;width:100%;background:#0a2540;color:#d6e2f0;border-radius:10px;padding:12px 14px;white-space:nowrap;overflow-x:auto;border:none}
-  .btn{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-weight:700;font-size:13px;cursor:pointer}
-  .btn.ghost{background:#eef1f4;color:var(--ink)}
-  ol{margin:8px 0 0;padding-left:20px;line-height:1.7;font-size:14px;color:var(--ink)}
-  ol b{color:var(--navy)}
-  .step{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:none}
-  .ok{color:#2fa36b;font-size:13px;font-weight:600}
-  .note{font-size:12.5px;color:#8a97a4;margin-top:10px}
-  a.link{color:var(--blue);font-weight:600}
+  code{background:rgba(137,242,247,.10);padding:1px 6px;border-radius:5px;color:#CCE5EF}
+  .codebox{display:block;width:100%;background:var(--field);color:#9AD3EE;border:1px solid var(--line);border-radius:10px;padding:12px 14px;white-space:nowrap;overflow-x:auto}
+  .btn{background:var(--primary);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-weight:700;font-size:13px;cursor:pointer}
+  .btn:hover{background:var(--primary2)}
+  .btn.ghost{background:transparent;color:var(--text);border:1.5px solid var(--line)}
+  ol{margin:8px 0 0;padding-left:20px;line-height:1.7;font-size:14px;color:var(--muted)}
+  ol b{color:var(--text)}
+  .step{width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  .ok{color:var(--green);font-size:13px;font-weight:700}
+  .note{font-size:12.5px;color:var(--muted);margin-top:10px}
+  a.link{color:var(--primary2);font-weight:700}
 </style>
 </head>
 <body>
@@ -38,14 +42,14 @@
   <div class="card">
     <h2><span class="step">1</span> Add the button (one time)</h2>
     <div class="sub"><b>Easiest:</b> drag this button up to your bookmarks bar. (Show the bar with <code>⌘⇧B</code> on Mac / <code>Ctrl⇧B</code> on Windows.)</div>
-    <p><a class="bm" id="bm" href="#">💬 Comment</a></p>
+    <p><a class="bm" id="bm" href="#">Comment on iDesign</a></p>
 
     <div class="or">or paste it</div>
     <div class="sub">If dragging won't work, create a new bookmark and paste this as its <b>URL / Address</b>:</div>
     <code class="codebox" id="code"></code>
     <p style="margin-top:10px"><button class="btn" onclick="copyCode()">Copy code</button> <span class="ok" id="copied"></span></p>
     <ol>
-      <li><b>Chrome/Edge:</b> ⋮ menu → Bookmarks → <b>Bookmark manager</b> → ⋮ → <b>Add new bookmark</b>. Name it "💬 Comment", paste the code into <b>URL</b>, Save.</li>
+      <li><b>Chrome/Edge:</b> ⋮ menu → Bookmarks → <b>Bookmark manager</b> → ⋮ → <b>Add new bookmark</b>. Name it "Comment on iDesign", paste the code into <b>URL</b>, Save.</li>
       <li><b>Safari:</b> Bookmarks → Add Bookmark on any page, then Edit Bookmarks and replace its address with the pasted code.</li>
     </ol>
     <div class="note">The button works on <b>any iDesign site</b> — each site's comments are kept separate automatically.</div>
@@ -55,7 +59,7 @@
     <h2><span class="step">2</span> Use it on the site you're reviewing</h2>
     <ol>
       <li>Open the site you were asked to review.</li>
-      <li>Click the <b>💬 Comment</b> bookmark. A panel opens top-right.</li>
+      <li>Click the <b>Comment on iDesign</b> bookmark. A panel opens top-right.</li>
       <li>Enter your <b>email</b> → <b>+ Add comment</b> → click any text or section → type your note.</li>
       <li>Reply to others and mark items resolved. Everyone's comments sync live.</li>
     </ol>

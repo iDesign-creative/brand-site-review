@@ -38,6 +38,10 @@
   .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   .who{font-size:12.5px;font-weight:700;color:var(--text)}
   .when{font-size:11.5px;color:var(--muted)}
+  .topright{display:flex;align-items:center;gap:8px}
+  .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 9px;border-radius:20px}
+  .tag.open{background:rgba(1,127,174,.24);color:#7FD3EE}
+  .tag.res{background:rgba(111,238,172,.18);color:#6FEEAC}
   .txt{font-size:14px;color:#CCE5EF;margin:3px 0;line-height:1.4}
   .where{font-size:11.5px;color:var(--muted);font-style:italic}
   .reply{margin-top:6px;padding-left:10px;border-left:2px solid var(--line);font-size:13px;color:var(--muted)}
@@ -109,7 +113,7 @@ function render(){
         var repHtml=reps.map(function(r){return '<div class="reply"><b>'+esc(r.author)+':</b> '+esc(r.body)+'</div>';}).join('');
         html+='<div class="card '+(c.resolved?'done':'')+'">'
           +'<span class="badge '+(c.resolved?'done':'')+'">'+(c.resolved?'✓':(i+1))+'</span>'
-          +'<div class="body"><div class="top"><span class="who">'+esc(c.author)+'</span><span class="when">'+ago(c.created_at)+'</span></div>'
+          +'<div class="body"><div class="top"><span class="who">'+esc(c.author)+'</span><span class="topright"><span class="tag '+(c.resolved?'res':'open')+'">'+(c.resolved?'Resolved':'Open')+'</span><span class="when">'+ago(c.created_at)+'</span></span></div>'
           +'<div class="txt">'+esc(c.body)+'</div>'
           +(c.anchor&&c.anchor.tx?'<div class="where">on: “'+esc(c.anchor.tx.slice(0,80))+'”</div>':'')
           +repHtml+'</div></div>';
