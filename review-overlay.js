@@ -174,12 +174,12 @@
     panel.innerHTML = '';
     if (!state.open) {
       panel.className = 'idr-panel idr-collapsed';
-      panel.appendChild(el('button', { class: 'idr-fab', title: 'Open iDesign Review', text: 'Review · ' + openN, onclick: function () { state.open = true; renderPanel(); } }));
+      panel.appendChild(el('button', { class: 'idr-fab', title: 'Open Site Reviewer', text: 'Site Reviewer · ' + openN, onclick: function () { state.open = true; renderPanel(); } }));
       return;
     }
     panel.className = 'idr-panel';
     var head = el('div', { class: 'idr-head' }, [
-      el('div', { class: 'idr-brand' }, [ el('span', { class: 'idr-dot' }), el('strong', { text: 'iDesign Review' }) ]),
+      el('div', { class: 'idr-brand' }, [ el('span', { class: 'idr-dot' }), el('strong', { text: "iDesign's Creative + Marketing Site Reviewer" }) ]),
       el('button', { class: 'idr-x', text: '–', title: 'Minimize', onclick: function () { state.open = false; renderPanel(); } })
     ]);
     var who = el('div', { class: 'idr-who' }, [
@@ -358,7 +358,7 @@
       setName(nm); setEmail(v); scrim.style.display = 'none'; scrim.innerHTML = ''; renderPanel(); schedulePins();
     } });
     var box = el('div', { class: 'idr-gate' }, [
-      el('div', { class: 'idr-gate-brand' }, [ el('span', { class: 'idr-dot' }), el('strong', { text: 'iDesign Review' }) ]),
+      el('div', { class: 'idr-gate-brand' }, [ el('span', { class: 'idr-dot' }), el('strong', { text: "iDesign's Creative + Marketing Site Reviewer" }) ]),
       el('div', { class: 'idr-gate-h', text: 'Sign in to review' }),
       el('div', { class: 'idr-note', text: 'So the team knows who left each comment. Then click any element or text on the page to leave a note.' }),
       nameInp,
@@ -426,7 +426,7 @@
     '.idr-collapsed{width:auto;background:transparent;box-shadow:none;border:none}',
     '.idr-fab{pointer-events:auto;background:var(--primary);color:#fff;border:none;border-radius:24px;padding:12px 20px;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 6px 22px rgba(1,127,174,.5)}',
     '.idr-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:linear-gradient(135deg,#00263A,#013A52);color:#fff;border-bottom:1px solid var(--line)}',
-    '.idr-brand{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:900;letter-spacing:.2px}',
+    '.idr-brand{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:900;letter-spacing:.2px;line-height:1.2}',
     '.idr-dot{width:12px;height:12px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(1,127,174,.28);display:inline-block}',
     '.idr-x{background:transparent;border:none;color:#9EC6D6;font-size:20px;line-height:1;cursor:pointer;padding:0 6px}',
     '.idr-x:hover{color:#fff}',
