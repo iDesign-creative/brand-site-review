@@ -183,8 +183,11 @@
       el('button', { class: 'idr-x', text: '–', title: 'Minimize', onclick: function () { state.open = false; renderPanel(); } })
     ]);
     var who = el('div', { class: 'idr-who' }, [
-      el('span', { text: getAuthor() || 'not signed in' }),
-      el('button', { class: 'idr-link', text: getEmail() ? 'change' : 'sign in', onclick: askEmail })
+      el('span', { class: 'idr-whoname', text: getAuthor() || 'not signed in' }),
+      el('span', { class: 'idr-wholinks' }, [
+        el('button', { class: 'idr-link', text: getEmail() ? 'change' : 'sign in', onclick: askEmail }),
+        getEmail() ? el('button', { class: 'idr-link', text: 'sign out', onclick: signOut }) : null
+      ])
     ]);
     var addBtn = el('button', {
       class: 'idr-add' + (state.mode ? ' on' : ''),
@@ -336,6 +339,12 @@
   window.addEventListener('scroll', schedulePins, { passive: true });
   window.addEventListener('resize', schedulePins);
 
+  // ---- sign out (clears identity and re-shows the gate) --------------------
+  function signOut() {
+    try { localStorage.removeItem('idr_name'); localStorage.removeItem('idr_email'); } catch (e) {}
+    setMode(false); clearPop(); renderPanel(); emailGate();
+  }
+
   // ---- email gate (dims the page until the reviewer signs in) --------------
   function emailGate() {
     clearPop();
@@ -421,7 +430,9 @@
     '.idr-dot{width:12px;height:12px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(1,127,174,.28);display:inline-block}',
     '.idr-x{background:transparent;border:none;color:#9EC6D6;font-size:20px;line-height:1;cursor:pointer;padding:0 6px}',
     '.idr-x:hover{color:#fff}',
-    '.idr-who{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--line)}',
+    '.idr-who{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 16px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--line)}',
+    '.idr-whoname{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
+    '.idr-wholinks{display:flex;gap:8px;flex:none}',
     '.idr-link{background:none;border:none;color:var(--primary2);cursor:pointer;font-size:12px;font-weight:700;padding:2px 4px}',
     '.idr-link:hover{color:var(--green)}',
     '.idr-add{margin:12px 14px 6px;padding:12px;border:none;border-radius:12px;background:var(--primary);color:#fff;font-weight:700;font-size:14px;cursor:pointer}',
