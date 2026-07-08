@@ -69,27 +69,43 @@
     };
   }
 
+  // A pristine fetch, immune to page-level monkeypatching. Some sites (Webflow /
+  // Finsweet / analytics) wrap window.fetch and inject headers with non-Latin-1
+  // characters, which throws when the overlay makes cross-origin calls. An iframe
+  // gets its own untouched realm, so its fetch is clean.
+  var xfetch = (function () {
+    try {
+      var f = document.createElement('iframe');
+      f.setAttribute('aria-hidden', 'true');
+      f.style.cssText = 'display:none!important;width:0;height:0;border:0';
+      (document.body || document.documentElement).appendChild(f);
+      var cf = f.contentWindow && f.contentWindow.fetch;
+      if (cf) return cf.bind(f.contentWindow);
+    } catch (e) {}
+    return window.fetch.bind(window);
+  })();
+
   function supabaseStore() {
     var base = SB.url + '/rest/v1/review_comments';
     var H = { 'apikey': SB.key, 'Authorization': 'Bearer ' + SB.key, 'Content-Type': 'application/json' };
     return {
       mode: 'shared',
       list: function () {
-        return fetch(base + '?project=eq.' + encodeURIComponent(PROJECT) + '&select=*&order=created_at.asc', { headers: H })
+        return xfetch(base + '?project=eq.' + encodeURIComponent(PROJECT) + '&select=*&order=created_at.asc', { headers: H })
           .then(function (r) { if (!r.ok) throw new Error('list ' + r.status); return r.json(); });
       },
       add: function (c) {
-        return fetch(base, { method: 'POST', headers: Object.assign({ Prefer: 'return=representation' }, H), body: JSON.stringify([c]) })
+        return xfetch(base, { method: 'POST', headers: Object.assign({ Prefer: 'return=representation' }, H), body: JSON.stringify([c]) })
           .then(function (r) { if (!r.ok) throw new Error('add ' + r.status); return r.json(); })
           .then(function (rows) { return rows[0]; });
       },
       update: function (id, patch) {
-        return fetch(base + '?id=eq.' + id, { method: 'PATCH', headers: H, body: JSON.stringify(patch) })
+        return xfetch(base + '?id=eq.' + id, { method: 'PATCH', headers: H, body: JSON.stringify(patch) })
           .then(function (r) { if (!r.ok) throw new Error('update ' + r.status); });
       },
       remove: function (id) {
-        return fetch(base + '?id=eq.' + id, { method: 'DELETE', headers: H })
-          .then(function () { return fetch(base + '?parent_id=eq.' + id, { method: 'DELETE', headers: H }); });
+        return xfetch(base + '?id=eq.' + id, { method: 'DELETE', headers: H })
+          .then(function () { return xfetch(base + '?parent_id=eq.' + id, { method: 'DELETE', headers: H }); });
       }
     };
   }
