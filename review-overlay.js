@@ -19,8 +19,18 @@
   // Universal: if no project is set, auto-scope to the site's domain so each
   // site's feedback stays separate. Mirror pages still pass an explicit project.
   var PROJECT = CFG.project || location.hostname || 'idesign-review';
-  var SB = (CFG.url && CFG.key) ? { url: CFG.url.replace(/\/+$/, ''), key: CFG.key } : null;
   var PAGE = CFG.page || location.pathname || '/';   // mirror pages pass the real path via CFG.page
+  // Supabase creds are baked in here (this file is deployed directly, so they're
+  // guaranteed intact). CFG values from the proxy/bookmarklet are only trusted if
+  // they look valid — some hosts corrupt the injected key (e.g. mask it as bullets),
+  // which would make an illegal HTTP header and silently break every save.
+  var SUPA_URL = 'https://puytjdeavhowngzqdymh.supabase.co';
+  var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY';
+  var ASCII = /^[\x20-\x7E]+$/;
+  var SB = {
+    url: (CFG.url && /^https?:\/\//.test(CFG.url)) ? CFG.url.replace(/\/+$/, '') : SUPA_URL,
+    key: (CFG.key && ASCII.test(CFG.key)) ? CFG.key : SUPA_KEY
+  };
 
   // ---- tiny helpers --------------------------------------------------------
   function el(tag, props, kids) {
