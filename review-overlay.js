@@ -153,10 +153,12 @@
   var captureLayer = el('div', { class: 'idr-capture', style: 'display:none' });
   var panel = el('div', { class: 'idr-panel' });
   var popHost = el('div', { class: 'idr-pop-host' });
+  var scrim = el('div', { class: 'idr-scrim', style: 'display:none' });
   root.appendChild(pinLayer);
   root.appendChild(captureLayer);
   root.appendChild(panel);
   root.appendChild(popHost);
+  root.appendChild(scrim);
 
   var state = { comments: [], mode: false, filter: 'open', openPop: null, open: true };
 
@@ -330,7 +332,29 @@
   window.addEventListener('scroll', schedulePins, { passive: true });
   window.addEventListener('resize', schedulePins);
 
-  // ---- email prompt --------------------------------------------------------
+  // ---- email gate (dims the page until the reviewer signs in) --------------
+  function emailGate() {
+    clearPop();
+    scrim.innerHTML = '';
+    var inp = el('input', { class: 'idr-input', type: 'email', placeholder: 'you@idesignedu.org', value: getEmail() });
+    var save = el('button', { class: 'idr-btn', text: 'Start reviewing', onclick: function () {
+      var v = inp.value.trim(); if (!/.+@.+\..+/.test(v)) { inp.focus(); return; }
+      setEmail(v); scrim.style.display = 'none'; scrim.innerHTML = ''; renderPanel(); schedulePins();
+    } });
+    var box = el('div', { class: 'idr-gate' }, [
+      el('div', { class: 'idr-gate-brand' }, [ el('span', { class: 'idr-dot' }), el('strong', { text: 'iDesign Review' }) ]),
+      el('div', { class: 'idr-gate-h', text: 'Enter your email to review' }),
+      el('div', { class: 'idr-note', text: 'So the team knows who left each comment. Then click any element or text on the page to leave a note.' }),
+      inp,
+      el('div', { class: 'idr-pop-a' }, [ save ])
+    ]);
+    inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') save.click(); });
+    scrim.appendChild(box);
+    scrim.style.display = 'flex';
+    setTimeout(function () { inp.focus(); }, 30);
+  }
+
+  // ---- email prompt (dismissible, for changing email later) ----------------
   function askEmail() {
     clearPop();
     var inp = el('input', { class: 'idr-input', type: 'email', placeholder: 'you@idesignedu.org', value: getEmail() });
@@ -360,7 +384,7 @@
   // ---- public toggle + boot ------------------------------------------------
   window.__idrToggle = function () { host.style.display = (host.style.display === 'none' ? '' : 'none'); };
 
-  if (!getEmail()) askEmail();
+  if (!getEmail()) emailGate();
   renderPanel();
   refresh();
   setInterval(refresh, 5000); // near-real-time sync of the team's comments
@@ -427,7 +451,13 @@
     '.idr-msg-top{display:flex;justify-content:space-between;gap:8px}',
     '.idr-msg-txt{font-size:13px;color:#CCE5EF;line-height:1.45;margin-top:2px;white-space:pre-wrap}',
     '.idr-trash{position:absolute;top:6px;right:6px;background:none;border:none;cursor:pointer;font-size:12px;opacity:.5}',
-    '.idr-trash:hover{opacity:1}'
+    '.idr-trash:hover{opacity:1}',
+    '.idr-scrim{position:fixed;inset:0;background:rgba(0,18,28,.80);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:40;align-items:center;justify-content:center;pointer-events:auto;padding:20px}',
+    '.idr-gate{width:380px;max-width:calc(100vw - 40px);background:var(--surf);border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 80px rgba(0,8,16,.75);padding:26px 24px}',
+    '.idr-gate-brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:14px;color:#fff;margin-bottom:16px}',
+    '.idr-gate-h{font-weight:900;font-size:19px;color:#fff;margin-bottom:6px;letter-spacing:.2px}',
+    '.idr-gate .idr-input{margin-top:4px}',
+    '.idr-gate .idr-btn{width:100%;padding:12px}'
   ].join('\n'); }
 
 })();
