@@ -1,0 +1,2078 @@
+<!DOCTYPE html><!-- This site was created in Webflow. https://webflow.com --><!-- Last Published: Wed Jul 08 2026 19:16:04 GMT+0000 (Coordinated Universal Time) --><html data-wf-domain="new-and-improved-brand-site.webflow.io" data-wf-page="6a171ba2cefb172b2f7263f5" data-wf-site="6a0f51adf49e8e5b8f46b9a0" lang="en"><head>
+<base href="https://new-and-improved-brand-site.webflow.io/"><meta charset="utf-8"/><link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/><title>What We Do</title><meta content="Explore iDesign&#x27;s services including curriculum design, instructional design, LMS strategy, learner experience optimization, and AI-infused program development." name="description"/><meta content="What We Do" property="og:title"/><meta content="Explore iDesign&#x27;s services including curriculum design, instructional design, LMS strategy, learner experience optimization, and AI-infused program development." property="og:description"/><meta content="What We Do" name="twitter:title"/><meta content="Explore iDesign&#x27;s services including curriculum design, instructional design, LMS strategy, learner experience optimization, and AI-infused program development." name="twitter:description"/><meta property="og:type" content="website"/><meta content="summary_large_image" name="twitter:card"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Webflow" name="generator"/><link href="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/css/new-and-improved-brand-site.webflow.shared.20af53cb0.min.css" rel="stylesheet" type="text/css" integrity="sha384-IK9Tywy+RQ74nABLBNf/QQYEJcPc99I5hE5iPdcS2A1jnTyv/C9dcC6vT3HFs75M" crossorigin="anonymous"/><link href="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/css/new-and-improved-brand-site.webflow.6a171ba2cefb172b2f7263f5.a75011d9f.opt.min.css" rel="stylesheet" type="text/css" integrity="sha384-p1AR2ffK2tSCRSX+ddsuHkLFjeCCLeVKv9Mf0k24woTQqU7wKJoLeicPj/qZ5yuV" crossorigin="anonymous"/><style>html.w-mod-js:not(.w-mod-ix3) :is(.secondary-button_bg, .accordion_content, .accordion_collapsed-text, [data-wf-target*='["6a171ba2cefb172b2f7263f5","0afd8b10-1c7a-7980-5c03-3854257f6cfd"]'], [data-wf-target*='["6a171ba2cefb172b2f7263f5","9c5edbf2-382a-321b-9679-f47d6ff8ca1f"]'], .global_nav) {visibility: hidden !important;}</style><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/><script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script><script type="text/javascript">WebFont.load({  google: {    families: ["Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic"]  }});</script><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><link href="https://cdn.prod.website-files.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon"/><link href="https://cdn.prod.website-files.com/img/webclip.png" rel="apple-touch-icon"/><script async type="module" src="https://cdn.jsdelivr.net/npm/@finsweet/attributes@2/attributes.js" fs-scrolldisable></script>
+
+<style>
+  /*branded text selection color*/
+  ::selection {
+    color: #002e40;
+    background: #dee25c;
+  }
+
+  /*font-smoothing for macOS/webkit — improves rendering on high-DPI screens*/
+  /*-moz-osx-font-smoothing is deprecated and inert in Firefox 113+, but kept for older browser support*/
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /*nav logo container scroll transition*/
+  /*The footer script (site_settings_footer.html) uses GSAP to animate backgroundColor and scale.*/
+  /*This CSS handles box-shadow and backdrop-filter, which are toggled via the .is-scrolled class*/
+  /*also applied by the footer script. The transition durations below should match NAV_TRANSITION_DURATION.*/
+  /*On screens > 991px, animations target .headerlogo_div. On screens <= 991px they target .global-nav_h-flex.*/
+  .headerlogo_div {
+    transition:
+      box-shadow 0.5s ease,
+      backdrop-filter 0.5s ease,
+      -webkit-backdrop-filter 0.5s ease;
+  }
+  .headerlogo_div.is-scrolled {
+    box-shadow:
+      0.5rem 0.5rem 1.563rem #1673951f,
+      inset 0 0.25rem 1rem #dbedf4,
+      inset -0.25rem 0 1rem #fff,
+      inset 0 -0.25rem 1rem #fff,
+      inset 0.25rem 0 1rem #dbedf4;
+    backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
+  }
+  @media screen and (max-width: 991px) {
+    /*backdrop-filter on the element itself creates a new containing block for position:fixed children*/
+    /*(e.g. the mobile menu drawer), causing it to shift. The fix is to apply backdrop-filter on a*/
+    /*::before pseudo-element instead — it blurs visually without affecting the containing block.*/
+    .global-nav_h-flex {
+      transition: box-shadow 0.5s ease;
+    }
+    .global-nav_h-flex::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      transition:
+        backdrop-filter 0.5s ease,
+        -webkit-backdrop-filter 0.5s ease;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .global-nav_h-flex.is-scrolled {
+      box-shadow:
+        0.5rem 0.5rem 1.563rem #1673951f,
+        inset 0 0.25rem 1rem #dbedf4,
+        inset -0.25rem 0 1rem #fff,
+        inset 0 -0.25rem 1rem #fff,
+        inset 0.25rem 0 1rem #dbedf4;
+    }
+    .global-nav_h-flex.is-scrolled::before {
+      backdrop-filter: blur(0.5rem);
+      -webkit-backdrop-filter: blur(0.5rem);
+    }
+  }
+
+  /*forcing glassmorphic border and drop shadow as they weren't rendering in Webflow natively*/
+  .glassmorphic_outer-div {
+    background: linear-gradient(73.615deg, rgba(255, 255, 255, 0%) 0%, #ffffff 5%, #ffffff 95%, rgba(255, 255, 255, 0%) 100%);
+    filter: drop-shadow(0.5rem 0.5rem 1.563rem rgba(22, 115, 149, 0.12));
+  }
+
+  /*custom focus state for all interactive elements*/
+  *:focus-visible {
+    box-shadow: 0 0 0 0.125rem white;
+    outline: 0.125rem solid #e74c3c;
+    outline-offset: 0.125rem;
+  }
+
+  /*ensures accessible linking for resource cards*/
+  .resource_card-title::before {
+    content: '';
+    display: block;
+    inset: 0;
+    position: absolute;
+  }
+
+  a[target='_blank']::after {
+    content: ' (opens in new tab)';
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* screenreader only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  /*required CSS for Lenis smooth scroll to function correctly*/
+  /*height: auto prevents Lenis from conflicting with Webflow's default html { height: 100% }*/
+  html.lenis {
+    height: auto;
+  }
+  /*scroll-behavior: auto disables native CSS smooth scrolling, which would conflict with Lenis*/
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+  /*contains scroll inside elements marked data-lenis-prevent (e.g. modal scroll areas)*/
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  /*locks page scroll when Lenis is programmatically stopped*/
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  /*fluid responsiveness for typography*/
+  html {
+    font-size: 1.125rem;
+  }
+  @media screen and (max-width: 1920px) {
+    html {
+      font-size: calc(0.625rem + 0.41666666666666674vw);
+    }
+  }
+  @media screen and (max-width: 1440px) {
+    html {
+      font-size: calc(0.43750000000000006rem + 0.6249999999999999vw);
+    }
+  }
+  @media screen and (max-width: 960px) {
+    html {
+      font-size: calc(0.6257796257796258rem + 0.6237006237006237vw);
+    }
+  }
+  @media screen and (max-width: 479px) {
+    html {
+      font-size: calc(0.7494769874476988rem + 0.8368200836820083vw);
+    }
+  }
+</style></head><body><div class="page-wrapper background-color-secondary text-size-regular"><header data-wf-component-id="bfa770be-e5a1-c110-0b8d-6c2f60396aed" data-wf-variant-state="base" class="global_nav z-index-1"><div class="padding-global padding-section-xsmall padding-0"><div class="global-nav_h-flex"><div class="container-large"><div class="w-layout-hflex h-flex"><a href="https://idesign-creative.github.io/brand-site-review/index.html" aria-label="iDesign home" class="link-block-2 w-inline-block"><div data-wf-target="[[[&quot;bfa770be-e5a1-c110-0b8d-6c2f60396aed&quot;,&quot;3d026b16-a9ca-b8b2-a6ec-512b8a3d28d0&quot;],[&quot;61d0bb50-7f9c-24b1-24d0-c8fcd0ccb323&quot;]]]" class="headerlogo_div"><img src="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/6a1dbaf650737dcbcaaa01f6_68a76f0d3819c86639a31c77_iDesign_logo_iDesign_horizontal.svg" loading="lazy" width="Auto" data-wf-target="[[[&quot;bfa770be-e5a1-c110-0b8d-6c2f60396aed&quot;,&quot;3d026b16-a9ca-b8b2-a6ec-512b8a3d28d1&quot;],[&quot;61d0bb50-7f9c-24b1-24d0-c8fcd0ccb323&quot;]]]" alt="iDesign" class="headerlogo"/></div></a><div class="w-layout-hflex global-nav_link-container"><div data-wf-target="[[[&quot;bfa770be-e5a1-c110-0b8d-6c2f60396aed&quot;,&quot;19d66ee0-8709-aa00-c504-a85e21f0bffb&quot;],[&quot;61d0bb50-7f9c-24b1-24d0-c8fcd0ccb323&quot;]]]" class="w-layout-hflex header-links_div"><a href="https://idesign-creative.github.io/brand-site-review/what-we-do.html" data-w-id="9ee21560-2858-27b1-3f3d-da69cb837b3d" aria-current="page" class="globalnav_div w-inline-block w--current"><div class="global_link">What We Do</div><div class="animated_underline navy"></div></a><a href="https://idesign-creative.github.io/brand-site-review/about.html" data-w-id="9075a8e1-f9e7-e263-64d3-f9a5db40a81b" class="globalnav_div w-inline-block"><div class="global_link">About</div><div class="animated_underline navy"></div></a><a href="https://idesign-creative.github.io/brand-site-review/resources.html" data-w-id="8b997cbf-99f9-fdad-6484-93007e0790f7" class="globalnav_div w-inline-block"><div class="global_link">Resources</div><div class="animated_underline navy"></div></a></div><div class="hidden_on_mobile"><a data-wf-target="[[[&quot;bfa770be-e5a1-c110-0b8d-6c2f60396aed&quot;,&quot;b90d8ddd-c83b-344d-c604-7985879a956c&quot;],[&quot;61d0bb50-7f9c-24b1-24d0-c8fcd0ccb323&quot;]]]" data-wf-component-id="d3b9ce11-50ee-ef6d-0805-80c131e5aefc" data-wf-variant-state="base" href="https://idesign-creative.github.io/brand-site-review/contact.html" class="button is-icon w-inline-block"><div>Request Consultation</div><div class="control_icon icon-height-large move w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></a></div><div data-w-id="8421fe63-c75c-65ed-6213-3016cbf0d262" class="hamburger_div"><div data-is-ix2-target="1" class="lottie-animation" data-w-id="8421fe63-c75c-65ed-6213-3016cbf0d263" data-animation-type="lottie" data-src="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/6a2320083037413ae60c5cfe_a7bafecdd5ee91ef2d108ce6b1e15adc_lottieflow-menu-nav-06-002E40-easey.json" data-loop="0" data-direction="1" data-autoplay="0" data-renderer="svg" data-default-duration="0" data-duration="2.36" data-loading="eager"></div></div></div></div><div fs-scrolldisable-element="when-visible" class="mobile_menu"><ul role="list" class="mobile_navlinks w-list-unstyled"><li><a href="https://idesign-creative.github.io/brand-site-review/what-we-do.html" aria-current="page" class="mobile_navlink w-inline-block w--current"><div>What We Do</div><div class="icon_circle"><div class="icon-1x1-medium w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></li><li><a href="https://idesign-creative.github.io/brand-site-review/about.html" class="mobile_navlink w-inline-block"><div>About</div><div class="icon_circle"><div class="icon-1x1-medium w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></li><li><a href="https://idesign-creative.github.io/brand-site-review/resources.html" class="mobile_navlink w-inline-block"><div>Resources</div><div class="icon_circle"><div class="icon-1x1-medium w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></li><li class="shown_on_mobile"><a href="https://idesign-creative.github.io/brand-site-review/contact.html" class="mobile_navlink w-inline-block"><div>Request Consultation</div><div class="icon_circle"><div class="icon-1x1-medium w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></li></ul></div><div class="overlay"></div></div></div></div></header><div class="main-wrapper overflow-hidden"><div class="section_what-we-do"><div class="padding-global padding-section-medium"><div class="container-large"><div data-wf-target="[[[&quot;6a171ba2cefb172b2f7263f5&quot;,&quot;0afd8b10-1c7a-7980-5c03-3854257f6cfd&quot;],[]]]" class="w-layout-vflex heading-pair_v-flex padding-section-xsmall"><h2 class="heading-style-eyebrow">What We Do</h2><h3 class="heading-style-h2"><span>We unlock how emerging technology supports </span><span class="text-color-secondary text-style-italic span_no-wrap">stronger learning experiences.</span></h3></div><div data-wf-target="[[[&quot;6a171ba2cefb172b2f7263f5&quot;,&quot;9c5edbf2-382a-321b-9679-f47d6ff8ca1f&quot;],[]]]" class="accordion_container"><div id="designer-workspace" class="accordion_item"><div class="accordion_header is-default"><div class="accordion-number_div"><div class="text-block-7">1</div></div><div class="padding-horizontal none_on-mobile"><div class="w-layout-vflex flex-block-8"><div class="w-layout-hflex flex-block-39"><div class="accordion-number_div static"><div class="text-block-7">1</div></div><h3 class="heading-style-h3 margin_on-mobile">AI-infused Designer Workspace</h3></div><p class="accordion_collapsed-text text-size-regular">AI-infused Designer Workspace powered by our proprietary platform. Data-driven insights help you map learning outcomes, design effective assessments, and ensure curriculum coherence—from a single course to your entire learning ecosystem.</p></div></div><a href="#" class="button is-control position-absolute w-inline-block"><div class="control_icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg></div><div class="control_icon animate w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/></svg></div></a></div><div class="accordion_content"><div class="accordion-dotted-line_embed w-embed"><style>
+  .acc-static-line {
+    position: absolute;
+    top: -3rem;
+    bottom: 2rem;
+    width: 2rem;
+    pointer-events: none;
+  }
+  .acc-static-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1.5px;
+    background-image: repeating-linear-gradient(to bottom, #8097a0 0, #8097a0 1px, transparent 1px, transparent 7px);
+  }
+  .acc-static-line::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #eef19d;
+  }
+  @media (max-width: 479px) {
+    .acc-static-line {
+      display: none;
+    }
+  }
+</style>
+
+<div class="acc-static-line"></div></div><div class="padding-horizontal none_on-mobile"><div class="w-layout-hflex accordion-content_leading-section"><div class="pillar-graphic_embed w-embed w-script"><style>
+  .sod-h1 {
+    /* --- Color tokens --- */
+    --teal-deep: #002e40;
+    --teal: #017fae;
+    --teal-mid: #00a5e1;
+    --orange: #e8522a;
+    --edge: rgba(1, 127, 174, 0.55);
+    --web: rgba(0, 165, 225, 0.22);
+    --ring: rgba(232, 82, 42, 0.55);
+
+    /* --- Animation timing ---
+       Sequence: hub → geometry container → spokes → rings → ring labels → satellites.
+       Adjust these to change the overall speed or offset of the entrance animation. */
+    --anim-hub-duration:   700ms;
+    --anim-hub-delay:      200ms;
+    --anim-const-duration: 380ms;
+    --anim-const-delay:    500ms;
+    --anim-spoke-duration: 600ms;
+    --anim-spoke-delay:    600ms;
+    --anim-ring-duration:  400ms;
+    --anim-ring-delay:     850ms;
+    --anim-web-duration:   400ms;
+    --anim-web-delay:      900ms;
+    --anim-label-duration: 400ms;
+    --anim-label-delay:    950ms;
+    --anim-sat-duration:   400ms;
+    /* Satellite per-node delays are set via inline style on each element.
+       They stagger by 70ms, starting at 700ms. See the HTML comment on the satellite nodes. */
+
+    /* --- Scale multiplier — set by JavaScript to fit the container width --- */
+    --s: 1;
+
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    font-family: 'Lato', Arial, sans-serif;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .sod-h1 *,
+  .sod-h1 *::before,
+  .sod-h1 *::after {
+    box-sizing: border-box;
+  }
+
+  .sod-h1 .h1-sizer {
+    display: block;
+    width: 610px;
+    margin: 0 auto;
+    position: relative;
+    height: 350px; /* fallback before JavaScript sets the proportional height via inline style */
+    max-width: 100%;
+  }
+
+  /* Hub — center circle containing the service title */
+  .sod-h1 .h1-hub {
+    position: absolute;
+    left: 50%; /* intentionally off-center to balance visual weight of the satellite labels */
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: calc(150px * var(--s));
+    height: calc(150px * var(--s));
+    padding: calc(18px * var(--s));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: inherit;
+    font-size: calc(12.5px * var(--s));
+    font-weight: 900;
+    letter-spacing: calc(0.5px * var(--s));
+    text-transform: uppercase;
+    line-height: 1.4;
+    z-index: 20;
+    pointer-events: none; /* decorative only — not interactive */
+    box-shadow:
+      0 0 0 calc(14px * var(--s)) rgba(1, 127, 174, 0.12),
+      0 0 0 calc(28px * var(--s)) rgba(1, 127, 174, 0.05),
+      0 calc(18px * var(--s)) calc(38px * var(--s)) calc(-10px * var(--s)) rgba(0, 46, 64, 0.35);
+  }
+  /* [data-sod-visible] is set by JavaScript when the graphic scrolls into view */
+  .sod-h1[data-sod-visible] .h1-hub {
+    animation: h1HubIn var(--anim-hub-duration) cubic-bezier(0.34, 1.4, 0.64, 1) var(--anim-hub-delay) forwards;
+  }
+  @keyframes h1HubIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  /* Const — zero-size anchor point positioned at the hub center.
+     All spoke lines, rings, ring labels, and satellite nodes are children of this element.
+     The CSS scale transform here scales the entire geometry layer with the container. */
+  .sod-h1 .h1-const {
+    position: absolute;
+    left: 50%; /* matches hub offset */
+    top: 50%;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: scale(var(--s));
+    transform-origin: 0 0;
+  }
+  .sod-h1[data-sod-visible] .h1-const {
+    animation: h1FadeIn var(--anim-const-duration) ease var(--anim-const-delay) forwards;
+  }
+
+  /* SVG canvas — positioned so (0, 0) in SVG coordinates aligns with the hub center */
+  .sod-h1 .h1-svg {
+    position: absolute;
+    left: -240px;
+    top: -180px;
+    width: 480px;
+    height: 360px;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* Spokes — straight lines from hub center to each satellite node position, drawn in via dashoffset */
+  .sod-h1 .h1-spoke {
+    fill: none;
+    stroke: var(--edge);
+    stroke-width: 1.4;
+    stroke-dasharray: 280;
+    stroke-dashoffset: 280;
+  }
+  .sod-h1[data-sod-visible] .h1-spoke {
+    animation: h1SpokeIn var(--anim-spoke-duration) ease var(--anim-spoke-delay) forwards;
+  }
+  @keyframes h1SpokeIn {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Web — dashed connecting lines between the satellite node positions */
+  .sod-h1 .h1-web {
+    fill: none;
+    stroke: var(--web);
+    stroke-width: 1.1;
+    stroke-dasharray: 3 5; /* visual dash pattern, not a draw-in animation */
+    opacity: 0;
+  }
+  .sod-h1[data-sod-visible] .h1-web {
+    animation: h1FadeIn var(--anim-web-duration) ease var(--anim-web-delay) forwards;
+  }
+
+  /* Rings — concentric dashed circles at the API / LMS / DATA radii */
+  .sod-h1 .h1-ring {
+    fill: none;
+    stroke: var(--ring);
+    stroke-width: 1.3;
+    stroke-dasharray: 4 4; /* visual dash pattern, not a draw-in animation */
+    opacity: 0;
+  }
+  .sod-h1[data-sod-visible] .h1-ring {
+    animation: h1FadeIn var(--anim-ring-duration) ease var(--anim-ring-delay) forwards;
+  }
+
+  @keyframes h1FadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Ring labels — API / LMS / DATA text, each placed at the 12 o'clock position of its ring.
+     The white text-stroke creates a legibility halo over the ring strokes behind it. */
+  .sod-h1 .h1-ring-label {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: var(--orange);
+    opacity: 0;
+    padding: 2px 6px;
+    -webkit-text-stroke: 4px rgba(255, 255, 255, 0.85); /* white halo behind text for legibility */
+    paint-order: stroke fill; /* ensures fill renders on top of the stroke halo */
+    border-radius: 3px;
+    z-index: 16;
+  }
+  .sod-h1[data-sod-visible] .h1-ring-label {
+    animation: h1FadeIn var(--anim-label-duration) ease var(--anim-label-delay) forwards;
+  }
+
+  /* Satellite nodes — dot + label pairs anchored at each spoke endpoint */
+  .sod-h1 .h1-sat {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: auto;
+    z-index: 15;
+  }
+  .sod-h1 .h1-sat .h1-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+  .sod-h1 .h1-sat .h1-txt {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    line-height: 1.4;
+    text-align: center;
+  }
+  .sod-h1 .h1-sat.h1-left {
+    flex-direction: row-reverse; /* dot on the right, label extends left */
+  }
+  .sod-h1 .h1-sat.h1-right {
+    flex-direction: row; /* dot on the left, label extends right */
+  }
+  .sod-h1[data-sod-visible] .h1-sat {
+    /* Each satellite's animation-delay is set via inline style on the element in the HTML */
+    animation: h1SatIn var(--anim-sat-duration) cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+  }
+  @keyframes h1SatIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Collapse all animation durations and delays to near-zero for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .sod-h1 .h1-hub,
+    .sod-h1 .h1-const,
+    .sod-h1 .h1-spoke,
+    .sod-h1 .h1-web,
+    .sod-h1 .h1-ring,
+    .sod-h1 .h1-ring-label,
+    .sod-h1 .h1-sat {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0.01ms !important;
+    }
+  }
+</style>
+
+<div class="sod-h1" id="sod-hub-1" aria-label="AI-Infused Curriculum Intelligence service offering">
+  <div class="h1-sizer">
+    <div class="h1-hub">AI-Infused<br />Curriculum<br />Intelligence</div>
+    <div class="h1-const">
+      <svg class="h1-svg" viewBox="-240 -180 480 360" aria-hidden="true">
+        <!-- Rings at radii 124, 144, 164 — correspond to API, LMS, DATA labels -->
+        <circle cx="0" cy="0" r="124" class="h1-ring" />
+        <circle cx="0" cy="0" r="144" class="h1-ring" />
+        <circle cx="0" cy="0" r="164" class="h1-ring" />
+        <!-- Six spokes from hub center (0,0) to each satellite node position -->
+        <path d="M 0 0 L -123.5 -130 M 0 0 L -178.5 0 M 0 0 L -123.5 130 M 0 0 L 123.5 -130 M 0 0 L 178.5 0 M 0 0 L 123.5 130" class="h1-spoke" />
+        <!-- Connecting web lines between node positions (horizontal and diagonal edges) -->
+        <path d="M -123.5 -130 L -178.5 0 M -178.5 0 L -123.5 130 M 123.5 -130 L 178.5 0 M 178.5 0 L 123.5 130 M -123.5 -130 L 123.5 -130 M -178.5 0 L 178.5 0 M -123.5 130 L 123.5 130" class="h1-web" />
+      </svg>
+      <!-- Ring labels sit at 12 o'clock on each ring. top values are negative ring radii (124, 144, 164). -->
+      <div class="h1-ring-label" style="left: 0; top: -124px">API</div>
+      <div class="h1-ring-label" style="left: 0; top: -144px">LMS</div>
+      <div class="h1-ring-label" style="left: 0; top: -164px">DATA</div>
+      <!--
+        Satellite nodes: left column uses h1-left (label extends left, dot on right);
+        right column uses h1-right (dot on left, label extends right).
+        left/top values are in unscaled pixels — the parent (.h1-const) handles scaling.
+        Animation delays stagger by 70ms per node starting at 700ms:
+          left-top: 700ms | left-mid: 770ms | left-bottom: 840ms
+          right-top: 910ms | right-mid: 980ms | right-bottom: 1050ms
+      -->
+      <div class="h1-sat h1-left" style="left: -120px; top: -130px; transform: translate(-100%, -50%); animation-delay: 700ms">
+        <span class="h1-dot"></span><span class="h1-txt">Content<br />Creation</span>
+      </div>
+      <div class="h1-sat h1-left" style="left: -175px; top: 0px; transform: translate(-100%, -50%); animation-delay: 770ms">
+        <span class="h1-dot"></span><span class="h1-txt">Predictive<br />Insights</span>
+      </div>
+      <div class="h1-sat h1-left" style="left: -120px; top: 130px; transform: translate(-100%, -50%); animation-delay: 840ms">
+        <span class="h1-dot"></span><span class="h1-txt">Outcomes<br />Alignment</span>
+      </div>
+      <div class="h1-sat h1-right" style="left: 120px; top: -130px; transform: translate(0, -50%); animation-delay: 910ms">
+        <span class="h1-dot"></span><span class="h1-txt">Competency<br />Mapping</span>
+      </div>
+      <div class="h1-sat h1-right" style="left: 175px; top: 0px; transform: translate(0, -50%); animation-delay: 980ms">
+        <span class="h1-dot"></span><span class="h1-txt">Adaptive<br />Pathways</span>
+      </div>
+      <div class="h1-sat h1-right" style="left: 120px; top: 130px; transform: translate(0, -50%); animation-delay: 1050ms">
+        <span class="h1-dot"></span><span class="h1-txt">Skills<br />Mapping</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    /* Reference dimensions — must match the fixed pixel values in the CSS (.h1-sizer width and height).
+       Adjust these if the base layout size ever changes. */
+    var REFERENCE_WIDTH  = 610;
+    var REFERENCE_HEIGHT = 350;
+
+    /* Fraction of the graphic (0–1) that must be visible before the entrance animation fires */
+    var INTERSECTION_THRESHOLD = 0.2;
+
+    var el    = document.getElementById('sod-hub-1');
+    var sizer = el ? el.querySelector('.h1-sizer') : null;
+    if (!el || !sizer) return;
+
+    /* Calculates the ratio of the element's current width to the reference width, then
+       applies it as the --s CSS custom property so all calc()-based sizes scale proportionally.
+       Also updates the sizer height to maintain the correct aspect ratio. */
+    function resize() {
+      var scale = el.offsetWidth / REFERENCE_WIDTH;
+      el.style.setProperty('--s', scale);
+      sizer.style.height = REFERENCE_HEIGHT * scale + 'px';
+    }
+
+    resize();
+
+    /* ResizeObserver fires whenever the element's dimensions change (window resize, layout reflow, etc.).
+       Falls back to a window resize listener in browsers that do not support ResizeObserver. */
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(resize).observe(el);
+    } else {
+      window.addEventListener('resize', resize);
+    }
+
+    /* IntersectionObserver adds the [data-sod-visible] attribute once the graphic scrolls into view,
+       which triggers all CSS entrance animations. Disconnects immediately so animations only fire once.
+       Falls back to triggering immediately in browsers that do not support IntersectionObserver. */
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              el.setAttribute('data-sod-visible', '');
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: INTERSECTION_THRESHOLD },
+      );
+      observer.observe(el);
+    } else {
+      el.setAttribute('data-sod-visible', '');
+    }
+  })();
+</script>
+</div><div class="w-layout-vflex accordion-text-content_flex"><p class="text-size-regular">AI-infused Designer Workspace powered by our proprietary platform. Data-driven insights help you map learning outcomes, design effective assessments, and ensure curriculum coherence—from a single course to your entire learning ecosystem.</p><div class="heading-style-h6 text-style-italic">Ready to think through what&#x27;s possible?</div><div data-wf-component-id="aaed4124-e229-8054-3f1a-8827f2191723" data-wf-variant-state="base" class="secondary-button_hover-area"><a href="https://idesign-creative.github.io/brand-site-review/contact.html" class="secondary-button_wrapper w-inline-block"><div class="secondary-button_bg"></div><div class="secondary-button_icon-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div><div class="secondary-button_content"><div class="secondary-button_label">Book a Demo</div><div class="secondary-button_icon-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></div></div></div><div><div class="w-layout-vflex heading-pair_v-flex padding-section-xsmall"><h5 class="heading-style-eyebrow text-size-small">Everything You Can Do With</h5><h5 class="heading-style-h4 text-color-secondary text-style-italic">AI-infused Designer Workspace</h5></div><div class="w-layout-grid grid"><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular">Learning outcome mapping with AI-powered recommendations</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular">Program-level curriculum architecture</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular">Assessment design and alignment analytics</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular">Real-time data analytics and reporting</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular">Curriculum coherence analysis across programs</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular">Predictive insights for learner success</div></div></div></div></div></div></div></div><div id="IDD" class="accordion_item"><div class="accordion_header"><div class="accordion-number_div"><div class="text-block-7">2</div></div><div class="padding-horizontal none_on-mobile"><div class="w-layout-vflex flex-block-8"><div class="w-layout-hflex flex-block-39"><div class="accordion-number_div static"><div class="text-block-7">2</div></div><h3 class="heading-style-h3 margin_on-mobile">Instructional Design and Development</h3></div><p class="accordion_collapsed-text text-size-regular">Our instructional designers work side by side with faculty and subject matter experts to shape learning experiences that are clear, flexible, and grounded in what helps students learn. We don’t just provide ID support; we have a whole team ready to curate the best learner experience.</p></div></div><a href="#" class="button is-control position-absolute w-inline-block"><div class="control_icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg></div><div class="control_icon animate w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/></svg></div></a></div><div class="accordion_content"><div class="accordion-dotted-line_embed w-embed"><style>
+  .acc-static-line {
+    position: absolute;
+    top: -3rem;
+    bottom: 2rem;
+    width: 2rem;
+    pointer-events: none;
+  }
+  .acc-static-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1.5px;
+    background-image: repeating-linear-gradient(to bottom, #8097a0 0, #8097a0 1px, transparent 1px, transparent 7px);
+  }
+  .acc-static-line::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #eef19d;
+  }
+  @media (max-width: 479px) {
+    .acc-static-line {
+      display: none;
+    }
+  }
+</style>
+
+<div class="acc-static-line"></div></div><div class="padding-horizontal none_on-mobile"><div class="w-layout-hflex accordion-content_leading-section"><div class="pillar-graphic_embed w-embed w-script"><style>
+  .sod-h2 {
+    /* --- Color tokens --- */
+    --teal-deep: #002e40;
+    --teal: #017fae;
+    --teal-mid: #00a5e1;
+    --orange: #e8522a;
+    --edge: rgba(1, 127, 174, 0.55);
+    --id-web: rgba(232, 82, 42, 0.55);
+
+    /* --- Animation timing ---
+       Sequence: hub → geometry container → spokes → web → satellites.
+       Adjust these to change the overall speed or offset of the entrance animation. */
+    --anim-hub-duration: 700ms;
+    --anim-hub-delay: 200ms;
+    --anim-const-duration: 380ms;
+    --anim-const-delay: 500ms;
+    --anim-spoke-duration: 600ms;
+    --anim-spoke-delay: 600ms;
+    --anim-web-duration: 400ms;
+    --anim-web-delay: 900ms;
+    --anim-sat-duration: 400ms;
+    /* Satellite per-node delays are set via inline style on each element.
+       They stagger by 70ms, starting at 700ms. See the HTML comment on the satellite nodes. */
+
+    /* --- Scale multiplier — set by JavaScript to fit the container width --- */
+    --s: 1;
+
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    font-family: 'Lato', Arial, sans-serif;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .sod-h2 *,
+  .sod-h2 *::before,
+  .sod-h2 *::after {
+    box-sizing: border-box;
+  }
+
+  .sod-h2 .h2-sizer {
+    display: block;
+    width: 565px;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    height: 340px; /* fallback before JavaScript sets the proportional height via inline style */
+  }
+
+  /* Hub — center circle containing the service title */
+  .sod-h2 .h2-hub {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: calc(150px * var(--s));
+    height: calc(150px * var(--s));
+    padding: calc(18px * var(--s));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: inherit;
+    font-size: calc(12.5px * var(--s));
+    font-weight: 900;
+    letter-spacing: calc(0.5px * var(--s));
+    text-transform: uppercase;
+    line-height: 1.4;
+    z-index: 20;
+    pointer-events: none; /* decorative only — not interactive */
+    box-shadow:
+      0 0 0 calc(14px * var(--s)) rgba(1, 127, 174, 0.12),
+      0 0 0 calc(28px * var(--s)) rgba(1, 127, 174, 0.05),
+      0 calc(18px * var(--s)) calc(38px * var(--s)) calc(-10px * var(--s)) rgba(0, 46, 64, 0.35);
+  }
+  /* [data-sod-h2-visible] is set by JavaScript when the graphic scrolls into view */
+  .sod-h2[data-sod-h2-visible] .h2-hub {
+    animation: h2HubIn var(--anim-hub-duration) cubic-bezier(0.34, 1.4, 0.64, 1) var(--anim-hub-delay) forwards;
+  }
+  @keyframes h2HubIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  /* Const — zero-size anchor point positioned at the hub center.
+     The SVG and all satellite nodes are children of this element.
+     The CSS scale transform here scales the entire geometry layer with the container. */
+  .sod-h2 .h2-const {
+    position: absolute;
+    left: 50%; /* matches hub offset */
+    top: 50%; /* matches hub offset */
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: scale(var(--s));
+    transform-origin: 0 0;
+  }
+  .sod-h2[data-sod-h2-visible] .h2-const {
+    animation: h2FadeIn var(--anim-const-duration) ease var(--anim-const-delay) forwards;
+  }
+
+  @keyframes h2FadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* SVG canvas — positioned so (0, 0) in SVG coordinates aligns with the hub center */
+  .sod-h2 .h2-svg {
+    position: absolute;
+    left: -240px;
+    top: -180px;
+    width: 480px;
+    height: 360px;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* Spokes — straight lines from hub center to each satellite node position, drawn in via dashoffset.
+     stroke-dasharray matches the max spoke length so all draw in together. */
+  .sod-h2 .h2-spoke {
+    fill: none;
+    stroke: var(--edge);
+    stroke-width: 1.4;
+    stroke-dasharray: 280;
+    stroke-dashoffset: 280;
+  }
+  .sod-h2[data-sod-h2-visible] .h2-spoke {
+    animation: h2SpokeIn var(--anim-spoke-duration) ease var(--anim-spoke-delay) forwards;
+  }
+  @keyframes h2SpokeIn {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Web — dashed connecting lines between the satellite node positions */
+  .sod-h2 .h2-id-web {
+    fill: none;
+    stroke: var(--id-web);
+    stroke-width: 1.3;
+    stroke-dasharray: 4 4; /* visual dash pattern, not a draw-in animation */
+    opacity: 0;
+  }
+  .sod-h2[data-sod-h2-visible] .h2-id-web {
+    animation: h2FadeIn var(--anim-web-duration) ease var(--anim-web-delay) forwards;
+  }
+
+  /* Satellite nodes — dot + label pairs anchored at each spoke endpoint */
+  .sod-h2 .h2-sat {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: auto;
+    z-index: 15;
+  }
+  .sod-h2 .h2-sat .h2-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+  .sod-h2 .h2-sat .h2-txt {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    line-height: 1.4;
+    text-align: center;
+  }
+  .sod-h2 .h2-sat.h2-left {
+    flex-direction: row-reverse; /* dot on the right, label extends left */
+  }
+  .sod-h2 .h2-sat.h2-right {
+    flex-direction: row; /* dot on the left, label extends right */
+  }
+  /* Red variant — orange dot and text for the agentic/consultant node */
+  .sod-h2 .h2-sat.h2-red .h2-dot {
+    background: var(--orange);
+  }
+  .sod-h2 .h2-sat.h2-red .h2-txt {
+    color: var(--orange);
+  }
+  .sod-h2[data-sod-h2-visible] .h2-sat {
+    /* Each satellite's animation-delay is set via inline style on the element in the HTML */
+    animation: h2SatIn var(--anim-sat-duration) cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+  }
+  @keyframes h2SatIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Collapse all animation durations and delays to near-zero for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .sod-h2 .h2-hub,
+    .sod-h2 .h2-const,
+    .sod-h2 .h2-spoke,
+    .sod-h2 .h2-id-web,
+    .sod-h2 .h2-sat {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0.01ms !important;
+    }
+  }
+</style>
+
+<div class="sod-h2" id="sod-hub-2" aria-label="Instructional Design And Development service offering">
+  <div class="h2-sizer">
+    <div class="h2-hub">Instructional<br />Design And<br />Development</div>
+    <div class="h2-const">
+      <svg class="h2-svg" viewBox="-240 -180 480 360" aria-hidden="true">
+        <!-- Six spokes from hub center (0,0) to each satellite node position -->
+        <path d="M 0 0 L -108.5 -115 M 0 0 L -168.5 0 M 0 0 L -108.5 115 M 0 0 L 108.5 -115 M 0 0 L 168.5 0 M 0 0 L 108.5 115" class="h2-spoke" />
+        <!-- Connecting web lines between satellite node positions -->
+        <path d="M -108.5 -115 L -168.5 0 M -108.5 -115 L -108.5 115 M -108.5 -115 L 108.5 -115 M -108.5 -115 L 168.5 0 M -108.5 -115 L 108.5 115 M -168.5 0 L -108.5 115 M -168.5 0 L 108.5 -115 M -168.5 0 L 168.5 0 M -168.5 0 L 108.5 115 M -108.5 115 L 108.5 -115 M -108.5 115 L 168.5 0 M -108.5 115 L 108.5 115 M 108.5 -115 L 168.5 0 M 108.5 -115 L 108.5 115 M 168.5 0 L 108.5 115" class="h2-id-web" />
+      </svg>
+      <!--
+        Satellite nodes: left column uses h2-left (label extends left, dot on right);
+        right column uses h2-right (dot on left, label extends right).
+        left/top values are in unscaled pixels — the parent (.h2-const) handles scaling.
+        Animation delays stagger by 70ms per node starting at 700ms:
+          left-top: 700ms | left-mid: 770ms | left-bottom: 840ms
+          right-top: 910ms | right-mid: 980ms | right-bottom: 1050ms
+      -->
+      <div class="h2-sat h2-left" style="left: -105px; top: -115px; transform: translate(-100%, -50%); animation-delay: 700ms">
+        <span class="h2-dot"></span><span class="h2-txt">Creative and<br />Multimedia</span>
+      </div>
+      <div class="h2-sat h2-left" style="left: -165px; top: 0px; transform: translate(-100%, -50%); animation-delay: 770ms">
+        <span class="h2-dot"></span><span class="h2-txt">Curriculum<br />Planning</span>
+      </div>
+      <div class="h2-sat h2-left" style="left: -105px; top: 115px; transform: translate(-100%, -50%); animation-delay: 840ms">
+        <span class="h2-dot"></span><span class="h2-txt">Course and<br />Program Design</span>
+      </div>
+      <div class="h2-sat h2-right" style="left: 105px; top: -115px; transform: translate(0, -50%); animation-delay: 910ms">
+        <span class="h2-dot"></span><span class="h2-txt">Accessibility<br />and QA</span>
+      </div>
+      <div class="h2-sat h2-right" style="left: 165px; top: 0px; transform: translate(0, -50%); animation-delay: 980ms">
+        <span class="h2-dot"></span><span class="h2-txt">Faculty<br />Training</span>
+      </div>
+      <div class="h2-sat h2-right h2-red" style="left: 105px; top: 115px; transform: translate(0, -50%); animation-delay: 1050ms">
+        <span class="h2-dot"></span><span class="h2-txt">Agentic Deployment<br />(Consultant)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    /* Reference dimensions — must match the fixed pixel values in the CSS (.h2-sizer width and height).
+       Adjust these if the base layout size ever changes. */
+    var REFERENCE_WIDTH = 565;
+    var REFERENCE_HEIGHT = 340;
+
+    /* Fraction of the graphic (0–1) that must be visible before the entrance animation fires */
+    var INTERSECTION_THRESHOLD = 0.2;
+
+    var el = document.getElementById('sod-hub-2');
+    var sizer = el ? el.querySelector('.h2-sizer') : null;
+    if (!el || !sizer) return;
+
+    /* Calculates the ratio of the element's current width to the reference width, then
+       applies it as the --s CSS custom property so all calc()-based sizes scale proportionally.
+       Also updates the sizer height to maintain the correct aspect ratio. */
+    function resize() {
+      var scale = el.offsetWidth / REFERENCE_WIDTH;
+      el.style.setProperty('--s', scale);
+      sizer.style.height = REFERENCE_HEIGHT * scale + 'px';
+    }
+
+    resize();
+
+    /* ResizeObserver fires whenever the element's dimensions change (window resize, layout reflow, etc.).
+       Falls back to a window resize listener in browsers that do not support ResizeObserver. */
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(resize).observe(el);
+    } else {
+      window.addEventListener('resize', resize);
+    }
+
+    /* IntersectionObserver adds the [data-sod-h2-visible] attribute once the graphic scrolls into view,
+       which triggers all CSS entrance animations. Disconnects immediately so animations only fire once.
+       Falls back to triggering immediately in browsers that do not support IntersectionObserver. */
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              el.setAttribute('data-sod-h2-visible', '');
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: INTERSECTION_THRESHOLD },
+      );
+      observer.observe(el);
+    } else {
+      el.setAttribute('data-sod-h2-visible', '');
+    }
+  })();
+</script></div><div class="w-layout-vflex accordion-text-content_flex"><p class="text-size-regular">Our instructional designers work side by side with faculty and subject matter experts to shape learning experiences that are clear, flexible, and grounded in what helps students learn. We don’t just provide ID support; we have a whole team ready to curate the best learner experience.</p><div class="heading-style-h6 text-style-italic">What could your learners experience next?</div><div data-wf-component-id="aaed4124-e229-8054-3f1a-8827f2191723" data-wf-variant-state="base" class="secondary-button_hover-area"><a href="https://idesign-creative.github.io/brand-site-review/contact.html" class="secondary-button_wrapper w-inline-block"><div class="secondary-button_bg"></div><div class="secondary-button_icon-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div><div class="secondary-button_content"><div class="secondary-button_label">Set Up a Consult</div><div class="secondary-button_icon-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></div></div></div><div><div class="w-layout-vflex heading-pair_v-flex padding-section-xsmall"><h5 class="heading-style-eyebrow text-size-small">How We Support You Through</h5><h5 class="heading-style-h4 text-color-secondary text-style-italic">Instructional Design and Development</h5></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div idd"><div class="w-layout-hflex flex-block-7 first"><h6 class="text-size-regular epxand">Creative and multimedia development</h6><p class="text-size-regular width-60">We create videos, graphics, and interactive elements that support the content.</p></div><div class="w-layout-hflex flex-block-7"><h6 class="text-size-regular epxand">Curriculum planning and program structure</h6><p class="text-size-regular width-60">We work with faculty to line up outcomes, assessments, and learning activities so everything flows and makes sense across a course or a full program.</p></div><div class="w-layout-hflex flex-block-7"><h6 class="text-size-regular epxand">Accessibility support</h6><p class="text-size-regular width-60">We build with accessibility from the start, so materials are easier to use and reach more learners.</p></div><div class="w-layout-hflex flex-block-7"><h6 class="text-size-regular epxand">Faculty training and collaboration</h6><p class="text-size-regular width-60">Our designers meet regularly with instructors to check in and offer support.</p></div><div class="w-layout-hflex flex-block-7 last"><h6 class="text-size-regular epxand">Course updates and ongoing improvement</h6><p class="text-size-regular width-60">When feedback comes in or priorities shift, we help make course or program updates, adjust content, and keep things current without starting from scratch.</p></div></div></div></div></div></div></div><div id="OPX" class="accordion_item"><div class="accordion_header"><div class="accordion-number_div"><div class="text-block-7">3</div></div><div class="padding-horizontal none_on-mobile"><div class="w-layout-vflex flex-block-8"><div class="w-layout-hflex flex-block-39"><div class="accordion-number_div static"><div class="text-block-7">3</div></div><h3 class="heading-style-h3 margin_on-mobile">Online Program Experience</h3></div><p class="accordion_collapsed-text text-size-regular">What makes iDesign different is not a hand-off. It is an ecosystem. Students sit at the center, surrounded by a team that overlaps on purpose, so support never lapses from first inquiry to graduation day.</p></div></div><a href="#" class="button is-control position-absolute w-inline-block"><div class="control_icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg></div><div class="control_icon animate w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/></svg></div></a></div><div class="accordion_content"><div class="accordion-dotted-line_embed w-embed"><style>
+  .acc-static-line {
+    position: absolute;
+    top: -3rem;
+    bottom: 2rem;
+    width: 2rem;
+    pointer-events: none;
+  }
+  .acc-static-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1.5px;
+    background-image: repeating-linear-gradient(to bottom, #8097a0 0, #8097a0 1px, transparent 1px, transparent 7px);
+  }
+  .acc-static-line::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #eef19d;
+  }
+  @media (max-width: 479px) {
+    .acc-static-line {
+      display: none;
+    }
+  }
+</style>
+
+<div class="acc-static-line"></div></div><div class="padding-horizontal none_on-mobile"><div class="w-layout-hflex accordion-content_leading-section"><div class="pillar-graphic_embed opx w-embed w-script"><style>
+  .sod-h3 {
+    /* --- Color tokens --- */
+    --teal-deep: #002e40;
+    --teal: #017fae;
+    --teal-mid: #00a5e1;
+    --orange: #e8522a;
+
+    /* --- Animation timing ---
+       Sequence: hub → geometry container → timeline → dots → wave → labels → agentic label.
+       Adjust these to change the overall speed or offset of the entrance animation. */
+    --anim-hub-duration:    700ms;
+    --anim-hub-delay:       200ms;
+    --anim-const-duration:  380ms;
+    --anim-const-delay:     500ms;
+    --anim-line-duration:   650ms;
+    --anim-line-delay:      600ms;
+    --anim-dot-duration:    280ms;
+    --anim-dot-delay:       800ms;
+    --anim-wave-duration:   400ms;
+    --anim-wave-delay:      1000ms;
+    --anim-label-duration:  350ms;
+    /* Label per-node delays are set via inline style on each element.
+       They stagger by 70ms, starting at 700ms. See the HTML comment on the label nodes. */
+    --anim-agentic-duration: 350ms;
+    --anim-agentic-delay:    1200ms;
+
+    /* --- Scale multiplier — set by JavaScript to fit the container width --- */
+    --s: 1;
+
+    position: relative;
+    display: block;
+    width: 600px;      /* fixed max width — unlike the other graphics which use width: 100% */
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Lato', Arial, sans-serif;
+    box-sizing: border-box;
+    overflow: visible; /* labels extend beyond the sizer bounds, so clipping is intentionally disabled */
+  }
+
+  .sod-h3 *,
+  .sod-h3 *::before,
+  .sod-h3 *::after {
+    box-sizing: border-box;
+  }
+
+  .sod-h3 .h3-sizer {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    height: 268px; /* fallback before JavaScript sets the proportional height via inline style */
+  }
+
+  /* Hub — center circle containing the service title */
+  .sod-h3 .h3-hub {
+    position: absolute;
+    left: 50%;
+    top: 42.5%; /* intentionally above vertical center to balance visual weight of the wave below */
+    transform: translate(-50%, -50%) scale(0);
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: calc(150px * var(--s));
+    height: calc(150px * var(--s));
+    padding: calc(18px * var(--s));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: inherit;
+    font-size: calc(12.5px * var(--s));
+    font-weight: 900;
+    letter-spacing: calc(0.5px * var(--s));
+    text-transform: uppercase;
+    line-height: 1.4;
+    z-index: 20;
+    pointer-events: none; /* decorative only — not interactive */
+    box-shadow:
+      0 0 0 calc(14px * var(--s)) rgba(1, 127, 174, 0.12),
+      0 0 0 calc(28px * var(--s)) rgba(1, 127, 174, 0.05),
+      0 calc(18px * var(--s)) calc(38px * var(--s)) calc(-10px * var(--s)) rgba(0, 46, 64, 0.35);
+  }
+  /* [data-sod-h3-visible] is set by JavaScript when the graphic scrolls into view */
+  .sod-h3[data-sod-h3-visible] .h3-hub {
+    animation: h3HubIn var(--anim-hub-duration) cubic-bezier(0.34, 1.4, 0.64, 1) var(--anim-hub-delay) forwards;
+  }
+  @keyframes h3HubIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  /* Const — zero-size anchor point positioned at the hub center.
+     The SVG, timeline labels, and agentic label are all children of this element.
+     The CSS scale transform here scales the entire geometry layer with the container. */
+  .sod-h3 .h3-const {
+    position: absolute;
+    left: 50%;    /* matches hub offset */
+    top: 42.5%;   /* matches hub offset */
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: scale(var(--s));
+    transform-origin: 0 0;
+  }
+  .sod-h3[data-sod-h3-visible] .h3-const {
+    animation: h3FadeIn var(--anim-const-duration) ease var(--anim-const-delay) forwards;
+  }
+
+  @keyframes h3FadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* SVG canvas — positioned so (0, 0) in SVG coordinates aligns with the hub center.
+     Size and position match the viewBox: -275 to 275 wide (550px), -180 to 180 tall (360px). */
+  .sod-h3 .h3-svg {
+    position: absolute;
+    left: -275px;
+    top: -180px;
+    width: 550px;
+    height: 360px;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* Timeline line — horizontal baseline drawn in via dashoffset animation.
+     stroke-dasharray matches the line length (x1=-250 to x2=250 = 500 units).
+     stroke-dashoffset starts at 500 (fully hidden) and animates to 0 (fully revealed). */
+  .sod-h3 .h3-tl-line {
+    fill: none;
+    stroke: rgba(0, 165, 225, 0.4);
+    stroke-width: 1.8;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    opacity: 0;
+  }
+  .sod-h3[data-sod-h3-visible] .h3-tl-line {
+    animation: h3TlLineIn var(--anim-line-duration) cubic-bezier(0.4, 0, 0.2, 1) var(--anim-line-delay) forwards;
+  }
+  @keyframes h3TlLineIn {
+    to {
+      opacity: 1;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Timeline dots — teal circles marking each label's position on the timeline */
+  .sod-h3 .h3-tl-dot {
+    fill: #00a5e1;
+    opacity: 0;
+  }
+  .sod-h3[data-sod-h3-visible] .h3-tl-dot {
+    animation: h3FadeIn var(--anim-dot-duration) ease var(--anim-dot-delay) forwards;
+  }
+
+  /* Wave — orange sine wave running along the timeline baseline */
+  .sod-h3 .h3-wave {
+    fill: none;
+    stroke: var(--orange);
+    stroke-width: 1.4;
+    stroke-dasharray: 4 4; /* visual dash pattern, not a draw-in animation */
+    stroke-linecap: round;
+    opacity: 0;
+  }
+  .sod-h3[data-sod-h3-visible] .h3-wave {
+    animation: h3FadeIn var(--anim-wave-duration) ease var(--anim-wave-delay) forwards;
+  }
+
+  /* Timeline labels — text columns positioned above or below their dot on the timeline */
+  .sod-h3 .h3-tl-label {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    pointer-events: auto;
+    z-index: 22;
+    white-space: nowrap;
+  }
+  .sod-h3 .h3-tl-label .h3-txt {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    line-height: 1.4;
+    text-align: center;
+  }
+  .sod-h3[data-sod-h3-visible] .h3-tl-label {
+    /* Each label's animation-delay is set via inline style on the element in the HTML */
+    animation: h3FadeIn var(--anim-label-duration) ease forwards;
+  }
+
+  /* Agentic label — centered text below the wave, appears last */
+  .sod-h3 .h3-agentic {
+    position: absolute;
+    opacity: 0;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 15;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    line-height: 1.5;
+  }
+  .sod-h3[data-sod-h3-visible] .h3-agentic {
+    animation: h3FadeIn var(--anim-agentic-duration) ease var(--anim-agentic-delay) forwards;
+  }
+
+  /* Collapse all animation durations and delays to near-zero for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .sod-h3 .h3-hub,
+    .sod-h3 .h3-const,
+    .sod-h3 .h3-tl-line,
+    .sod-h3 .h3-tl-dot,
+    .sod-h3 .h3-wave,
+    .sod-h3 .h3-tl-label,
+    .sod-h3 .h3-agentic {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0.01ms !important;
+    }
+  }
+</style>
+
+<div class="sod-h3" id="sod-hub-3" aria-label="Online Program Experience service offering">
+  <div class="h3-sizer">
+    <div class="h3-hub">Online Program<br>Experience</div>
+    <div class="h3-const">
+      <svg class="h3-svg" viewBox="-275 -180 550 360" aria-hidden="true">
+        <!-- Horizontal baseline from x=-250 to x=250 (500 units), drawn in via dashoffset -->
+        <line x1="-250" y1="0" x2="250" y2="0" class="h3-tl-line" />
+
+        <!-- Dots at x=-250,-200,-150 (left labels) and x=150,200,250 (right labels).
+             The gap in the middle is where the hub sits. -->
+        <circle cx="-250" cy="0" r="5" class="h3-tl-dot" />
+        <circle cx="-200" cy="0" r="5" class="h3-tl-dot" />
+        <circle cx="-150" cy="0" r="5" class="h3-tl-dot" />
+        <circle cx="150"  cy="0" r="5" class="h3-tl-dot" />
+        <circle cx="200"  cy="0" r="5" class="h3-tl-dot" />
+        <circle cx="250"  cy="0" r="5" class="h3-tl-dot" />
+
+        <!--
+          Sine wave: 10 half-periods across 500px span (-250 to +250).
+          Half-period = 50px, amplitude = 20px, cubic Bezier control-point offset = 25px.
+          Zero-crossings every 50px at: -250,-200,-150,-100,-50,0,+50,+100,+150,+200,+250.
+        -->
+        <path d="
+          M -250,0
+          C -225,-20 -225,-20 -200,0
+          C -175,20  -175,20  -150,0
+          C -125,-20 -125,-20 -100,0
+          C  -75,20   -75,20   -50,0
+          C  -25,-20  -25,-20    0,0
+          C   25,20    25,20    50,0
+          C   75,-20   75,-20  100,0
+          C  125,20   125,20   150,0
+          C  175,-20  175,-20  200,0
+          C  225,20   225,20   250,0
+        " class="h3-wave" />
+      </svg>
+
+      <!--
+        Timeline labels: alternating above (top: -55px) and below (top: 30px) the baseline.
+        Animation delays stagger by 70ms per node, starting at 700ms, left to right:
+          left-1 (700ms) | left-2 (770ms) | left-3 (840ms) | right-1 (910ms) | right-2 (980ms) | right-3 (1050ms).
+        left values match their corresponding dot cx coordinates.
+        left/top values are in unscaled pixels — the parent (.h3-const) handles scaling.
+      -->
+      <div class="h3-tl-label" style="left:-250px; top:-55px; transform:translate(-50%,0); animation-delay:700ms">
+        <span class="h3-txt">Digital<br>Marketing</span>
+      </div>
+      <div class="h3-tl-label" style="left:-200px; top:30px;  transform:translate(-50%,0); animation-delay:770ms">
+        <span class="h3-txt">Instructional Design<br>and Development</span>
+      </div>
+      <div class="h3-tl-label" style="left:-150px; top:-55px; transform:translate(-50%,0); animation-delay:840ms">
+        <span class="h3-txt">Employer<br>Partners</span>
+      </div>
+      <div class="h3-tl-label" style="left:150px;  top:30px;  transform:translate(-50%,0); animation-delay:910ms">
+        <span class="h3-txt">Clinical<br>Placement</span>
+      </div>
+      <div class="h3-tl-label" style="left:200px;  top:-55px; transform:translate(-50%,0); animation-delay:980ms">
+        <span class="h3-txt">Enrollment<br>Services</span>
+      </div>
+      <div class="h3-tl-label" style="left:250px;  top:30px;  transform:translate(-50%,0); animation-delay:1050ms">
+        <span class="h3-txt">Success<br>Coaches</span>
+      </div>
+
+      <!-- Centered below the wave, appears last in the animation sequence -->
+      <div class="h3-agentic" style="left:0; top:110px; transform:translate(-50%,0)">Agentic Program Solutions</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    /* Reference width — the design width the graphic was built at.
+       Intentionally smaller than the CSS max-width (600px) so the graphic upscales slightly at full desktop width.
+       Adjust this if the intended scale-up factor needs to change. */
+    var REFERENCE_WIDTH  = 550; /* matches SVG total span (±275px from center) so the graphic fits without horizontal overflow */
+    var REFERENCE_HEIGHT = 268;
+
+    /* Fraction of the graphic (0–1) that must be visible before the entrance animation fires */
+    var INTERSECTION_THRESHOLD = 0.2;
+
+    var el    = document.getElementById('sod-hub-3');
+    var sizer = el ? el.querySelector('.h3-sizer') : null;
+    if (!el || !sizer) return;
+
+    /* Calculates the ratio of the element's current width to the reference width, then
+       applies it as the --s CSS custom property so all calc()-based sizes scale proportionally.
+       Also updates the sizer height to maintain the correct aspect ratio. */
+    function resize() {
+      var scale = el.offsetWidth / REFERENCE_WIDTH;
+      el.style.setProperty('--s', scale);
+      sizer.style.height = REFERENCE_HEIGHT * scale + 'px';
+    }
+
+    resize();
+
+    /* ResizeObserver fires whenever the element's dimensions change (window resize, layout reflow, etc.).
+       Falls back to a window resize listener in browsers that do not support ResizeObserver. */
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(resize).observe(el);
+    } else {
+      window.addEventListener('resize', resize);
+    }
+
+    /* IntersectionObserver adds the [data-sod-h3-visible] attribute once the graphic scrolls into view,
+       which triggers all CSS entrance animations. Disconnects immediately so animations only fire once.
+       Falls back to triggering immediately in browsers that do not support IntersectionObserver. */
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              el.setAttribute('data-sod-h3-visible', '');
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: INTERSECTION_THRESHOLD },
+      );
+      observer.observe(el);
+    } else {
+      el.setAttribute('data-sod-h3-visible', '');
+    }
+  })();
+</script></div><div class="w-layout-vflex accordion-text-content_flex"><p class="text-size-regular">What makes iDesign different is not a hand-off. It is an ecosystem. Students sit at the center, surrounded by a team that overlaps on purpose, so support never lapses from first inquiry to graduation day.</p><div class="heading-style-h6 text-style-italic">Curious what this could look like for your program?</div><div data-wf-component-id="aaed4124-e229-8054-3f1a-8827f2191723" data-wf-variant-state="base" class="secondary-button_hover-area"><a href="https://idesign-creative.github.io/brand-site-review/contact.html" class="secondary-button_wrapper w-inline-block"><div class="secondary-button_bg"></div><div class="secondary-button_icon-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div><div class="secondary-button_content"><div class="secondary-button_label">Learn More</div><div class="secondary-button_icon-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></div></div></div><div><div class="w-layout-vflex heading-pair_v-flex padding-section-xsmall"><h5 class="heading-style-eyebrow text-size-small">How We Support Your</h5><h5 class="heading-style-h4 text-color-secondary text-style-italic">Online Program Experience</h5></div><div class="w-layout-grid grid"><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Marketing &amp; Recruiting</div><div class="text-size-regular text-weight-bold text-style-italic text-color-secondary">Reach the right learners, in the right places.</div><div class="text-size-regular">Integrated digital marketing that finds your future students—and websites built to convert them.</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Employer Partnerships</div><div class="text-size-regular text-weight-bold text-style-italic text-color-secondary">The key to unlocking enrollment growth.</div><div class="text-size-regular">On-the-ground partnerships with employers, turning workforces into your strongest enrollment pipeline.</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Enrollment Services</div><div class="text-size-regular text-weight-bold text-style-italic text-color-secondary">From inquiry to enrolled.</div><div class="text-size-regular">A dedicated team that shepherds every lead from first touch to first day, maximizing conversion and minimizing cost.</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Student Success &amp; Retention</div><div class="text-size-regular text-weight-bold text-style-italic text-color-secondary">A named coach for every student.</div><div class="text-size-regular">Concierge-model coaching backed by real-time data, keeping every student on track from day one to graduation.</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Clinical Placement</div><div class="text-size-regular text-weight-bold text-style-italic text-color-secondary">Built for nursing. Ready for any clinical track.</div><div class="text-size-regular">Software-plus-services that secure sites, manage compliance, and protect accreditation—so students stay on path.</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Instructional Design &amp; Delivery</div><div class="text-size-regular text-weight-bold text-style-italic text-color-secondary">We build the course. Your faculty teaches it.</div><div class="text-size-regular">A dedicated team handles design, media, and technology—so your experts stay focused on teaching, not production.</div></div></div></div></div><div><div class="w-layout-vflex heading-pair_v-flex padding-section-xsmall"><h5 class="heading-style-eyebrow text-color-tertiary text-size-small">Faculty Experience (FX)</h5><h5 class="heading-style-h4">Continuous Improvement and Support</h5><div class="text-size-regular text-weight-bold text-style-italic text-color-secondary">Product management for courses, after launch.</div><div class="text-size-regular">A small team that maintains course quality, supports faculty, and absorbs new standards—so programs stay healthy over time.</div></div></div></div></div></div><div id="agentic-program" class="accordion_item"><div class="accordion_header"><div class="accordion-number_div"><div class="text-block-7">4</div></div><div class="padding-horizontal none_on-mobile"><div class="w-layout-vflex flex-block-8"><div class="w-layout-hflex flex-block-39"><div class="accordion-number_div static"><div class="text-block-7">4</div></div><h3 class="heading-style-h3 margin_on-mobile">Agentic Program Management</h3></div><p class="accordion_collapsed-text text-size-regular">A forward-deployed engineer embeds with your team and builds agents across enrollment, finance, marketing, and CRM, so the people you hired to serve students spend their time on students, not systems.</p></div></div><a href="#" class="button is-control position-absolute w-inline-block"><div class="control_icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg></div><div class="control_icon animate w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/></svg></div></a></div><div class="accordion_content"><div class="accordion-dotted-line_embed w-embed"><style>
+  .acc-static-line {
+    position: absolute;
+    top: -3rem;
+    bottom: 2rem;
+    width: 2rem;
+    pointer-events: none;
+  }
+  .acc-static-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1.5px;
+    background-image: repeating-linear-gradient(to bottom, #8097a0 0, #8097a0 1px, transparent 1px, transparent 7px);
+  }
+  .acc-static-line::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #eef19d;
+  }
+  @media (max-width: 479px) {
+    .acc-static-line {
+      display: none;
+    }
+  }
+</style>
+
+<div class="acc-static-line"></div></div><div class="padding-horizontal none_on-mobile"><div class="w-layout-hflex accordion-content_leading-section"><div class="pillar-graphic_embed w-embed w-script"><style>
+  .sod-h4 {
+    /* --- Color tokens --- */
+    --teal-deep: #002e40;
+    --teal: #017fae;
+    --teal-mid: #00a5e1;
+    --orange: #e8522a;
+    --ring: rgba(232, 82, 42, 0.55);
+
+    /* --- Animation timing ---
+       Sequence: hub → geometry container → ring → satellites.
+       Adjust these to change the overall speed or offset of the entrance animation. */
+    --anim-hub-duration:   700ms;
+    --anim-hub-delay:      200ms;
+    --anim-const-duration: 380ms;
+    --anim-const-delay:    500ms;
+    --anim-ring-duration:  400ms;
+    --anim-ring-delay:     600ms;
+    --anim-sat-duration:   400ms;
+    /* Satellite per-node delays are set via inline style on each element.
+       They stagger by 70ms, starting at 700ms. See the HTML comment on the satellite nodes. */
+
+    /* --- Scale multiplier — set by JavaScript to fit the container width --- */
+    --s: 1;
+
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    font-family: 'Lato', Arial, sans-serif;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .sod-h4 *,
+  .sod-h4 *::before,
+  .sod-h4 *::after {
+    box-sizing: border-box;
+  }
+
+  .sod-h4 .h4-sizer {
+    display: block;
+    width: 600px;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    height: 308px; /* fallback before JavaScript sets the proportional height via inline style */
+  }
+
+  /* Hub — center circle containing the service title */
+  .sod-h4 .h4-hub {
+    position: absolute;
+    left: 47%; /* intentionally off-center to balance visual weight of the satellite labels */
+    top: 54%;  /* intentionally offset to balance the uneven vertical distribution of nodes */
+    transform: translate(-50%, -50%) scale(0);
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: calc(150px * var(--s));
+    height: calc(150px * var(--s));
+    padding: calc(18px * var(--s));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: inherit;
+    font-size: calc(12.5px * var(--s));
+    font-weight: 900;
+    letter-spacing: calc(0.5px * var(--s));
+    text-transform: uppercase;
+    line-height: 1.4;
+    z-index: 20;
+    pointer-events: none; /* decorative only — not interactive */
+    box-shadow:
+      0 0 0 calc(14px * var(--s)) rgba(232, 82, 42, 0.13),
+      0 0 0 calc(28px * var(--s)) rgba(232, 82, 42, 0.05),
+      0 calc(18px * var(--s)) calc(38px * var(--s)) calc(-10px * var(--s)) rgba(0, 46, 64, 0.2);
+  }
+  /* [data-sod-h4-visible] is set by JavaScript when the graphic scrolls into view */
+  .sod-h4[data-sod-h4-visible] .h4-hub {
+    animation: h4HubIn var(--anim-hub-duration) cubic-bezier(0.34, 1.4, 0.64, 1) var(--anim-hub-delay) forwards;
+  }
+  @keyframes h4HubIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  /* Const — zero-size anchor point positioned at the hub center.
+     The ring and all satellite nodes are children of this element.
+     The CSS scale transform here scales the entire geometry layer with the container. */
+  .sod-h4 .h4-const {
+    position: absolute;
+    left: 47%; /* matches hub offset */
+    top: 54%;  /* matches hub offset */
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: scale(var(--s));
+    transform-origin: 0 0;
+  }
+  .sod-h4[data-sod-h4-visible] .h4-const {
+    animation: h4FadeIn var(--anim-const-duration) ease var(--anim-const-delay) forwards;
+  }
+
+  /* SVG canvas — positioned so (0, 0) in SVG coordinates aligns with the hub center */
+  .sod-h4 .h4-svg {
+    position: absolute;
+    left: -240px;
+    top: -180px;
+    width: 480px;
+    height: 360px;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* Ring — single dashed circle at the satellite node radius */
+  .sod-h4 .h4-ring {
+    fill: none;
+    stroke: var(--ring);
+    stroke-width: 1.3;
+    stroke-dasharray: 4 4; /* visual dash pattern, not a draw-in animation */
+    opacity: 0;
+  }
+  .sod-h4[data-sod-h4-visible] .h4-ring {
+    animation: h4FadeIn var(--anim-ring-duration) ease var(--anim-ring-delay) forwards;
+  }
+
+  @keyframes h4FadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Satellite nodes — dot + label pairs at each position on the ring */
+  .sod-h4 .h4-sat {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: auto;
+    z-index: 15;
+  }
+  .sod-h4 .h4-sat .h4-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+  .sod-h4 .h4-sat .h4-txt {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    line-height: 1.4;
+    text-align: center;
+  }
+  .sod-h4 .h4-sat.h4-left {
+    flex-direction: row-reverse; /* dot on the right, label extends left */
+  }
+  .sod-h4 .h4-sat.h4-right {
+    flex-direction: row; /* dot on the left, label extends right */
+  }
+  .sod-h4 .h4-sat.h4-top {
+    flex-direction: column-reverse; /* dot below label — label floats above, dot touches the ring */
+    align-items: center;
+    gap: 5px;
+  }
+  /* Red variant — orange dot and text for department/client-facing nodes */
+  .sod-h4 .h4-sat.h4-red .h4-dot {
+    background: var(--orange);
+  }
+  .sod-h4 .h4-sat.h4-red .h4-txt {
+    color: var(--orange);
+  }
+  .sod-h4[data-sod-h4-visible] .h4-sat {
+    /* Each satellite's animation-delay is set via inline style on the element in the HTML */
+    animation: h4SatIn var(--anim-sat-duration) cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+  }
+  @keyframes h4SatIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Collapse all animation durations and delays to near-zero for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .sod-h4 .h4-hub,
+    .sod-h4 .h4-const,
+    .sod-h4 .h4-ring,
+    .sod-h4 .h4-sat {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0.01ms !important;
+    }
+  }
+</style>
+
+<div class="sod-h4" id="sod-hub-4" aria-label="Agentic Program Management service offering">
+  <div class="h4-sizer">
+    <div class="h4-hub">Agentic<br>Program<br>Management</div>
+    <div class="h4-const">
+      <svg class="h4-svg" viewBox="-240 -180 480 360" aria-hidden="true">
+        <!-- Single ring at radius 115 — all satellite nodes are positioned on or near this radius -->
+        <circle cx="0" cy="0" r="115" class="h4-ring" />
+      </svg>
+      <!--
+        Satellite nodes: one teal node at top (Forward-deployed Engineer), six orange nodes for departments.
+        Animation delays stagger by 70ms per node, starting at 700ms, clockwise from top:
+          top: 700ms | upper-right: 770ms | right: 840ms | lower-right: 910ms
+          lower-left: 980ms | left: 1050ms | upper-left: 1120ms
+        left/top values are in unscaled pixels — the parent (.h4-const) handles scaling.
+        The h4-top node uses translate(-50%, -100%) so its bottom-center anchors at the ring position.
+        The h4-left/right nodes use translate(-100%/-0, -50%) so their dot anchors at the ring position.
+      -->
+      <div class="h4-sat h4-top"         style="left: 0px;      top: -111.5px; transform: translate(-50%, -100%);  animation-delay: 700ms"><span class="h4-dot"></span><span class="h4-txt">Forward-deployed<br>Engineer</span></div>
+      <div class="h4-sat h4-right h4-red" style="left: 86.4px;   top: -71.7px;  transform: translate(0, -50%);       animation-delay: 770ms"><span class="h4-dot"></span><span class="h4-txt">Admissions</span></div>
+      <div class="h4-sat h4-right h4-red" style="left: 108.6px;  top: 25.6px;   transform: translate(0, -50%);       animation-delay: 840ms"><span class="h4-dot"></span><span class="h4-txt">Enrollment<br>and Registrar</span></div>
+      <div class="h4-sat h4-right h4-red" style="left: 46.4px;   top: 103.6px;  transform: translate(0, -50%);       animation-delay: 910ms"><span class="h4-dot"></span><span class="h4-txt">Bursar</span></div>
+      <div class="h4-sat h4-left  h4-red" style="left: -46.4px;  top: 103.6px;  transform: translate(-100%, -50%);   animation-delay: 980ms"><span class="h4-dot"></span><span class="h4-txt">Finance</span></div>
+      <div class="h4-sat h4-left  h4-red" style="left: -108.6px; top: 25.6px;   transform: translate(-100%, -50%);   animation-delay: 1050ms"><span class="h4-dot"></span><span class="h4-txt">Marketing</span></div>
+      <div class="h4-sat h4-left  h4-red" style="left: -86.4px;  top: -71.7px;  transform: translate(-100%, -50%);   animation-delay: 1120ms"><span class="h4-dot"></span><span class="h4-txt">Curriculum</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    /* Reference dimensions — must match the fixed pixel values in the CSS (.h4-sizer width and height).
+       Adjust these if the base layout size ever changes. */
+    var REFERENCE_WIDTH  = 600;
+    var REFERENCE_HEIGHT = 308;
+
+    /* Fraction of the graphic (0–1) that must be visible before the entrance animation fires */
+    var INTERSECTION_THRESHOLD = 0.2;
+
+    var el    = document.getElementById('sod-hub-4');
+    var sizer = el ? el.querySelector('.h4-sizer') : null;
+    if (!el || !sizer) return;
+
+    /* Calculates the ratio of the element's current width to the reference width, then
+       applies it as the --s CSS custom property so all calc()-based sizes scale proportionally.
+       Also updates the sizer height to maintain the correct aspect ratio. */
+    function resize() {
+      var scale = el.offsetWidth / REFERENCE_WIDTH;
+      el.style.setProperty('--s', scale);
+      sizer.style.height = REFERENCE_HEIGHT * scale + 'px';
+    }
+
+    resize();
+
+    /* ResizeObserver fires whenever the element's dimensions change (window resize, layout reflow, etc.).
+       Falls back to a window resize listener in browsers that do not support ResizeObserver. */
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(resize).observe(el);
+    } else {
+      window.addEventListener('resize', resize);
+    }
+
+    /* IntersectionObserver adds the [data-sod-h4-visible] attribute once the graphic scrolls into view,
+       which triggers all CSS entrance animations. Disconnects immediately so animations only fire once.
+       Falls back to triggering immediately in browsers that do not support IntersectionObserver. */
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              el.setAttribute('data-sod-h4-visible', '');
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: INTERSECTION_THRESHOLD },
+      );
+      observer.observe(el);
+    } else {
+      el.setAttribute('data-sod-h4-visible', '');
+    }
+  })();
+</script>
+</div><div class="w-layout-vflex accordion-text-content_flex"><p class="text-size-regular"><span class="text-weight-bold text-color-secondary"><strong>We build the agents. Your team runs the program. </strong></span><strong><br/>‍</strong>A forward-deployed engineer embeds with your team and builds agents across enrollment, finance, marketing, and CRM, so the people you hired to serve students spend their time on students, not systems.</p><div class="heading-style-h6 text-style-italic">Curious what agents are capable of?</div><div data-wf-component-id="aaed4124-e229-8054-3f1a-8827f2191723" data-wf-variant-state="base" class="secondary-button_hover-area"><a href="https://idesign-creative.github.io/brand-site-review/contact.html" class="secondary-button_wrapper w-inline-block"><div class="secondary-button_bg"></div><div class="secondary-button_icon-left w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div><div class="secondary-button_content"><div class="secondary-button_label">Connect Now</div><div class="secondary-button_icon-right w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></div></div></div><div><div class="w-layout-vflex heading-pair_v-flex padding-section-xsmall"><h5 class="heading-style-eyebrow text-size-small">How We Support Through</h5><h5 class="heading-style-h4 text-color-secondary text-style-italic">Agentic Program Management</h5></div><div class="w-layout-grid grid"><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Admissions</div><div class="text-size-regular">Agents triage inquiries, qualify leads, schedule advisor conversations, and follow up on stalled applications.</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Enrollment &amp; Registrar</div><div class="text-size-regular">Agents handle enrollment changes, transcript work, and maintain clean student records.</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Bursar</div><div class="text-size-regular">Agents process tuition, manage refunds, and answer routine student inquiries.</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Finance</div><div class="text-size-regular">Agents reconcile accounts, flag exceptions, and generate leadership reports.</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Marketing</div><div class="text-size-regular">Agents draft campaign copy in your brand voice and keep paid and organic channels aligned.</div></div></div><div class="glassmorphic_outer-div"><div class="glassmorphic_inner-div"><div class="text-size-regular text-weight-bold">Curriculum</div><div class="text-size-regular">Agents handle repetitive course scaffolding, freeing designers to focus on expertise.</div></div></div></div></div></div></div></div></div></div></div></div></div><div class="global-footer"><div class="padding-global padding-section-small"><div class="container-large"><section class="footer-section u-textiswhite simple"><div class="w-layout-hflex footer-maincontent-copy simple-3"><div class="w-layout-vflex flex-block-3 simple-4"><a aria-label="iDesign home" href="https://idesign-creative.github.io/brand-site-review/index.html" class="u-nobottommargin simple-5 w-inline-block"><img loading="lazy" src="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/6a171a0d2e3e5a94222fc900_iDesign_horizontal_reverse.svg" alt="iDesign" class="image simple-6"/></a><div class="social-embed-container footer simple-7"><a href="https://www.linkedin.com/company/idesignedu/" target="_blank" class="w-inline-block"><div fs-socialshare-element="linkedin" class="social-embed footer simple-14 w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a><a href="https://bsky.app/profile/idesignedu.bsky.social" target="_blank" class="w-inline-block"><div fs-socialshare-element="linkedin" class="social-embed footer simple-14 w-embed"><svg alt="" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>BlueSky</title>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.33526 4.37382C8.62822 6.09522 11.0945 9.58551 12.0001 11.4586C12.9056 9.58565 15.3718 6.09519 17.6649 4.37382C19.3193 3.13172 22 2.17066 22 5.22881C22 5.83957 21.6498 10.3595 21.4445 11.0933C20.7306 13.6444 18.1292 14.2951 15.8152 13.9013C19.86 14.5897 20.8889 16.87 18.6668 19.1502C14.4465 23.4809 12.601 18.0636 12.1278 16.6755C12.0412 16.4211 12.0006 16.302 12 16.4033C11.9994 16.302 11.9588 16.4211 11.8721 16.6755C11.3993 18.0636 9.55378 23.481 5.33322 19.1502C3.11103 16.87 4.13995 14.5896 8.18483 13.9013C5.87077 14.2951 3.26934 13.6444 2.55555 11.0933C2.35016 10.3594 2 5.8395 2 5.22881C2 2.17066 4.68074 3.13172 6.33515 4.37382H6.33526Z" fill="currentColor"></path>
+</svg></div></a><a href="https://www.facebook.com/idesigneducation/" target="_blank" class="w-inline-block"><div fs-socialshare-element="facebook" class="social-embed footer simple-14 w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Facebook</title>
+<path d="M23 12C23 5.92487 18.0751 0.999996 12 0.999996C5.92488 0.999996 1 5.92487 1 12C1 17.1588 4.55146 21.4874 9.34266 22.6761V15.3614H7.07438V12H9.34266V10.5516C9.34266 6.80751 11.037 5.07215 14.7128 5.07215C15.4096 5.07215 16.6121 5.20877 17.104 5.34544V8.39261C16.8444 8.36529 16.3935 8.3516 15.8332 8.3516C14.0295 8.3516 13.3326 9.03484 13.3326 10.8112V12H16.9256L16.3084 15.3614H13.3326V22.9194C18.7792 22.2616 23 17.624 23 12Z" fill="currentColor"></path>
+</svg></div></a><a href="https://www.instagram.com/idesignedu" target="_blank" class="w-inline-block"><div fs-socialshare-element="linkedin" class="social-embed footer simple-14 w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Instagram</title>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C9.2912 2 8.94131 2 7.86907 2.05643C7.03985 2.07241 6.21934 2.22888 5.44244 2.51919C4.78781 2.77878 4.23476 3.11738 3.67043 3.68172C3.11738 4.23476 2.76749 4.78781 2.51919 5.45372C2.27088 6.08578 2.10158 6.80813 2.05643 7.88036C2.01129 8.94131 2 9.27991 2 12C2 14.7088 2 15.0474 2.05643 16.1196C2.10158 17.1919 2.28217 17.9255 2.51919 18.5576C2.77878 19.2122 3.11738 19.7652 3.67043 20.3296C4.23476 20.8826 4.78781 21.2325 5.44244 21.4808C6.08578 21.7291 6.80813 21.8984 7.86907 21.9436C8.94131 21.9887 9.27991 22 12 22C14.7088 22 15.0474 22 16.1196 21.9436C17.1806 21.8984 17.9142 21.7178 18.5463 21.4808C19.2137 21.2306 19.8184 20.8377 20.3183 20.3296C20.8826 19.7652 21.2212 19.2009 21.4695 18.5576C21.7178 17.9142 21.8871 17.1919 21.9436 16.1196C21.9887 15.0587 22 14.7201 22 12C22 9.2912 21.9887 8.9526 21.9436 7.88036C21.9225 7.05065 21.7622 6.23037 21.4695 5.45372C21.2189 4.78649 20.8261 4.18182 20.3183 3.68172C19.754 3.11738 19.2122 2.77878 18.5463 2.51919C17.7686 2.23315 16.9482 2.08051 16.1196 2.06772C15.0474 2.01129 14.7088 2 12 2ZM11.0971 3.80587H12C14.6637 3.80587 14.9797 3.80587 16.0406 3.8623C16.6724 3.8686 17.2985 3.98313 17.8916 4.2009C18.3657 4.38149 18.693 4.59594 19.0429 4.94582C19.3928 5.29571 19.6072 5.63431 19.7991 6.09706C19.9345 6.45824 20.0925 6.97743 20.1377 7.95937C20.1828 9.00903 20.1941 9.32506 20.1941 12C20.1941 14.6637 20.1941 14.9797 20.1377 16.0406C20.1314 16.6724 20.0169 17.2985 19.7991 17.8916C19.6185 18.3657 19.3928 18.693 19.0429 19.0429C18.7043 19.3928 18.3657 19.6072 17.8916 19.7878C17.2992 20.0094 16.6731 20.1278 16.0406 20.1377C14.9797 20.1828 14.6637 20.1941 12 20.1941C9.32506 20.1941 9.00903 20.1941 7.95937 20.1377C7.3238 20.1322 6.69388 20.0177 6.09706 19.7991C5.63431 19.6072 5.307 19.3928 4.94582 19.0429C4.60722 18.7043 4.38149 18.3657 4.2009 17.8916C3.98313 17.2985 3.8686 16.6724 3.8623 16.0406C3.80587 14.9797 3.79458 14.6637 3.79458 12C3.79458 9.32506 3.80587 9.00903 3.85102 7.95937C3.85602 7.32375 3.97057 6.69376 4.18962 6.09706C4.38149 5.63431 4.59594 5.307 4.94582 4.94582C5.29571 4.60722 5.62302 4.38149 6.09706 4.2009C6.69376 3.98185 7.32375 3.86731 7.95937 3.8623C8.87359 3.81716 9.23476 3.80587 11.0971 3.79458V3.80587ZM17.3386 5.46501C17.1815 5.46501 17.0259 5.49596 16.8808 5.55608C16.7356 5.6162 16.6037 5.70433 16.4926 5.81542C16.3815 5.92652 16.2934 6.05841 16.2333 6.20356C16.1732 6.34871 16.1422 6.50429 16.1422 6.6614C16.1422 6.81851 16.1732 6.97408 16.2333 7.11924C16.2934 7.26439 16.3815 7.39628 16.4926 7.50737C16.6037 7.61847 16.7356 7.70659 16.8808 7.76672C17.0259 7.82684 17.1815 7.85779 17.3386 7.85779C17.6559 7.85779 17.9602 7.73174 18.1846 7.50737C18.4089 7.28301 18.535 6.9787 18.535 6.6614C18.535 6.3441 18.4089 6.03979 18.1846 5.81542C17.9602 5.59106 17.6559 5.46501 17.3386 5.46501ZM12 6.86456C11.3256 6.86456 10.6578 6.99739 10.0348 7.25547C9.41169 7.51355 8.84556 7.89182 8.36869 8.36869C7.89182 8.84556 7.51355 9.41169 7.25547 10.0348C6.99739 10.6578 6.86456 11.3256 6.86456 12C6.86456 12.6744 6.99739 13.3422 7.25547 13.9652C7.51355 14.5883 7.89182 15.1544 8.36869 15.6313C8.84556 16.1082 9.41169 16.4864 10.0348 16.7445C10.6578 17.0026 11.3256 17.1354 12 17.1354C13.362 17.1354 14.6682 16.5944 15.6313 15.6313C16.5944 14.6682 17.1354 13.362 17.1354 12C17.1354 10.638 16.5944 9.33178 15.6313 8.36869C14.6682 7.40561 13.362 6.86456 12 6.86456ZM12 8.67043C12.4372 8.67043 12.8702 8.75655 13.2742 8.92388C13.6781 9.0912 14.0452 9.33646 14.3544 9.64564C14.6635 9.95482 14.9088 10.3219 15.0761 10.7258C15.2434 11.1298 15.3296 11.5628 15.3296 12C15.3296 12.4372 15.2434 12.8702 15.0761 13.2742C14.9088 13.6781 14.6635 14.0452 14.3544 14.3544C14.0452 14.6635 13.6781 14.9088 13.2742 15.0761C12.8702 15.2434 12.4372 15.3296 12 15.3296C11.1169 15.3296 10.2701 14.9788 9.64564 14.3544C9.02122 13.7299 8.67043 12.8831 8.67043 12C8.67043 11.1169 9.02122 10.2701 9.64564 9.64564C10.2701 9.02122 11.1169 8.67043 12 8.67043Z" fill="currentColor"></path>
+</svg></div></a><a href="https://twitter.com/idesignedu" target="_blank" class="w-inline-block"><div fs-socialshare-element="x" class="social-embed footer simple-14 w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>X</title>
+<path d="M17.8048 2.96973H20.8705L14.1394 10.6338L22.0034 21.0304H15.8321L11.0004 14.7125L5.46893 21.0304H2.40328L9.53424 12.8331L2.00342 2.96973H8.32798L12.6932 8.74114L17.8048 2.96973ZM16.7318 19.231H18.4313L7.43494 4.70248H5.60888L16.7318 19.231Z" fill="currentColor"></path>
+</svg></div></a><a href="https://www.threads.net/@idesignedu" target="_blank" class="w-inline-block"><div fs-socialshare-element="linkedin" class="social-embed footer simple-14 w-embed"><svg alt="" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Threads</title>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.2631 11.1966C17.1684 11.1512 17.0721 11.1074 16.9746 11.0656C16.8048 7.93667 15.0951 6.14536 12.2243 6.12703C12.2113 6.12695 12.1984 6.12695 12.1853 6.12695C10.4682 6.12695 9.04016 6.85989 8.16118 8.19362L9.74003 9.27668C10.3967 8.28043 11.4272 8.06805 12.1861 8.06805C12.1949 8.06805 12.2037 8.06805 12.2123 8.06813C13.1576 8.07416 13.8709 8.34899 14.3325 8.88494C14.6685 9.27513 14.8932 9.81432 15.0044 10.4948C14.1664 10.3524 13.26 10.3086 12.2911 10.3641C9.5617 10.5213 7.80702 12.1132 7.92487 14.3251C7.98467 15.4471 8.54363 16.4124 9.49871 17.0429C10.3062 17.576 11.3463 17.8366 12.4272 17.7776C13.8546 17.6994 14.9744 17.1548 15.7557 16.1589C16.349 15.4027 16.7242 14.4226 16.8899 13.1878C17.5702 13.5983 18.0744 14.1386 18.3528 14.788C18.8263 15.8921 18.8539 17.7062 17.3736 19.1853C16.0766 20.481 14.5176 21.0415 12.1615 21.0588C9.54789 21.0395 7.57128 20.2013 6.28615 18.5676C5.08273 17.0378 4.46079 14.8281 4.43759 12C4.46079 9.17183 5.08273 6.96218 6.28615 5.43239C7.57128 3.79869 9.54786 2.96052 12.1614 2.9411C14.794 2.96067 16.805 3.80287 18.1393 5.44446C18.7936 6.24948 19.2869 7.26184 19.6121 8.44222L21.4622 7.94859C21.0681 6.49567 20.4478 5.24367 19.6038 4.20535C17.8932 2.10077 15.3914 1.02236 12.1679 1H12.155C8.93801 1.02228 6.46422 2.10479 4.80232 4.21742C3.32346 6.0974 2.56062 8.71326 2.53499 11.9923L2.53491 12L2.53499 12.0077C2.56062 15.2867 3.32346 17.9026 4.80232 19.7826C6.46422 21.8952 8.93801 22.9778 12.155 23H12.1679C15.0279 22.9802 17.0439 22.2314 18.7047 20.5721C20.8775 18.4013 20.8121 15.6803 20.096 14.0099C19.5822 12.8121 18.6026 11.8391 17.2631 11.1966ZM12.325 15.8393C11.1287 15.9067 9.88594 15.3698 9.82466 14.2197C9.77924 13.367 10.4315 12.4155 12.3984 12.3021C12.6236 12.2891 12.8447 12.2828 13.0618 12.2828C13.7762 12.2828 14.4446 12.3522 15.0522 12.485C14.8256 15.3155 13.4962 15.7751 12.325 15.8393Z" fill="currentColor"></path>
+</svg></div></a><a href="https://www.youtube.com/channel/UCdoZ-XRxuO_nt_Rbn7ezJkA" target="_blank" class="w-inline-block"><div fs-socialshare-element="linkedin" class="social-embed footer simple-14 w-embed"><svg alt="" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>YouTube</title>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.1 1.83737C17.4829 2.32842 17.7311 2.91085 17.82 3.52713C17.9319 4.44288 17.992 5.36422 18 6.28674V7.57655C17.9924 8.50241 17.9323 9.4271 17.82 10.3462C17.7311 10.9624 17.4829 11.5449 17.1 12.0359C16.6125 12.4946 15.9694 12.7518 15.3 12.7558C12.78 12.9358 9 12.9358 9 12.9358C9 12.9358 4.32 12.9358 2.9 12.7658C2.16881 12.762 1.46173 12.5039 0.9 12.0359C0.515501 11.542 0.267246 10.9559 0.18 10.3362C0.0680335 9.42042 0.0079376 8.49908 0 7.57655V6.28674C0.00756015 5.36088 0.0676567 4.43619 0.18 3.51713C0.268925 2.90085 0.517095 2.31843 0.9 1.82737C1.38752 1.3687 2.0306 1.11151 2.7 1.10748C5.22 0.9375 9 0.9375 9 0.9375C9 0.9375 12.78 0.9375 15.3 1.11747C15.9694 1.12151 16.6125 1.3787 17.1 1.83737ZM13 6.9375L7 3.9375V9.9375L13 6.9375Z" fill="currentColor"></path>
+</svg></div></a></div></div><div class="dividing-line simple-42"></div><div class="w-layout-vflex flex-block-4 simple-16"><div class="link-container footer simple-17"><a href="https://idesign-creative.github.io/brand-site-review/what-we-do.html" id="w-node-a196b4ef-e31f-7b04-3bfa-7eabd55ee228-d55ee20a" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee228" aria-current="page" class="globalnav_div footer simple-39 w-inline-block w--current"><div class="footer_link2 simple-40">What We Do</div><div class="animated_underline green simple-41"></div></a><a href="https://idesign-creative.github.io/brand-site-review/about.html" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee224" class="globalnav_div footer simple-39 w-inline-block"><div class="footer_link2 simple-40">About</div><div class="animated_underline green simple-41"></div></a><a href="https://idesign-creative.github.io/brand-site-review/resources.html" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee22c" class="globalnav_div footer simple-39 w-inline-block"><div class="footer_link2 simple-40">Resources</div><div class="animated_underline green simple-41"></div></a><a href="/privacy-policy" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee238" class="globalnav_div footer simple-39 w-inline-block"><div class="footer_link2 simple-40">Privacy Policy</div><div class="animated_underline green simple-41"></div></a><a href="/terms-of-use" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee23c" class="globalnav_div footer simple-39 w-inline-block"><div class="footer_link2 simple-40">Terms of Use</div><div class="animated_underline green simple-41"></div></a><a href="/accessibility-statement" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee240" class="globalnav_div footer simple-39 w-inline-block"><div class="footer_link2 simple-40">Accessibility</div><div class="animated_underline green simple-41"></div></a></div><a href="https://idesign-creative.github.io/brand-site-review/contact.html" class="button is-icon w-inline-block"><div>Request Consultation</div><div class="control_icon icon-height-large move w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></a></div></div><div class="dividing-line simple-42"></div><div class="w-layout-hflex footer-fineprint simple-43"><div>© <span id="copyright-year">YEAR</span> iDesignEDU</div><div class="w-layout-hflex address_container"><div>(US) <a href="tel:+18005815418" class="link">800-581-5418 </a></div><div class="hidden_on_mobile simple-45">|</div><div>4514 Cole Ave, Suite 250, Dallas, TX 75205</div></div></div></section></div></div></div></div><script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6a0f51adf49e8e5b8f46b9a0" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/js/webflow.9cc7a8ad.1050f744607e2dcb.js" type="text/javascript" integrity="sha384-ucWn9UDbWHTQ9MjwL0E6TG00966cfp+eRyFgHjRB7iVbsm+EAvA5salgsMpOHnCo" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script><!--nav transition: uses Webflow's NATIVE GSAP/ScrollTrigger (v3.15.0), which Webflow auto-loads
+   site-wide (non-deferred) to power its own IX2 interactions-->
+<!--lenis smooth scroll-->
+<!--
+  Lenis v1.1.14 (pinned). Source: https://github.com/darkroomengineering/lenis
+  NPM package: https://www.npmjs.com/package/lenis
+  CDN: jsDelivr (more reliable than unpkg for production).
+  If upgrading to a newer major version, verify the constructor option names below
+  haven't changed — some options were renamed or removed in later releases.
+-->
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    gsap.registerPlugin(ScrollTrigger);
+    // --- CONFIG: Scroll threshold ---
+    // How many pixels the user must scroll before the nav transitions to its scrolled state.
+    // SCROLL_TRIGGER_END must be greater than SCROLL_TRIGGER_START; the range is intentionally
+    // tight because the goal is simply to detect "any scroll," not a specific distance.
+    var SCROLL_TRIGGER_START = 10;
+    var SCROLL_TRIGGER_END = 20;
+    // --- CONFIG: Nav transition animation ---
+    var NAV_TRANSITION_DURATION = 0.5; // seconds
+    var NAV_TRANSITION_EASE = 'power2.out';
+    // --- CONFIG: Nav colors ---
+    // Logo container (.headerlogo_div) background
+    var NAV_LOGO_BG_DEFAULT = 'rgba(235, 250, 255, 0)';
+    var NAV_LOGO_BG_SCROLLED = 'rgba(235, 250, 255, 0.75)';
+    // Nav links container (.header-links_div) background
+    var NAV_LINKS_BG_DEFAULT = 'rgba(0, 46, 64, 0)';
+    var NAV_LINKS_BG_SCROLLED = 'rgb(0, 46, 64)';
+    // Nav link text and underline color
+    var NAV_LINK_COLOR_DEFAULT = 'rgb(1, 127, 174)';
+    var NAV_LINK_COLOR_SCROLLED = 'rgb(253, 254, 254)';
+    // Nav divider border color (.globalnav_div)
+    var NAV_DIVIDER_COLOR_DEFAULT = 'rgb(1, 127, 174)';
+    var NAV_DIVIDER_COLOR_SCROLLED = 'rgb(253, 254, 254)';
+    // --- CONFIG: Logo scale ---
+    // Scale factor applied to .headerlogo_div when the user has scrolled down
+    var NAV_LOGO_SCALE_SCROLLED = 0.88;
+    // --- CONFIG: Nav hide threshold ---
+    // How far the user must scroll (in viewport heights) before the hide/show toggle activates.
+    var NAV_HIDE_THRESHOLD_VH = 1;
+    // --- CONFIG: Initialization delay ---
+    // Milliseconds to wait after page load before checking the initial scroll position.
+    // Gives ScrollTrigger time to finish its own setup before the check runs. Increase this
+    // value if the nav appears in the wrong state after a hard refresh on a scrolled page.
+    var NAV_INIT_DELAY_MS = 100;
+    // Cache nav element references at init time so they don't need to be queried on every
+    // scroll threshold crossing.
+    // NOTE: Either element may be absent on custom landing pages; the null checks below handle that.
+    var headerlogoDivEl = document.querySelector('.headerlogo_div');
+    var globalNavHFlexEl = document.querySelector('.global-nav_h-flex');
+    // Watches for the user scrolling past SCROLL_TRIGGER_START and fires the nav transition.
+    // onEnter fires when scrolling down past the threshold; onLeaveBack fires when returning to the top.
+    ScrollTrigger.create({
+      trigger: document.documentElement,
+      start: 'top top-=' + SCROLL_TRIGGER_START,
+      end: 'top top-=' + SCROLL_TRIGGER_END,
+      onEnter: function () {
+        setNavScrolled(true);
+      },
+      onLeaveBack: function () {
+        setNavScrolled(false);
+      },
+    });
+    // Applies or removes the scrolled visual state across all nav elements.
+    // Pass true when the user has scrolled down; false when they are back at the top.
+    // On screens <= 991px, background/scale/is-scrolled animations target .global-nav_h-flex
+    // instead of .headerlogo_div.
+    function setNavScrolled(isScrolled) {
+      var isMobile = window.innerWidth <= 991;
+      var logoTarget = isMobile ? '.global-nav_h-flex' : '.headerlogo_div';
+      // Animate logo container background and scale
+      var logoAnimation = {
+        backgroundColor: isScrolled ? NAV_LOGO_BG_SCROLLED : NAV_LOGO_BG_DEFAULT,
+        duration: NAV_TRANSITION_DURATION,
+        ease: NAV_TRANSITION_EASE,
+      };
+      if (!isMobile) {
+        logoAnimation.scale = isScrolled ? NAV_LOGO_SCALE_SCROLLED : 1;
+        logoAnimation.transformOrigin = 'left center';
+      }
+      gsap.to(logoTarget, logoAnimation);
+      // Toggle CSS class — used as a hook for box-shadow and backdrop-filter via CSS
+      var logoEl = isMobile ? globalNavHFlexEl : headerlogoDivEl;
+      if (logoEl) {
+        logoEl.classList.toggle('is-scrolled', isScrolled);
+      }
+      // Animate nav links container background
+      gsap.to('.header-links_div', {
+        backgroundColor: isScrolled ? NAV_LINKS_BG_SCROLLED : NAV_LINKS_BG_DEFAULT,
+        duration: NAV_TRANSITION_DURATION,
+        ease: NAV_TRANSITION_EASE,
+      });
+      // Animate nav link text color
+      gsap.to('.global_link', {
+        color: isScrolled ? NAV_LINK_COLOR_SCROLLED : NAV_LINK_COLOR_DEFAULT,
+        duration: NAV_TRANSITION_DURATION,
+        ease: NAV_TRANSITION_EASE,
+      });
+      // Animate nav link underline color
+      gsap.to('.animated_underline.navy', {
+        backgroundColor: isScrolled ? NAV_LINK_COLOR_SCROLLED : NAV_LINK_COLOR_DEFAULT,
+        duration: NAV_TRANSITION_DURATION,
+        ease: NAV_TRANSITION_EASE,
+      });
+      // Animate nav divider border color
+      gsap.to('.globalnav_div', {
+        borderColor: isScrolled ? NAV_DIVIDER_COLOR_SCROLLED : NAV_DIVIDER_COLOR_DEFAULT,
+        duration: NAV_TRANSITION_DURATION,
+        ease: NAV_TRANSITION_EASE,
+      });
+    }
+    // When the viewport crosses the 991px breakpoint, the scrolled-state target switches between
+    // .headerlogo_div (desktop) and .global-nav_h-flex (mobile). GSAP writes inline styles
+    // (backgroundColor, scale, transform) onto whichever element was the target, and those inline
+    // styles persist across a resize — e.g. the mobile background stays stuck on .global-nav_h-flex
+    // at desktop widths. This clears both targets and reapplies the correct state for the new
+    // breakpoint. Debounced so it only fires once resizing pauses.
+    var wasMobile = window.innerWidth <= 991;
+    var breakpointResizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(breakpointResizeTimer);
+      breakpointResizeTimer = setTimeout(function () {
+        var isMobileNow = window.innerWidth <= 991;
+        if (isMobileNow === wasMobile) return;
+        wasMobile = isMobileNow;
+        // Strip the GSAP-applied inline styles and the is-scrolled hook from both possible targets
+        gsap.set(['.headerlogo_div', '.global-nav_h-flex'], { clearProps: 'backgroundColor,scale,transform' });
+        if (headerlogoDivEl) headerlogoDivEl.classList.remove('is-scrolled');
+        if (globalNavHFlexEl) globalNavHFlexEl.classList.remove('is-scrolled');
+        // Reapply the correct state for the new breakpoint based on current scroll position
+        setNavScrolled(window.scrollY > SCROLL_TRIGGER_START);
+      }, 150);
+    });
+    // Hides the nav when scrolling down past NAV_HIDE_THRESHOLD_VH, shows it when scrolling back up.
+    // Only activates beyond the threshold — the top-of-page state is left untouched.
+    var lastScrollY = window.scrollY;
+    var navHidden = false;
+    window.addEventListener(
+      'scroll',
+      function () {
+        var currentScrollY = window.scrollY;
+        var threshold = window.innerHeight * NAV_HIDE_THRESHOLD_VH;
+        if (currentScrollY > threshold) {
+          if (currentScrollY > lastScrollY && !navHidden) {
+            gsap.to('.global_nav', { yPercent: -100, duration: NAV_TRANSITION_DURATION, ease: NAV_TRANSITION_EASE });
+            navHidden = true;
+          } else if (currentScrollY < lastScrollY && navHidden) {
+            gsap.to('.global_nav', { yPercent: 0, duration: NAV_TRANSITION_DURATION, ease: NAV_TRANSITION_EASE });
+            navHidden = false;
+          }
+        } else if (navHidden) {
+          // Scrolled back above the threshold — restore nav without waiting for direction change
+          gsap.to('.global_nav', { yPercent: 0, duration: NAV_TRANSITION_DURATION, ease: NAV_TRANSITION_EASE });
+          navHidden = false;
+        }
+        lastScrollY = currentScrollY;
+      },
+      { passive: true },
+    );
+    // Checks scroll position on load and applies the correct initial nav state.
+    // Without this, the nav would always start in the un-scrolled state even if the user
+    // refreshes mid-page or navigates back to a scrolled position.
+    // The delay gives ScrollTrigger time to finish initializing before the check runs.
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        if (window.scrollY > SCROLL_TRIGGER_START) {
+          setNavScrolled(true);
+        }
+      }, NAV_INIT_DELAY_MS);
+    });
+    // Initializes Lenis smooth scrolling.
+    // lerp controls the catch-up speed: lower = smoother/slower, higher = snappier.
+    var lenis = new Lenis({
+      lerp: 0.05,
+      wheelMultiplier: 0.8,
+      gestureOrientation: 'vertical',
+      normalizeWheel: false,
+      smoothTouch: false,
+    });
+    // Connect Lenis scroll events to ScrollTrigger so scroll-triggered animations
+    // stay in sync with Lenis's smoothed scroll position.
+    lenis.on('scroll', ScrollTrigger.update);
+    // Drive Lenis from the GSAP animation ticker instead of a separate requestAnimationFrame
+    // loop. This keeps Lenis and GSAP animations on the same frame, preventing timing artifacts
+    // where the nav transition or other scroll-driven animations appear to lag the scroll position.
+    gsap.ticker.add(function (time) {
+      lenis.raf(time * 1000); // GSAP reports time in seconds; Lenis raf() expects milliseconds
+    });
+    // Prevents GSAP from skipping frames when the browser tab is backgrounded and then refocused,
+    // which would cause a sudden jump in Lenis scroll position on return.
+    gsap.ticker.lagSmoothing(0);
+    // If a page transition library (e.g. Barba.js, swup) is ever added, Lenis must be stopped
+    // on page leave. Because the ticker callback above is defined inline, you will need to
+    // refactor it into a named reference first so it can be removed:
+    //
+    //   var lenisTickerCallback = function (time) { lenis.raf(time * 1000); };
+    //   gsap.ticker.add(lenisTickerCallback);
+    //
+    // Then on page leave:
+    //   lenis.destroy();
+    //   gsap.ticker.remove(lenisTickerCallback);
+    // Finsweet Disable Scroll sets overflow:hidden on <body> to lock native scroll,
+    // but Lenis bypasses native scroll entirely. This observer detects that style change
+    // and stops/starts Lenis to keep them in sync.
+    var scrollDisableObserver = new MutationObserver(function () {
+      if (document.documentElement.style.overflow === 'hidden') {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    });
+    scrollDisableObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+    var copyrightYearEl = document.getElementById('copyright-year');
+    if (copyrightYearEl) {
+      copyrightYearEl.textContent = new Date().getFullYear();
+    }
+    window.Webflow = window.Webflow || [];
+    window.Webflow.push(function () {
+      // --- CONFIG: Partner logo visibility counts per breakpoint ---
+      // Controls how many logos are shown at each screen size.
+      var LOGO_VISIBLE_COUNT = {
+        desktop: 7, // > 991px
+        tablet: 5, // 768–991px
+        mobileLandscape: 5, // 480–767px
+        mobilePortrait: 3, // < 480px
+      };
+      // --- CONFIG: Resize debounce delay in milliseconds ---
+      // Prevents the visibility update from firing on every pixel during a window resize.
+      var RESIZE_DEBOUNCE_DELAY = 150;
+      // ─────────────────────────────────────────────────────────────────────────
+      // Returns how many logos should be visible based on the current viewport width
+      function getVisibleLogoCount() {
+        var viewportWidth = window.innerWidth;
+        if (viewportWidth > 991) return window._partnerDesktopCount || LOGO_VISIBLE_COUNT.desktop;
+        if (viewportWidth >= 768) return LOGO_VISIBLE_COUNT.tablet;
+        if (viewportWidth >= 480) return LOGO_VISIBLE_COUNT.mobileLandscape;
+        return LOGO_VISIBLE_COUNT.mobilePortrait;
+      }
+      // Shuffles an array in place using the Fisher-Yates algorithm and returns it.
+      // Used to randomize logo display order on each page load.
+      function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+          var randomIndex = Math.floor(Math.random() * (i + 1));
+          var temp = array[i];
+          array[i] = array[randomIndex];
+          array[randomIndex] = temp;
+        }
+        return array;
+      }
+      // Initializes a single partner logos wrapper:
+      // - Reorders items so pinned logos (data-pinned="true") always appear before unpinned ones
+      // - Both groups are individually shuffled on each page load
+      // - Shows only as many logos as the current breakpoint allows
+      // - Re-evaluates visibility on window resize (debounced)
+      //
+      // TODO: Confirm whether .partner-logo_placeholder elements are still in use.
+      // If not, the :not(.partner-logo_placeholder) filter below can be simplified to just .partner-logo_item.
+      function initLogoWrapper(wrapper) {
+        var allLogoItems = Array.from(wrapper.querySelectorAll('.partner-logo_item'));
+        if (!allLogoItems.length) return;
+        // .w-dyn-items is the Webflow CMS list container — the direct parent of logo items
+        var cmsListContainer = allLogoItems[0].parentElement;
+        var pinnedItems = allLogoItems.filter(function (item) {
+          return item.dataset.pinned === 'true';
+        });
+        var poolItems = allLogoItems.filter(function (item) {
+          return item.dataset.pinned !== 'true';
+        });
+        // Reorder the DOM: shuffled pinned items first, then shuffled pool
+        shuffleArray(pinnedItems)
+          .concat(shuffleArray(poolItems))
+          .forEach(function (item) {
+            cmsListContainer.appendChild(item);
+          });
+        // Shows logos up to the breakpoint count; hides the rest
+        function updateLogoVisibility() {
+          var count = getVisibleLogoCount();
+          wrapper.querySelectorAll('.partner-logo_item:not(.partner-logo_placeholder)').forEach(function (item, index) {
+            item.style.display = index < count ? '' : 'none';
+          });
+        }
+        updateLogoVisibility();
+        // Debounced resize listener — waits for resizing to pause before recalculating visibility
+        var resizeDebounceTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeDebounceTimer);
+          resizeDebounceTimer = setTimeout(updateLogoVisibility, RESIZE_DEBOUNCE_DELAY);
+        });
+      }
+      // Strips link behavior from partner logo link blocks that have no URL set.
+      // Webflow CMS link fields output "/" or "#" when left empty; this prevents those from acting as links.
+      function disableEmptyPartnerLinks() {
+        var partnerLinks = document.querySelectorAll('.partner-logo_link-block');
+        partnerLinks.forEach(function (linkBlock) {
+          var href = linkBlock.getAttribute('href');
+          // Treat empty string, "#", or "/" as "no URL set in the CMS"
+          if (!href || href === '' || href === '#' || href === '/') {
+            linkBlock.removeAttribute('href');
+            linkBlock.style.cursor = 'default';
+            linkBlock.style.pointerEvents = 'none';
+          }
+        });
+      }
+      // Run on any page that has a partner logos section
+      document.querySelectorAll('.partner-logos_wrapper').forEach(initLogoWrapper);
+      // Run on any page that has partner logo link blocks
+      disableEmptyPartnerLinks();
+    });
+  });
+</script>
+<!-- =========================================================
+     Script 1: Auto-open accordion on load / anchor navigation
+     ========================================================= -->
+<script>
+  (function () {
+    // Class of the clickable accordion header (the thing we "click" to open).
+    var ACCORDION_TRIGGER_SELECTOR = '.accordion_header';
+
+    // The one accordion header marked to open automatically on page load.
+    var DEFAULT_TRIGGER_SELECTOR = '.accordion_header.is-default';
+
+    // How far (in pixels) to stop above the anchor target when scrolling to it.
+    var SCROLL_OFFSET_PX = 100;
+
+    // Small delay (in milliseconds) before scrolling to an anchored accordion.
+    // Clicking the accordion makes it expand, which shifts the page layout;
+    // this pause lets it start opening so we scroll to the correct position.
+    var SCROLL_DELAY_MS = 50;
+
+    // Opens an accordion by simulating a real click on its header.
+    // Webflow's own accordion interaction listens for that click and handles
+    // the open/close animation.
+    function openAccordion(trigger) {
+      trigger.dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+        }),
+      );
+    }
+
+    // On full page load: if the URL points at a specific accordion, open it
+    // and scroll to it; otherwise open the default accordion.
+    window.addEventListener('load', function () {
+      var hash = window.location.hash;
+
+      if (hash) {
+        var targetAccordion = null;
+
+        try {
+          targetAccordion = document.querySelector(hash);
+        } catch (error) {
+          targetAccordion = null; // treat an invalid hash as "no target"
+        }
+
+        if (targetAccordion) {
+          var trigger = targetAccordion.querySelector(ACCORDION_TRIGGER_SELECTOR);
+
+          if (trigger) {
+            openAccordion(trigger);
+
+            // Wait briefly so the accordion begins opening, then scroll to it.
+            setTimeout(function () {
+              var top = targetAccordion.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET_PX;
+              window.scrollTo({ top: top, behavior: 'smooth' });
+            }, SCROLL_DELAY_MS);
+
+            return;
+          }
+        }
+      }
+
+      // No (valid) anchor target — open the default accordion instead.
+      var defaultTrigger = document.querySelector(DEFAULT_TRIGGER_SELECTOR);
+      if (defaultTrigger) {
+        openAccordion(defaultTrigger);
+      }
+    });
+  })();
+</script>
+
+<!-- =========================================================
+     Script 2: Lock accordion heights to prevent "jumping" on close
+     ========================================================= -->
+<script>
+  (function () {
+    // Class of each accordion item whose height we want to lock.
+    var ACCORDION_ITEM_SELECTOR = '.accordion_item';
+
+    // Measures every matching item and sets a minimum height equal to its
+    // current height, so closing an item doesn't shrink the layout
+    // and cause a visual jump.
+    function lockAccordionMinHeights(selector) {
+      function lockItem(item) {
+        var currentHeight = item.offsetHeight;
+        var existingMinHeight = parseFloat(item.style.minHeight) || 0;
+        if (currentHeight > existingMinHeight) {
+          item.style.minHeight = currentHeight + 'px';
+        }
+      }
+
+      document.querySelectorAll(selector).forEach(lockItem);
+
+      return {
+        refresh: function () {
+          document.querySelectorAll(selector).forEach(lockItem);
+        },
+      };
+    }
+
+    window.addEventListener('load', function () {
+      // Exposed on window intentionally: another script may call
+      // window.myAccordion.refresh() to re-lock heights after layout changes.
+      // Kept global so any such external caller keeps working.
+      window.myAccordion = lockAccordionMinHeights(ACCORDION_ITEM_SELECTOR);
+    });
+  })();
+</script><script>window.IDR_CONFIG={project:"idesign-brand-site",url:"https://puytjdeavhowngzqdymh.supabase.co",key:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY",page:"/what-we-do"};</script><script src="https://idesign-creative.github.io/brand-site-review/review-overlay.js?v=2"></script></body></html>

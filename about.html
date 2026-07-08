@@ -1,0 +1,1122 @@
+<!DOCTYPE html><!-- This site was created in Webflow. https://webflow.com --><!-- Last Published: Wed Jul 08 2026 19:16:04 GMT+0000 (Coordinated Universal Time) --><html data-wf-domain="new-and-improved-brand-site.webflow.io" data-wf-page="6a17603c6a10ed608c2f3a0c" data-wf-site="6a0f51adf49e8e5b8f46b9a0" lang="en"><head>
+<base href="https://new-and-improved-brand-site.webflow.io/"><meta charset="utf-8"/><link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/><title>About</title><meta content="Learn how iDesign partners with universities to reimagine online education through expert instructional design, technology, and AI-powered curriculum strategy." name="description"/><meta content="About" property="og:title"/><meta content="Learn how iDesign partners with universities to reimagine online education through expert instructional design, technology, and AI-powered curriculum strategy." property="og:description"/><meta content="About" name="twitter:title"/><meta content="Learn how iDesign partners with universities to reimagine online education through expert instructional design, technology, and AI-powered curriculum strategy." name="twitter:description"/><meta property="og:type" content="website"/><meta content="summary_large_image" name="twitter:card"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Webflow" name="generator"/><link href="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/css/new-and-improved-brand-site.webflow.shared.20af53cb0.min.css" rel="stylesheet" type="text/css" integrity="sha384-IK9Tywy+RQ74nABLBNf/QQYEJcPc99I5hE5iPdcS2A1jnTyv/C9dcC6vT3HFs75M" crossorigin="anonymous"/><link href="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/css/new-and-improved-brand-site.webflow.6a17603c6a10ed608c2f3a0c.c605f84d6.opt.min.css" rel="stylesheet" type="text/css" integrity="sha384-xgX4TW7Q6gpXz6QVS8Dx+HCjn3GZ2CWZpE12SdT00OgEYlPM3ErXVG2aY2WL5Wc/" crossorigin="anonymous"/><style>html.w-mod-js:not(.w-mod-ix3) :is(.secondary-button_bg, [scroll-animate="true"], .global_nav, [data-wf-target*='["6a17603c6a10ed608c2f3a0c","8dae8465-236c-579c-73d2-e7a8a7da365b"]'], .section_team, [data-wf-target*='["6a17603c6a10ed608c2f3a0c","6a171ba2cefb172b2f7263fb"]'], [data-wf-target*='["6a17603c6a10ed608c2f3a0c","51f34994-0453-dacc-cbf9-28642d5b6a69"]'], [data-wf-target*='["6a17603c6a10ed608c2f3a0c","0afd8b10-1c7a-7980-5c03-3854257f6cfd"]']) {visibility: hidden !important;}</style><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/><script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script><script type="text/javascript">WebFont.load({  google: {    families: ["Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic"]  }});</script><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><link href="https://cdn.prod.website-files.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon"/><link href="https://cdn.prod.website-files.com/img/webclip.png" rel="apple-touch-icon"/><script async type="module" src="https://cdn.jsdelivr.net/npm/@finsweet/attributes@2/attributes.js" fs-scrolldisable></script>
+
+<style>
+  /*branded text selection color*/
+  ::selection {
+    color: #002e40;
+    background: #dee25c;
+  }
+
+  /*font-smoothing for macOS/webkit — improves rendering on high-DPI screens*/
+  /*-moz-osx-font-smoothing is deprecated and inert in Firefox 113+, but kept for older browser support*/
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /*nav logo container scroll transition*/
+  /*The footer script (site_settings_footer.html) uses GSAP to animate backgroundColor and scale.*/
+  /*This CSS handles box-shadow and backdrop-filter, which are toggled via the .is-scrolled class*/
+  /*also applied by the footer script. The transition durations below should match NAV_TRANSITION_DURATION.*/
+  /*On screens > 991px, animations target .headerlogo_div. On screens <= 991px they target .global-nav_h-flex.*/
+  .headerlogo_div {
+    transition:
+      box-shadow 0.5s ease,
+      backdrop-filter 0.5s ease,
+      -webkit-backdrop-filter 0.5s ease;
+  }
+  .headerlogo_div.is-scrolled {
+    box-shadow:
+      0.5rem 0.5rem 1.563rem #1673951f,
+      inset 0 0.25rem 1rem #dbedf4,
+      inset -0.25rem 0 1rem #fff,
+      inset 0 -0.25rem 1rem #fff,
+      inset 0.25rem 0 1rem #dbedf4;
+    backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
+  }
+  @media screen and (max-width: 991px) {
+    /*backdrop-filter on the element itself creates a new containing block for position:fixed children*/
+    /*(e.g. the mobile menu drawer), causing it to shift. The fix is to apply backdrop-filter on a*/
+    /*::before pseudo-element instead — it blurs visually without affecting the containing block.*/
+    .global-nav_h-flex {
+      transition: box-shadow 0.5s ease;
+    }
+    .global-nav_h-flex::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      transition:
+        backdrop-filter 0.5s ease,
+        -webkit-backdrop-filter 0.5s ease;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .global-nav_h-flex.is-scrolled {
+      box-shadow:
+        0.5rem 0.5rem 1.563rem #1673951f,
+        inset 0 0.25rem 1rem #dbedf4,
+        inset -0.25rem 0 1rem #fff,
+        inset 0 -0.25rem 1rem #fff,
+        inset 0.25rem 0 1rem #dbedf4;
+    }
+    .global-nav_h-flex.is-scrolled::before {
+      backdrop-filter: blur(0.5rem);
+      -webkit-backdrop-filter: blur(0.5rem);
+    }
+  }
+
+  /*forcing glassmorphic border and drop shadow as they weren't rendering in Webflow natively*/
+  .glassmorphic_outer-div {
+    background: linear-gradient(73.615deg, rgba(255, 255, 255, 0%) 0%, #ffffff 5%, #ffffff 95%, rgba(255, 255, 255, 0%) 100%);
+    filter: drop-shadow(0.5rem 0.5rem 1.563rem rgba(22, 115, 149, 0.12));
+  }
+
+  /*custom focus state for all interactive elements*/
+  *:focus-visible {
+    box-shadow: 0 0 0 0.125rem white;
+    outline: 0.125rem solid #e74c3c;
+    outline-offset: 0.125rem;
+  }
+
+  /*ensures accessible linking for resource cards*/
+  .resource_card-title::before {
+    content: '';
+    display: block;
+    inset: 0;
+    position: absolute;
+  }
+
+  a[target='_blank']::after {
+    content: ' (opens in new tab)';
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* screenreader only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  /*required CSS for Lenis smooth scroll to function correctly*/
+  /*height: auto prevents Lenis from conflicting with Webflow's default html { height: 100% }*/
+  html.lenis {
+    height: auto;
+  }
+  /*scroll-behavior: auto disables native CSS smooth scrolling, which would conflict with Lenis*/
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+  /*contains scroll inside elements marked data-lenis-prevent (e.g. modal scroll areas)*/
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  /*locks page scroll when Lenis is programmatically stopped*/
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  /*fluid responsiveness for typography*/
+  html {
+    font-size: 1.125rem;
+  }
+  @media screen and (max-width: 1920px) {
+    html {
+      font-size: calc(0.625rem + 0.41666666666666674vw);
+    }
+  }
+  @media screen and (max-width: 1440px) {
+    html {
+      font-size: calc(0.43750000000000006rem + 0.6249999999999999vw);
+    }
+  }
+  @media screen and (max-width: 960px) {
+    html {
+      font-size: calc(0.6257796257796258rem + 0.6237006237006237vw);
+    }
+  }
+  @media screen and (max-width: 479px) {
+    html {
+      font-size: calc(0.7494769874476988rem + 0.8368200836820083vw);
+    }
+  }
+</style><style>
+  /* ===================================================================
+     Slider pagination dots + "load more" link styles
+     =================================================================== */
+  :root {
+    --slider-dot-size: 0.625rem; /* Width & height of an inactive dot */
+    --slider-dot-active-width: 1rem; /* Width of the active dot */
+    --slider-dot-active-scale: 1.4; /* Extra size multiplier applied to active dot */
+    --slider-dot-gap: 0.5rem;
+    --slider-dot-inactive-color: rgba(0, 46, 64, 0.22);
+    --slider-dot-transition-duration: 250ms;
+    --slider-dots-margin-top: 1rem;
+    --slider-dots-margin-bottom: 0.25rem;
+  }
+
+  /* Row that holds the pagination dots, centered under the slider */
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--slider-dot-gap);
+    margin-top: var(--slider-dots-margin-top);
+    margin-bottom: var(--slider-dots-margin-bottom);
+  }
+
+  .slider-dot {
+    width: var(--slider-dot-size);
+    height: var(--slider-dot-size);
+    border-radius: 1rem;
+    border: none;
+    background: var(--slider-dot-inactive-color);
+    transition:
+      background var(--slider-dot-transition-duration),
+      transform var(--slider-dot-transition-duration);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .slider-dot.active {
+    background: var(--ada-blue);
+    width: var(--slider-dot-active-width);
+    transform: scale(var(--slider-dot-active-scale));
+  }
+
+  /* "Load more" link shown beneath the slider on mobile */
+  .slider-load-more {
+    display: block;
+    width: fit-content;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    color: var(--ada-blue);
+  }
+</style></head><body data-wf-target="[[[&quot;6a17603c6a10ed608c2f3a0c&quot;,&quot;6a171ba2cefb172b2f7263fb&quot;],[]]]"><div class="page-wrapper background-color-tertiary text-size-regular"><header data-wf-component-id="bfa770be-e5a1-c110-0b8d-6c2f60396aed" data-wf-variant-state="base" class="global_nav z-index-1"><div class="padding-global padding-section-xsmall padding-0"><div class="global-nav_h-flex"><div class="container-large"><div class="w-layout-hflex h-flex"><a href="https://idesign-creative.github.io/brand-site-review/index.html" aria-label="iDesign home" class="link-block-2 w-inline-block"><div data-wf-target="[[[&quot;bfa770be-e5a1-c110-0b8d-6c2f60396aed&quot;,&quot;3d026b16-a9ca-b8b2-a6ec-512b8a3d28d0&quot;],[&quot;61d0bb50-7f9c-24b1-24d0-c8fcd0ccb323&quot;]]]" class="headerlogo_div"><img src="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/6a1dbaf650737dcbcaaa01f6_68a76f0d3819c86639a31c77_iDesign_logo_iDesign_horizontal.svg" loading="lazy" width="Auto" data-wf-target="[[[&quot;bfa770be-e5a1-c110-0b8d-6c2f60396aed&quot;,&quot;3d026b16-a9ca-b8b2-a6ec-512b8a3d28d1&quot;],[&quot;61d0bb50-7f9c-24b1-24d0-c8fcd0ccb323&quot;]]]" alt="iDesign" class="headerlogo"/></div></a><div class="w-layout-hflex global-nav_link-container"><div data-wf-target="[[[&quot;bfa770be-e5a1-c110-0b8d-6c2f60396aed&quot;,&quot;19d66ee0-8709-aa00-c504-a85e21f0bffb&quot;],[&quot;61d0bb50-7f9c-24b1-24d0-c8fcd0ccb323&quot;]]]" class="w-layout-hflex header-links_div"><a href="https://idesign-creative.github.io/brand-site-review/what-we-do.html" data-w-id="9ee21560-2858-27b1-3f3d-da69cb837b3d" class="globalnav_div w-inline-block"><div class="global_link">What We Do</div><div class="animated_underline navy"></div></a><a href="https://idesign-creative.github.io/brand-site-review/about.html" data-w-id="9075a8e1-f9e7-e263-64d3-f9a5db40a81b" aria-current="page" class="globalnav_div w-inline-block w--current"><div class="global_link">About</div><div class="animated_underline navy"></div></a><a href="https://idesign-creative.github.io/brand-site-review/resources.html" data-w-id="8b997cbf-99f9-fdad-6484-93007e0790f7" class="globalnav_div w-inline-block"><div class="global_link">Resources</div><div class="animated_underline navy"></div></a></div><div class="hidden_on_mobile"><a data-wf-target="[[[&quot;bfa770be-e5a1-c110-0b8d-6c2f60396aed&quot;,&quot;b90d8ddd-c83b-344d-c604-7985879a956c&quot;],[&quot;61d0bb50-7f9c-24b1-24d0-c8fcd0ccb323&quot;]]]" data-wf-component-id="d3b9ce11-50ee-ef6d-0805-80c131e5aefc" data-wf-variant-state="base" href="https://idesign-creative.github.io/brand-site-review/contact.html" class="button is-icon w-inline-block"><div>Request Consultation</div><div class="control_icon icon-height-large move w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></a></div><div data-w-id="8421fe63-c75c-65ed-6213-3016cbf0d262" class="hamburger_div"><div data-is-ix2-target="1" class="lottie-animation" data-w-id="8421fe63-c75c-65ed-6213-3016cbf0d263" data-animation-type="lottie" data-src="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/6a2320083037413ae60c5cfe_a7bafecdd5ee91ef2d108ce6b1e15adc_lottieflow-menu-nav-06-002E40-easey.json" data-loop="0" data-direction="1" data-autoplay="0" data-renderer="svg" data-default-duration="0" data-duration="2.36" data-loading="eager"></div></div></div></div><div fs-scrolldisable-element="when-visible" class="mobile_menu"><ul role="list" class="mobile_navlinks w-list-unstyled"><li><a href="https://idesign-creative.github.io/brand-site-review/what-we-do.html" class="mobile_navlink w-inline-block"><div>What We Do</div><div class="icon_circle"><div class="icon-1x1-medium w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></li><li><a href="https://idesign-creative.github.io/brand-site-review/about.html" aria-current="page" class="mobile_navlink w-inline-block w--current"><div>About</div><div class="icon_circle"><div class="icon-1x1-medium w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></li><li><a href="https://idesign-creative.github.io/brand-site-review/resources.html" class="mobile_navlink w-inline-block"><div>Resources</div><div class="icon_circle"><div class="icon-1x1-medium w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></li><li class="shown_on_mobile"><a href="https://idesign-creative.github.io/brand-site-review/contact.html" class="mobile_navlink w-inline-block"><div>Request Consultation</div><div class="icon_circle"><div class="icon-1x1-medium w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></div></a></li></ul></div><div class="overlay"></div></div></div></div></header><div class="main-wrapper"><img src="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/6a176271e26efe4dcc6d9de1_swoop.svg" loading="lazy" alt="" class="swoosh-bg_img"/><div data-wf-target="[[[&quot;6a17603c6a10ed608c2f3a0c&quot;,&quot;8dae8465-236c-579c-73d2-e7a8a7da365b&quot;],[]]]" class="section_about-idesign"><div class="padding-global padding-section-xsmall"><div class="container-large"><div class="w-layout-hflex about-body_v-flex"><div data-wf-target="[[[&quot;6a17603c6a10ed608c2f3a0c&quot;,&quot;0afd8b10-1c7a-7980-5c03-3854257f6cfd&quot;],[]]]" class="w-layout-vflex heading-pair_v-flex padding-section-xsmall test"><h2 class="heading-style-eyebrow">About iDesign</h2><h3 class="heading-style-h2">Learning should be shaped <span class="text-color-secondary text-style-italic">with intention.</span></h3></div><div data-wf-target="[[[&quot;6a17603c6a10ed608c2f3a0c&quot;,&quot;51f34994-0453-dacc-cbf9-28642d5b6a69&quot;],[]]]" class="contact-body_v-flex max-width-large"><p class="text-size-regular margin-0">That takes collaboration with educators, with organizations, with the people closest to the work. <br/>And it stays rooted in the reason teaching matters in the first place:<strong><em> the learner.<br/><br/>‍</em></strong>Our founders spent years in the first wave of online program management and saw a fundamental mismatch: instructional design isn&#x27;t one-size-fits-all, but the industry was selling it that way. Programs got locked into rigid contracts that couldn&#x27;t flex with what they actually needed. In 2013, Paxton Riter, Whitney Kilgore, and Ned Stone started iDesign on a different premise: services shaped around each partner, with the right support for the work in front of them.</p><div class="about-value_h-flex"><div class="w-layout-hflex about-value"><div class="about-value_icon-container"><div class="about-icon_embed w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-handshake-icon lucide-handshake"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></div></div><div class="text-size-regular text-weight-bold">Organizations deserved a true partner</div></div><div class="w-layout-hflex about-value second"><div class="about-value_icon-container"><div class="about-icon_embed w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-library-icon lucide-square-library"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7v10"/><path d="M11 7v10"/><path d="m15 7 2 10"/></svg></div></div><div class="text-size-regular text-weight-bold">Educators deserved hands-on support</div></div><div class="w-layout-hflex about-value"><div class="about-value_icon-container"><div class="about-icon_embed w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M17.925 20.056a6 6 0 0 0-11.851.001"/><circle cx="12" cy="11" r="4"/><circle cx="12" cy="12" r="10"/></svg></div></div><div class="text-size-regular text-weight-bold">Online programs should be built around learners, not revenue-share contracts</div></div></div><p class="text-size-regular">Our partnerships extend far beyond course design. We come in as strategic partners, working alongside organizations to rethink their teaching approach, refine their program structure, and prepare for what&#x27;s next in learning.</p></div></div></div></div></div><div class="section_team"><div class="padding-global padding-section-small"><div class="container-large"><div class="glassmorphic_outer-div our-team"><div class="glassmorphic_inner-div align-center our-team"><h2 class="heading-style-eyebrow text-align-center">Our Team</h2><div data-current="Founders &amp; C-Suite" data-easing="ease-in-out" data-duration-in="300" data-duration-out="300" class="team_tabs w-tabs"><div class="team_tabmenu w-tab-menu"><a data-w-tab="Founders &amp; C-Suite" class="team_tablink w-inline-block w-tab-link w--current"><div>Founders and C-Suite</div></a><a data-w-tab="Board" class="team_tablink w-inline-block w-tab-link"><div>Board</div></a><a data-w-tab="Team" class="team_tablink w-inline-block w-tab-link"><div>Team</div></a></div><div class="team_tabs-content w-tab-content"><div data-w-tab="Founders &amp; C-Suite" id="tab-pane_founders" class="tab-pane_founders w-tab-pane w--tab-active"><div data-mobile-per-slide="1" data-per-slide="1" data-slider-type="founders" class="w-layout-vflex slider is-single"><div class="slider-wrapper is-single"><div class="fs-team-feed-copy w-dyn-list"><div role="list" class="slider-track w-dyn-items w-row"><div data-sort-order="5" role="listitem" class="slide-card is-single w-dyn-item w-col w-col-6"><div class="team-member-container"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27135937db38343e65fe47_613f79476d767e099d982235_Tim-H.jpeg" loading="lazy" class="team_photo float"/><div class="w-layout-vflex team_bio"><div class="w-layout-vflex team-name-title_v-flex"><div class="w-layout-hflex team-name_h-flex"><h4 class="heading-style-h5">Tim Hamelen</h4><a href="https://www.linkedin.com/in/timhamelen/" target="_blank" class="w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div><h5 class="team-bio_title">Chief Marketing Officer</h5></div><p class="text-size-regular">Tim leads marketing at iDesign, both for the company and for the online programs it builds with its partners. He connects what each institution offers with the learners it needs to reach, drawing on more than two decades in performance and growth marketing. Before iDesign, he held marketing leadership roles at Academic Partnerships, Science Mobile, and Postie, spanning higher education and technology.</p></div></div></div><div data-sort-order="4" role="listitem" class="slide-card is-single w-dyn-item w-col w-col-6"><div class="team-member-container"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27134e6058a2dcb1c18787_60c79eda5d3a5ad35d47e5b2_samf_2021_square.jpeg" loading="lazy" class="team_photo float"/><div class="w-layout-vflex team_bio"><div class="w-layout-vflex team-name-title_v-flex"><div class="w-layout-hflex team-name_h-flex"><h4 class="heading-style-h5">Sam Foster</h4><a href="https://www.linkedin.com/in/slfoster89/" target="_blank" class="w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div><h5 class="team-bio_title">Chief Financial Officer</h5></div><p class="text-size-regular">Sam serves as Chief Financial Officer of iDesign, where he leads the company&#x27;s financial strategy, FP&amp;A, accounting, treasury, and banking relationships. His focus on profitability and long-term decision-making helps keep iDesign a steady partner to the institutions it serves. Since joining the company, he has built and scaled its finance and accounting functions as the business has grown. He holds degrees from the University of Richmond and the McCombs School of Business at the University of Texas at Austin.</p></div></div></div><div data-sort-order="2" role="listitem" class="slide-card is-single w-dyn-item w-col w-col-6"><div class="team-member-container"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a20430d51d16ba9ebc05545_WK-bio-photo_25%20(1)%201.png" loading="lazy" sizes="(max-width: 479px) 96vw, (max-width: 767px) 97vw, (max-width: 991px) 48vw, 50vw" srcset="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a20430d51d16ba9ebc05545_WK-bio-photo_25%20(1)%201-p-500.png 500w, https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a20430d51d16ba9ebc05545_WK-bio-photo_25%20(1)%201-p-800.png 800w, https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a20430d51d16ba9ebc05545_WK-bio-photo_25%20(1)%201-p-1080.png 1080w, https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a20430d51d16ba9ebc05545_WK-bio-photo_25%20(1)%201.png 1457w" class="team_photo float"/><div class="w-layout-vflex team_bio"><div class="w-layout-vflex team-name-title_v-flex"><div class="w-layout-hflex team-name_h-flex"><h4 class="heading-style-h5">Whitney Kilgore</h4><a href="https://www.linkedin.com/in/whitneykilgore/" target="_blank" class="w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div><h5 class="team-bio_title">Co-founder &amp; CAO</h5></div><p class="text-size-regular">Whitney has spent her career at the intersection of teaching, learning, and technology. She collaborates with academic teams to design courses and programs that are grounded in strong pedagogy. Before iDesign, she led instructional design and learning innovation efforts at multiple institutions and education partners. She holds a PhD in Learning Technologies from the University of North Texas and has worked in both K-12 and higher education.</p></div></div></div><div data-sort-order="1" role="listitem" class="slide-card is-single w-dyn-item w-col w-col-6"><div class="team-member-container"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a19cfffa85f79470e99c090_68d48ddf19e6ade942da111f_60c79bdfbd485e44f802e503_paxton_2019_square.jpeg" loading="lazy" class="team_photo float"/><div class="w-layout-vflex team_bio"><div class="w-layout-vflex team-name-title_v-flex"><div class="w-layout-hflex team-name_h-flex"><h4 class="heading-style-h5">Paxton Riter</h4><a href="https://www.linkedin.com/in/paxton-riter-376087a/" target="_blank" class="w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div><h5 class="team-bio_title">Co-Founder &amp; CEO</h5></div><p class="text-size-regular">Paxton co-founded iDesign with a clear goal: help institutions build flexible, effective learning experiences by working alongside them as true partners. He leads the company’s direction and growth, drawing on years of experience in education and business. Before starting iDesign, he held leadership roles at Academic Partnerships and Best Associates, supporting universities in launching online programs around the world. He holds degrees from Washington and Lee University and the Cox School of Business at SMU.</p></div></div></div><div data-sort-order="3" role="listitem" class="slide-card is-single w-dyn-item w-col w-col-6"><div class="team-member-container"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a19cffe4f645662af6eddaf_68d48dc53801f39aedae28d8_60c79cfa14eea5e6693403c5_ned_2019_square.jpeg" loading="lazy" class="team_photo float"/><div class="w-layout-vflex team_bio"><div class="w-layout-vflex team-name-title_v-flex"><div class="w-layout-hflex team-name_h-flex"><h4 class="heading-style-h5">Ned Stone</h4><a href="https://www.linkedin.com/in/ned-stone-56ba2372/" target="_blank" class="w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div><h5 class="team-bio_title">Co-Founder &amp; COO</h5></div><p class="text-size-regular">Ned leads the company’s operations, connecting long-term strategy to the day-to-day work that drives results. He holds a degree from Washington and Lee University and completed doctoral work at Oregon State University. Before co-founding iDesign, Ned taught economics at Oregon State and contributed to federal research focused on land use and environmental policy. His background in systems thinking and applied research influences how he supports teams.</p></div></div></div></div></div></div><div class="silder-controls"><div class="button is-control slider-prev"><div class="icon-24px left-arrow w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left-icon lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg></div></div><div class="button is-control slider-next"><div class="icon-24px left-arrow w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right-icon lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg></div></div></div><div class="slider-dots"></div></div></div><div data-w-tab="Board" id="tab-pane_board" class="tab-pane_board w-tab-pane"><div data-mobile-per-slide="1" data-per-slide="1" data-slider-type="board" class="w-layout-vflex slider is-single"><div class="slider-wrapper is-single"><div class="fs-team-feed-copy w-dyn-list"><div role="list" class="slider-track w-dyn-items w-row"><div data-sort-order="" role="listitem" class="slide-card is-single w-dyn-item w-col w-col-6"><div class="team-member-container"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a19cfffc64e678decda3d5b_68d48d945e67faba9c0a0df9_68a634415ffb9038bb8ca06f_tom%2520evans.jpeg" loading="lazy" class="team_photo float"/><div class="w-layout-vflex team_bio"><div class="w-layout-vflex team-name-title_v-flex"><div class="w-layout-hflex team-name_h-flex"><h4 class="heading-style-h5">Thomas B. Evans</h4></div><h5 class="team-bio_title">Board Member</h5></div><p class="text-size-regular">Thomas B. Evans is a seasoned education entrepreneur and investor with a long track record of founding and scaling impactful ventures in higher education. As Founder and Managing Partner of Skyline Merchant Partners, a Dallas-based firm focused on high-growth education businesses, Evans has helped drive innovation and access across the sector.</p></div></div></div><div data-sort-order="" role="listitem" class="slide-card is-single w-dyn-item w-col w-col-6"><div class="team-member-container"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a19cffbbac464d372982f7e_68d48d720713eff1e2e66e10_68a6347b532512812e186da4_vernon.jpeg" loading="lazy" class="team_photo float"/><div class="w-layout-vflex team_bio"><div class="w-layout-vflex team-name-title_v-flex"><div class="w-layout-hflex team-name_h-flex"><h4 class="heading-style-h5">Dr. Vernon Johnson</h4></div><h5 class="team-bio_title">Board Member</h5></div><p class="text-size-regular">Dr. Vernon Johnson brings over three decades of leadership in both K-12 public education and edtech innovation. A former superintendent in Texas and Minnesota, he was twice selected as one of America’s Top 100 School Executives by the American Association of School Administrators.</p></div></div></div><div data-sort-order="" role="listitem" class="slide-card is-single w-dyn-item w-col w-col-6"><div class="team-member-container"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a19cffaede2751238b9b790_68d48dab4866b3b72a60139b_68a6340ae436b6106d0ce146_Amelia_Manning_web.webp" loading="lazy" class="team_photo float"/><div class="w-layout-vflex team_bio"><div class="w-layout-vflex team-name-title_v-flex"><div class="w-layout-hflex team-name_h-flex"><h4 class="heading-style-h5">Amelia Manning</h4></div><h5 class="team-bio_title">Board Member</h5></div><p class="text-size-regular">Amelia Manning is a distinguished leader in online and adult education, known for her transformative leadership and student-centric innovation. She is widely recognized as a trailblazer in data-driven education strategy and a champion for expanding access and success for working adult learners.</p></div></div></div></div></div></div><div class="silder-controls"><div class="button is-control slider-prev"><div class="icon-24px left-arrow w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left-icon lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg></div></div><div class="button is-control slider-next"><div class="icon-24px left-arrow w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right-icon lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg></div></div></div><div class="slider-dots"></div></div></div><div data-w-tab="Team" id="tab-pane_team" class="tab-pane_team w-tab-pane"><div data-mobile-per-slide="2" data-per-slide="4" data-slider-type="team" class="w-layout-vflex slider"><div class="slider-wrapper team"><div class="fs-team-feed-copy w-dyn-list"><div role="list" class="slider-track team w-dyn-items w-row"><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27135b40b19ba74e7ec7cb_69cbfc73b682729fb1ae89d8_p-hove_bio.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Pam Hove</h5><h5 class="team-bio_title small">Director of Project Delivery</h5><a href="https://www.linkedin.com/in/pamhove/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="3" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a19d00229450ae85bd6666a_68befa2dd056734905e37844_60c79fc8a16129a7802099a3_WHW-2020.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Whitney Hack Williams</h5><h5 class="team-bio_title small">Creative Director</h5><a href="https://www.linkedin.com/in/whitney-hack-williams/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a19d001b1de1024aa130779_68befa066416f08c6d802c99_65b7eb89684deb054110e941_HSTS_0224%2520High%2520Res.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Trey Rumsey</h5><h5 class="team-bio_title small">Senior Web Developer</h5><a href="https://www.linkedin.com/in/treyrumsey" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a271358033bdc38367d4757_612fdaa368dfd41979a3e5bb_SierraRoth_BioPic.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Sierra Roth</h5><h5 class="team-bio_title small">Graphic Design Manager</h5><a href="https://www.linkedin.com/in/sierrahoperoth/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a271357fd86b8cb44cfa4cf_65a05926017b4e54c4a85593_shelby-17%25202.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Shelby Timberlake</h5><h5 class="team-bio_title small">Senior Clinical Placement Advisor</h5></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a2713568136ceb32547e80b_64c9246c5a3eba7ab406297f_IMG_6597_cropped.png" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Sarah Freiler</h5><h5 class="team-bio_title small">Director of People Development</h5><a href="https://www.linkedin.com/in/sarah-freiler/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a2713545e66d0d0997b7070_612fda6f590bfe6b8a09b07b_Sam_R.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Sam Robinson</h5><h5 class="team-bio_title small">Accounts Payable Specialist</h5></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27134d5483fe4557b69a3e_612fd9830c49416441672194_saleen-h.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Saleen Hearon</h5><h5 class="team-bio_title small">Financial Administrator</h5></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27134c9b262a80507c92d6_66a92cc592372a2b3f3535ad_Untitled%2520design.png" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Nadine Rafla</h5><h5 class="team-bio_title small">Director of Clinical Placement</h5><a href="https://www.linkedin.com/in/rafla" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27134c5483fe4557b69a0b_65a04de195bea188aa0a359f_T0UHB39TN-U01BZ6RQ734-87b62cf74791-512.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Monica Ledezma</h5><h5 class="team-bio_title small">Director of Enrollment</h5></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27134b9c1fc402a71b1df2_699c8f6d2a523c45e8fdf41f_m-price.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Matt Price</h5><h5 class="team-bio_title small">VP of OPX</h5><a href="https://www.linkedin.com/in/mprice3/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="2" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27134aa8072705d6b65f51_60c79f4bd49e37cada87134f_MH-Culbertson2.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Mary Helen Culberston</h5><h5 class="team-bio_title small">Vice President of People and Culture</h5><a href="https://www.linkedin.com/in/mhculbertson/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27134a37db38343e65f8dc_6298e3cb6820d25c8cf768ee_iDesignheadshots068.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Leah Chuchran-Davis</h5><h5 class="team-bio_title small">Vice President of Learning Solutions</h5></div></div><div data-sort-order="1" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a2713485483fe4557b698e6_677fea2fb28a014c986f5fb0_T0UHB39TN-U9JRQQANR-087b7d7976a0-512.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Krista Galyen</h5><h5 class="team-bio_title small">Senior Vice President of Design and Delivery</h5><a href="https://www.linkedin.com/in/krista-galyen-b83aa78/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a271348ee814423e5a23f95_699c8e7b390c4af10be96744_Holden_portrait2.png" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Kendrick Holden</h5><h5 class="team-bio_title small">Junior UX/UI Designer</h5><a href="https://www.linkedin.com/in/kendrick-holden/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a271346b8256744578c8e7e_65b0410030ec47d37ffa278a_Kelly_bio.png" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Kelly Kochevar</h5><h5 class="team-bio_title small">Student Success Coach</h5><a href="http://www.linkedin.com/in/kelly-kochevar-a51624176" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a271345781eaf540365e285_699c9050048b30ceb5cb1bc5_k-waechter.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Katie Waechter</h5><h5 class="team-bio_title small">OPM Support Specialist</h5><a href="https://www.linkedin.com/in/kcw684" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a19cffde8e71ff4954d2fab_68befa4f4135537e06587064_65b039d271a3d31a1b694c17_553A0526%2520(1).jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Kaleb Rigg</h5><h5 class="team-bio_title small">Web Software Developer</h5><a href="https://www.linkedin.com/in/kaleb-rigg/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a2713431bbe45a63f8915b5_677fecc8b53cd2464a922d2c_Headshot%2520(1).jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Josh Mansfield</h5><h5 class="team-bio_title small">Data Analyst</h5><a href="https://www.linkedin.com/in/joshua-mansfield504/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a271343b28b62c803a06d24_61e82e398119c1c7852a30f3_Headshot_2021.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Jessica Smith</h5><h5 class="team-bio_title small">Director of Account Management</h5><a href="https://www.linkedin.com/in/jessicatsmith" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27134282e32695d8534b7b_6268607af3603765c4897abf_JamieDenny.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Jamie Denny</h5><h5 class="team-bio_title small">Clinical Placement Advisor</h5></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a19cffcc4977e23a0fcc656_68bef9e2abe62c9efcc4c031_62685f42f4abfcb242f9597f_Gauri_photo-min.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Gauri Kinshuk</h5><h5 class="team-bio_title small">UI/UX Designer</h5><a href="http://www.linkedin.com/in/gaurimaria" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a271341033bdc38367d4007_65b180fe037718ded6044771_Ethan.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Ethan Harzheim</h5><h5 class="team-bio_title small">Enrollment Manager</h5><a href="https://www.linkedin.com/in/ethan-harzheim-mba-905b6338/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27134040b19ba74e7ec01c_699c914c099e9b0a2b046e67_E-dudo.png" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Erin Dudo</h5><h5 class="team-bio_title small">Director of Instructional Design and Technology</h5><a href="https://www.linkedin.com/in/erin-dudo/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27133f61db8ffddc1df73e_66857b5db989023006f4c3e4_IMG_4147.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Emily Wood</h5><h5 class="team-bio_title small">Senior Director of Instructional Design</h5><a href="https://www.linkedin.com/in/emilylawood/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27133f7ccf7fea1fa46bdd_60c79e491f6421c3463783ad_colleen_2019_square.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Colleen McConeghy</h5><h5 class="team-bio_title small">Executive Vice President</h5><a href="https://www.linkedin.com/in/colleen-mcconeghy-4103a52" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27133e86784702b55a250e_61f1ba100c6aa64cc07df6c6_Christiana%2520Kumalasari.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Christiana Kumalasari</h5><h5 class="team-bio_title small">Director of Healthcare Design</h5><a href="http://linkedin.com/in/christiana-kumalasari-m-d-ph-d-b8014582" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27133df3ff3d963847afb0_65a0535fe4f2e97a5387a242_head%2520shot.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Chris Boyer</h5><h5 class="team-bio_title small">Business Analyst</h5><a href="https://www.linkedin.com/in/ctboyer/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27133c63c146957a9c1b6c_65b7ec256e8165f4e5953c09_CLeDuc%2520Bio%2520Picture.png" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Cathy LeDuc</h5><h5 class="team-bio_title small">Lead Project Manager</h5><a href="http://www.linkedin.com/in/cathy-leduc-6075761" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a271339a43ababfa5eb2cac_699c91da98b9f6d6ebbda464_c-christopher.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Carmen Christopher</h5><h5 class="team-bio_title small">Director of Faculty Experience</h5><a href="https://www.linkedin.com/in/carmen-christopher-bb219627/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a2713384f41ded5c9590380_699c8d62f4d161a39506475f_CR925.png" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Carlos Ramos</h5><h5 class="team-bio_title small">Employer Partnerships Director</h5><a href="https://linkedin.com/in/carlosramosmba-2000" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a2713378136ceb32547d575_60c7a39360ed034ea26a8325_Briana%2520Headshot%2520copy.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Briana Johnson</h5><h5 class="team-bio_title small">Vice President of Partner Success</h5><a href="https://www.linkedin.com/in/brianajohnson25/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a271337b28b62c803a067e2_65a0517514768207dc33c7c3_T0UHB39TN-U048NC3EMTQ-d366c61cc34c-512.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Bradley Spinsby</h5><h5 class="team-bio_title small">Video Services Director</h5><a href="https://www.linkedin.com/in/bradley-spinsby-57b475b3/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a27133637db38343e65ebf3_66857e3d8070fb88ea130c69_1.png" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Ashtun Hamilton</h5><h5 class="team-bio_title small">Clinical Placement Advisor</h5><a href="https://www.linkedin.com/in/ashtun-hamilton-ms-2015/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div><div data-sort-order="" role="listitem" class="slide-card w-dyn-item w-col w-col-6"><img width="Auto" height="Auto" alt="" src="https://cdn.prod.website-files.com/6a15f329c9169e93fa791069/6a271334b0f5b93f5c508f79_60ca4d0214f4fe2222f96c19_Andrea%2520Haase.jpeg" loading="lazy" class="team_photo individual"/><div class="w-layout-vflex flex-block-20"><h5 class="heading-style-h6">Andrea Haase</h5><h5 class="team-bio_title small">Student Success Coach</h5><a href="https://www.linkedin.com/in/andrea-haase-21969b2/" target="_blank" class="link-block-3 w-inline-block"><div class="linkedin_embed w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a></div></div></div></div></div><div class="silder-controls"><div class="button is-control slider-prev"><div class="icon-24px left-arrow w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left-icon lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg></div></div><div class="button is-control slider-next"><div class="icon-24px left-arrow w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right-icon lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg></div></div></div><div class="slider-dots"></div></div></div></div></div></div></div></div></div></div><div scroll-animate="true" class="section_careers"><div id="careers" class="padding-global padding-section-medium"><div class="container-large"><div class="w-layout-vflex heading-pair_v-flex padding-section-xsmall"><h2 class="heading-style-eyebrow">Careers</h2><h3 class="heading-style-h2">Join our growing team</h3></div><div class="w-layout-hflex career_v-flex"><p class="text-size-regular"><span class="span_no-wrap">At iDesign, we champion a human-centered culture, placing immense value on each iDesigner and their contribution to our success.</span> <span class="span_no-wrap">Our commitment to a positive and supportive work environment prioritizes our people&#x27;s well-being, balancing work and personal development.</span></p><div class="glassmorphic_outer-div careers"><div class="glassmorphic_inner-div align-center careers"><div class="bamboohr_embed w-embed w-script"><style>
+  
+  .BambooHR-ATS-Jobs-Item a {
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .BambooHR-ATS-Jobs-Item a:hover {
+    color: var(--ada-blue);
+  }
+
+  .BambooHR-ATS-Jobs-Item span {
+    color: var(--navy);
+  }
+
+  @media screen and (max-width: 768px) {
+      .BambooHR-ATS-Jobs-List {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    }
+    
+    .BambooHR-ATS-Jobs-Item a {
+      font-size: 1rem !important;
+      line-height: 1rem !important;
+    }
+
+      .BambooHR-ATS-Jobs-Item span {
+    padding-top: 0px !important;
+  }
+
+    .BambooHR-ATS-Jobs-Item {
+      padding-bottom: .5rem !important;
+      }
+  }
+
+    @media screen and (max-width: 480px) {
+    
+    .BambooHR-ATS-Jobs-Item a {
+      font-size: .875rem !important;
+      line-height: .875rem !important;
+    }
+
+    .BambooHR-ATS-Jobs-Item {
+      padding-top: .5rem !important;
+      padding-bottom: .5rem !important;
+      }
+  }
+</style>
+
+<div id="BambooHR" data-domain="idesignedu.bamboohr.com" data-version="1.0.0" data-departmentId="" style="color: #002e40"></div>
+<script src="https://idesignedu.bamboohr.com/js/embed.js" type="text/javascript" async defer></script></div><p class="text-size-small text-style-italic text-style-muted">iDesign is an equal opportunity employer. We are committed to building an inclusive environment in which everyone is a valued member. At iDesign all hiring decisions are based on business needs, job requirements and individual qualifications. We seek applicants of diverse backgrounds aiming to hire without regard to race, color, religion, sexual orientation, national origin, or any other characteristic protected by law.</p></div></div></div></div></div></div></div><div class="global-footer"><div class="padding-global padding-section-small"><div class="container-large"><section class="footer-section u-textiswhite simple"><div class="w-layout-hflex footer-maincontent-copy simple-3"><div class="w-layout-vflex flex-block-3 simple-4"><a aria-label="iDesign home" href="https://idesign-creative.github.io/brand-site-review/index.html" class="u-nobottommargin simple-5 w-inline-block"><img loading="lazy" src="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/6a171a0d2e3e5a94222fc900_iDesign_horizontal_reverse.svg" alt="iDesign" class="image simple-6"/></a><div class="social-embed-container footer simple-7"><a href="https://www.linkedin.com/company/idesignedu/" target="_blank" class="w-inline-block"><div fs-socialshare-element="linkedin" class="social-embed footer simple-14 w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Linkedin</title>
+<path d="M9.29192 9.29151H12.6018V10.9786H12.6381C13.1427 10.0689 14.6331 9.14516 16.476 9.14516C20.013 9.14516 21 11.0231 21 14.5016V20.9996H17.4876V15.142C17.4876 13.5849 16.8659 12.2185 15.4117 12.2185C13.6462 12.2185 12.8043 13.4139 12.8043 15.3762V20.9996H9.29192V9.29151ZM3.43788 20.9996H6.95031V9.29151H3.43788V20.9996ZM7.38936 5.19368C7.38949 5.48192 7.33284 5.76737 7.22264 6.03372C7.11244 6.30007 6.95085 6.5421 6.74711 6.74599C6.54336 6.94988 6.30145 7.11165 6.03518 7.22203C5.76892 7.33243 5.48351 7.38928 5.19526 7.38936C4.90702 7.38944 4.62158 7.33273 4.35526 7.22248C4.08893 7.11224 3.84693 6.9506 3.64307 6.74682C3.43922 6.54304 3.2775 6.30109 3.16716 6.0348C3.05682 5.76851 3.00002 5.4831 3 5.19485C2.99995 4.61286 3.23108 4.05468 3.64254 3.64307C4.054 3.23147 4.6121 3.00016 5.19409 3C5.77609 2.99984 6.33431 3.23086 6.74599 3.64225C7.15767 4.05363 7.38909 4.61169 7.38936 5.19368Z" fill="currentColor"></path>
+</svg></div></a><a href="https://bsky.app/profile/idesignedu.bsky.social" target="_blank" class="w-inline-block"><div fs-socialshare-element="linkedin" class="social-embed footer simple-14 w-embed"><svg alt="" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>BlueSky</title>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.33526 4.37382C8.62822 6.09522 11.0945 9.58551 12.0001 11.4586C12.9056 9.58565 15.3718 6.09519 17.6649 4.37382C19.3193 3.13172 22 2.17066 22 5.22881C22 5.83957 21.6498 10.3595 21.4445 11.0933C20.7306 13.6444 18.1292 14.2951 15.8152 13.9013C19.86 14.5897 20.8889 16.87 18.6668 19.1502C14.4465 23.4809 12.601 18.0636 12.1278 16.6755C12.0412 16.4211 12.0006 16.302 12 16.4033C11.9994 16.302 11.9588 16.4211 11.8721 16.6755C11.3993 18.0636 9.55378 23.481 5.33322 19.1502C3.11103 16.87 4.13995 14.5896 8.18483 13.9013C5.87077 14.2951 3.26934 13.6444 2.55555 11.0933C2.35016 10.3594 2 5.8395 2 5.22881C2 2.17066 4.68074 3.13172 6.33515 4.37382H6.33526Z" fill="currentColor"></path>
+</svg></div></a><a href="https://www.facebook.com/idesigneducation/" target="_blank" class="w-inline-block"><div fs-socialshare-element="facebook" class="social-embed footer simple-14 w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Facebook</title>
+<path d="M23 12C23 5.92487 18.0751 0.999996 12 0.999996C5.92488 0.999996 1 5.92487 1 12C1 17.1588 4.55146 21.4874 9.34266 22.6761V15.3614H7.07438V12H9.34266V10.5516C9.34266 6.80751 11.037 5.07215 14.7128 5.07215C15.4096 5.07215 16.6121 5.20877 17.104 5.34544V8.39261C16.8444 8.36529 16.3935 8.3516 15.8332 8.3516C14.0295 8.3516 13.3326 9.03484 13.3326 10.8112V12H16.9256L16.3084 15.3614H13.3326V22.9194C18.7792 22.2616 23 17.624 23 12Z" fill="currentColor"></path>
+</svg></div></a><a href="https://www.instagram.com/idesignedu" target="_blank" class="w-inline-block"><div fs-socialshare-element="linkedin" class="social-embed footer simple-14 w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Instagram</title>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C9.2912 2 8.94131 2 7.86907 2.05643C7.03985 2.07241 6.21934 2.22888 5.44244 2.51919C4.78781 2.77878 4.23476 3.11738 3.67043 3.68172C3.11738 4.23476 2.76749 4.78781 2.51919 5.45372C2.27088 6.08578 2.10158 6.80813 2.05643 7.88036C2.01129 8.94131 2 9.27991 2 12C2 14.7088 2 15.0474 2.05643 16.1196C2.10158 17.1919 2.28217 17.9255 2.51919 18.5576C2.77878 19.2122 3.11738 19.7652 3.67043 20.3296C4.23476 20.8826 4.78781 21.2325 5.44244 21.4808C6.08578 21.7291 6.80813 21.8984 7.86907 21.9436C8.94131 21.9887 9.27991 22 12 22C14.7088 22 15.0474 22 16.1196 21.9436C17.1806 21.8984 17.9142 21.7178 18.5463 21.4808C19.2137 21.2306 19.8184 20.8377 20.3183 20.3296C20.8826 19.7652 21.2212 19.2009 21.4695 18.5576C21.7178 17.9142 21.8871 17.1919 21.9436 16.1196C21.9887 15.0587 22 14.7201 22 12C22 9.2912 21.9887 8.9526 21.9436 7.88036C21.9225 7.05065 21.7622 6.23037 21.4695 5.45372C21.2189 4.78649 20.8261 4.18182 20.3183 3.68172C19.754 3.11738 19.2122 2.77878 18.5463 2.51919C17.7686 2.23315 16.9482 2.08051 16.1196 2.06772C15.0474 2.01129 14.7088 2 12 2ZM11.0971 3.80587H12C14.6637 3.80587 14.9797 3.80587 16.0406 3.8623C16.6724 3.8686 17.2985 3.98313 17.8916 4.2009C18.3657 4.38149 18.693 4.59594 19.0429 4.94582C19.3928 5.29571 19.6072 5.63431 19.7991 6.09706C19.9345 6.45824 20.0925 6.97743 20.1377 7.95937C20.1828 9.00903 20.1941 9.32506 20.1941 12C20.1941 14.6637 20.1941 14.9797 20.1377 16.0406C20.1314 16.6724 20.0169 17.2985 19.7991 17.8916C19.6185 18.3657 19.3928 18.693 19.0429 19.0429C18.7043 19.3928 18.3657 19.6072 17.8916 19.7878C17.2992 20.0094 16.6731 20.1278 16.0406 20.1377C14.9797 20.1828 14.6637 20.1941 12 20.1941C9.32506 20.1941 9.00903 20.1941 7.95937 20.1377C7.3238 20.1322 6.69388 20.0177 6.09706 19.7991C5.63431 19.6072 5.307 19.3928 4.94582 19.0429C4.60722 18.7043 4.38149 18.3657 4.2009 17.8916C3.98313 17.2985 3.8686 16.6724 3.8623 16.0406C3.80587 14.9797 3.79458 14.6637 3.79458 12C3.79458 9.32506 3.80587 9.00903 3.85102 7.95937C3.85602 7.32375 3.97057 6.69376 4.18962 6.09706C4.38149 5.63431 4.59594 5.307 4.94582 4.94582C5.29571 4.60722 5.62302 4.38149 6.09706 4.2009C6.69376 3.98185 7.32375 3.86731 7.95937 3.8623C8.87359 3.81716 9.23476 3.80587 11.0971 3.79458V3.80587ZM17.3386 5.46501C17.1815 5.46501 17.0259 5.49596 16.8808 5.55608C16.7356 5.6162 16.6037 5.70433 16.4926 5.81542C16.3815 5.92652 16.2934 6.05841 16.2333 6.20356C16.1732 6.34871 16.1422 6.50429 16.1422 6.6614C16.1422 6.81851 16.1732 6.97408 16.2333 7.11924C16.2934 7.26439 16.3815 7.39628 16.4926 7.50737C16.6037 7.61847 16.7356 7.70659 16.8808 7.76672C17.0259 7.82684 17.1815 7.85779 17.3386 7.85779C17.6559 7.85779 17.9602 7.73174 18.1846 7.50737C18.4089 7.28301 18.535 6.9787 18.535 6.6614C18.535 6.3441 18.4089 6.03979 18.1846 5.81542C17.9602 5.59106 17.6559 5.46501 17.3386 5.46501ZM12 6.86456C11.3256 6.86456 10.6578 6.99739 10.0348 7.25547C9.41169 7.51355 8.84556 7.89182 8.36869 8.36869C7.89182 8.84556 7.51355 9.41169 7.25547 10.0348C6.99739 10.6578 6.86456 11.3256 6.86456 12C6.86456 12.6744 6.99739 13.3422 7.25547 13.9652C7.51355 14.5883 7.89182 15.1544 8.36869 15.6313C8.84556 16.1082 9.41169 16.4864 10.0348 16.7445C10.6578 17.0026 11.3256 17.1354 12 17.1354C13.362 17.1354 14.6682 16.5944 15.6313 15.6313C16.5944 14.6682 17.1354 13.362 17.1354 12C17.1354 10.638 16.5944 9.33178 15.6313 8.36869C14.6682 7.40561 13.362 6.86456 12 6.86456ZM12 8.67043C12.4372 8.67043 12.8702 8.75655 13.2742 8.92388C13.6781 9.0912 14.0452 9.33646 14.3544 9.64564C14.6635 9.95482 14.9088 10.3219 15.0761 10.7258C15.2434 11.1298 15.3296 11.5628 15.3296 12C15.3296 12.4372 15.2434 12.8702 15.0761 13.2742C14.9088 13.6781 14.6635 14.0452 14.3544 14.3544C14.0452 14.6635 13.6781 14.9088 13.2742 15.0761C12.8702 15.2434 12.4372 15.3296 12 15.3296C11.1169 15.3296 10.2701 14.9788 9.64564 14.3544C9.02122 13.7299 8.67043 12.8831 8.67043 12C8.67043 11.1169 9.02122 10.2701 9.64564 9.64564C10.2701 9.02122 11.1169 8.67043 12 8.67043Z" fill="currentColor"></path>
+</svg></div></a><a href="https://twitter.com/idesignedu" target="_blank" class="w-inline-block"><div fs-socialshare-element="x" class="social-embed footer simple-14 w-embed"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>X</title>
+<path d="M17.8048 2.96973H20.8705L14.1394 10.6338L22.0034 21.0304H15.8321L11.0004 14.7125L5.46893 21.0304H2.40328L9.53424 12.8331L2.00342 2.96973H8.32798L12.6932 8.74114L17.8048 2.96973ZM16.7318 19.231H18.4313L7.43494 4.70248H5.60888L16.7318 19.231Z" fill="currentColor"></path>
+</svg></div></a><a href="https://www.threads.net/@idesignedu" target="_blank" class="w-inline-block"><div fs-socialshare-element="linkedin" class="social-embed footer simple-14 w-embed"><svg alt="" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>Threads</title>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.2631 11.1966C17.1684 11.1512 17.0721 11.1074 16.9746 11.0656C16.8048 7.93667 15.0951 6.14536 12.2243 6.12703C12.2113 6.12695 12.1984 6.12695 12.1853 6.12695C10.4682 6.12695 9.04016 6.85989 8.16118 8.19362L9.74003 9.27668C10.3967 8.28043 11.4272 8.06805 12.1861 8.06805C12.1949 8.06805 12.2037 8.06805 12.2123 8.06813C13.1576 8.07416 13.8709 8.34899 14.3325 8.88494C14.6685 9.27513 14.8932 9.81432 15.0044 10.4948C14.1664 10.3524 13.26 10.3086 12.2911 10.3641C9.5617 10.5213 7.80702 12.1132 7.92487 14.3251C7.98467 15.4471 8.54363 16.4124 9.49871 17.0429C10.3062 17.576 11.3463 17.8366 12.4272 17.7776C13.8546 17.6994 14.9744 17.1548 15.7557 16.1589C16.349 15.4027 16.7242 14.4226 16.8899 13.1878C17.5702 13.5983 18.0744 14.1386 18.3528 14.788C18.8263 15.8921 18.8539 17.7062 17.3736 19.1853C16.0766 20.481 14.5176 21.0415 12.1615 21.0588C9.54789 21.0395 7.57128 20.2013 6.28615 18.5676C5.08273 17.0378 4.46079 14.8281 4.43759 12C4.46079 9.17183 5.08273 6.96218 6.28615 5.43239C7.57128 3.79869 9.54786 2.96052 12.1614 2.9411C14.794 2.96067 16.805 3.80287 18.1393 5.44446C18.7936 6.24948 19.2869 7.26184 19.6121 8.44222L21.4622 7.94859C21.0681 6.49567 20.4478 5.24367 19.6038 4.20535C17.8932 2.10077 15.3914 1.02236 12.1679 1H12.155C8.93801 1.02228 6.46422 2.10479 4.80232 4.21742C3.32346 6.0974 2.56062 8.71326 2.53499 11.9923L2.53491 12L2.53499 12.0077C2.56062 15.2867 3.32346 17.9026 4.80232 19.7826C6.46422 21.8952 8.93801 22.9778 12.155 23H12.1679C15.0279 22.9802 17.0439 22.2314 18.7047 20.5721C20.8775 18.4013 20.8121 15.6803 20.096 14.0099C19.5822 12.8121 18.6026 11.8391 17.2631 11.1966ZM12.325 15.8393C11.1287 15.9067 9.88594 15.3698 9.82466 14.2197C9.77924 13.367 10.4315 12.4155 12.3984 12.3021C12.6236 12.2891 12.8447 12.2828 13.0618 12.2828C13.7762 12.2828 14.4446 12.3522 15.0522 12.485C14.8256 15.3155 13.4962 15.7751 12.325 15.8393Z" fill="currentColor"></path>
+</svg></div></a><a href="https://www.youtube.com/channel/UCdoZ-XRxuO_nt_Rbn7ezJkA" target="_blank" class="w-inline-block"><div fs-socialshare-element="linkedin" class="social-embed footer simple-14 w-embed"><svg alt="" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>YouTube</title>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.1 1.83737C17.4829 2.32842 17.7311 2.91085 17.82 3.52713C17.9319 4.44288 17.992 5.36422 18 6.28674V7.57655C17.9924 8.50241 17.9323 9.4271 17.82 10.3462C17.7311 10.9624 17.4829 11.5449 17.1 12.0359C16.6125 12.4946 15.9694 12.7518 15.3 12.7558C12.78 12.9358 9 12.9358 9 12.9358C9 12.9358 4.32 12.9358 2.9 12.7658C2.16881 12.762 1.46173 12.5039 0.9 12.0359C0.515501 11.542 0.267246 10.9559 0.18 10.3362C0.0680335 9.42042 0.0079376 8.49908 0 7.57655V6.28674C0.00756015 5.36088 0.0676567 4.43619 0.18 3.51713C0.268925 2.90085 0.517095 2.31843 0.9 1.82737C1.38752 1.3687 2.0306 1.11151 2.7 1.10748C5.22 0.9375 9 0.9375 9 0.9375C9 0.9375 12.78 0.9375 15.3 1.11747C15.9694 1.12151 16.6125 1.3787 17.1 1.83737ZM13 6.9375L7 3.9375V9.9375L13 6.9375Z" fill="currentColor"></path>
+</svg></div></a></div></div><div class="dividing-line simple-42"></div><div class="w-layout-vflex flex-block-4 simple-16"><div class="link-container footer simple-17"><a href="https://idesign-creative.github.io/brand-site-review/what-we-do.html" id="w-node-a196b4ef-e31f-7b04-3bfa-7eabd55ee228-d55ee20a" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee228" class="globalnav_div footer simple-39 w-inline-block"><div class="footer_link2 simple-40">What We Do</div><div class="animated_underline green simple-41"></div></a><a href="https://idesign-creative.github.io/brand-site-review/about.html" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee224" aria-current="page" class="globalnav_div footer simple-39 w-inline-block w--current"><div class="footer_link2 simple-40">About</div><div class="animated_underline green simple-41"></div></a><a href="https://idesign-creative.github.io/brand-site-review/resources.html" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee22c" class="globalnav_div footer simple-39 w-inline-block"><div class="footer_link2 simple-40">Resources</div><div class="animated_underline green simple-41"></div></a><a href="/privacy-policy" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee238" class="globalnav_div footer simple-39 w-inline-block"><div class="footer_link2 simple-40">Privacy Policy</div><div class="animated_underline green simple-41"></div></a><a href="/terms-of-use" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee23c" class="globalnav_div footer simple-39 w-inline-block"><div class="footer_link2 simple-40">Terms of Use</div><div class="animated_underline green simple-41"></div></a><a href="/accessibility-statement" data-w-id="a196b4ef-e31f-7b04-3bfa-7eabd55ee240" class="globalnav_div footer simple-39 w-inline-block"><div class="footer_link2 simple-40">Accessibility</div><div class="animated_underline green simple-41"></div></a></div><a href="https://idesign-creative.github.io/brand-site-review/contact.html" class="button is-icon w-inline-block"><div>Request Consultation</div><div class="control_icon icon-height-large move w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div></a></div></div><div class="dividing-line simple-42"></div><div class="w-layout-hflex footer-fineprint simple-43"><div>© <span id="copyright-year">YEAR</span> iDesignEDU</div><div class="w-layout-hflex address_container"><div>(US) <a href="tel:+18005815418" class="link">800-581-5418 </a></div><div class="hidden_on_mobile simple-45">|</div><div>4514 Cole Ave, Suite 250, Dallas, TX 75205</div></div></div></section></div></div></div></div><script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6a0f51adf49e8e5b8f46b9a0" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/6a0f51adf49e8e5b8f46b9a0/js/webflow.051a81ad.041eca2155912570.js" type="text/javascript" integrity="sha384-1pYGDY70wmQnXgrxHcnbXLhqBTqFh/VLYQU4k/YE9jEiY1La2OiGNHYd4dJiMY3K" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script><!--nav transition: uses Webflow's NATIVE GSAP/ScrollTrigger (v3.15.0), which Webflow auto-loads
+   site-wide (non-deferred) to power its own IX2 interactions-->
+<!--lenis smooth scroll-->
+<!--
+  Lenis v1.1.14 (pinned). Source: https://github.com/darkroomengineering/lenis
+  NPM package: https://www.npmjs.com/package/lenis
+  CDN: jsDelivr (more reliable than unpkg for production).
+  If upgrading to a newer major version, verify the constructor option names below
+  haven't changed — some options were renamed or removed in later releases.
+-->
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    gsap.registerPlugin(ScrollTrigger);
+    // --- CONFIG: Scroll threshold ---
+    // How many pixels the user must scroll before the nav transitions to its scrolled state.
+    // SCROLL_TRIGGER_END must be greater than SCROLL_TRIGGER_START; the range is intentionally
+    // tight because the goal is simply to detect "any scroll," not a specific distance.
+    var SCROLL_TRIGGER_START = 10;
+    var SCROLL_TRIGGER_END = 20;
+    // --- CONFIG: Nav transition animation ---
+    var NAV_TRANSITION_DURATION = 0.5; // seconds
+    var NAV_TRANSITION_EASE = 'power2.out';
+    // --- CONFIG: Nav colors ---
+    // Logo container (.headerlogo_div) background
+    var NAV_LOGO_BG_DEFAULT = 'rgba(235, 250, 255, 0)';
+    var NAV_LOGO_BG_SCROLLED = 'rgba(235, 250, 255, 0.75)';
+    // Nav links container (.header-links_div) background
+    var NAV_LINKS_BG_DEFAULT = 'rgba(0, 46, 64, 0)';
+    var NAV_LINKS_BG_SCROLLED = 'rgb(0, 46, 64)';
+    // Nav link text and underline color
+    var NAV_LINK_COLOR_DEFAULT = 'rgb(1, 127, 174)';
+    var NAV_LINK_COLOR_SCROLLED = 'rgb(253, 254, 254)';
+    // Nav divider border color (.globalnav_div)
+    var NAV_DIVIDER_COLOR_DEFAULT = 'rgb(1, 127, 174)';
+    var NAV_DIVIDER_COLOR_SCROLLED = 'rgb(253, 254, 254)';
+    // --- CONFIG: Logo scale ---
+    // Scale factor applied to .headerlogo_div when the user has scrolled down
+    var NAV_LOGO_SCALE_SCROLLED = 0.88;
+    // --- CONFIG: Nav hide threshold ---
+    // How far the user must scroll (in viewport heights) before the hide/show toggle activates.
+    var NAV_HIDE_THRESHOLD_VH = 1;
+    // --- CONFIG: Initialization delay ---
+    // Milliseconds to wait after page load before checking the initial scroll position.
+    // Gives ScrollTrigger time to finish its own setup before the check runs. Increase this
+    // value if the nav appears in the wrong state after a hard refresh on a scrolled page.
+    var NAV_INIT_DELAY_MS = 100;
+    // Cache nav element references at init time so they don't need to be queried on every
+    // scroll threshold crossing.
+    // NOTE: Either element may be absent on custom landing pages; the null checks below handle that.
+    var headerlogoDivEl = document.querySelector('.headerlogo_div');
+    var globalNavHFlexEl = document.querySelector('.global-nav_h-flex');
+    // Watches for the user scrolling past SCROLL_TRIGGER_START and fires the nav transition.
+    // onEnter fires when scrolling down past the threshold; onLeaveBack fires when returning to the top.
+    ScrollTrigger.create({
+      trigger: document.documentElement,
+      start: 'top top-=' + SCROLL_TRIGGER_START,
+      end: 'top top-=' + SCROLL_TRIGGER_END,
+      onEnter: function () {
+        setNavScrolled(true);
+      },
+      onLeaveBack: function () {
+        setNavScrolled(false);
+      },
+    });
+    // Applies or removes the scrolled visual state across all nav elements.
+    // Pass true when the user has scrolled down; false when they are back at the top.
+    // On screens <= 991px, background/scale/is-scrolled animations target .global-nav_h-flex
+    // instead of .headerlogo_div.
+    function setNavScrolled(isScrolled) {
+      var isMobile = window.innerWidth <= 991;
+      var logoTarget = isMobile ? '.global-nav_h-flex' : '.headerlogo_div';
+      // Animate logo container background and scale
+      var logoAnimation = {
+        backgroundColor: isScrolled ? NAV_LOGO_BG_SCROLLED : NAV_LOGO_BG_DEFAULT,
+        duration: NAV_TRANSITION_DURATION,
+        ease: NAV_TRANSITION_EASE,
+      };
+      if (!isMobile) {
+        logoAnimation.scale = isScrolled ? NAV_LOGO_SCALE_SCROLLED : 1;
+        logoAnimation.transformOrigin = 'left center';
+      }
+      gsap.to(logoTarget, logoAnimation);
+      // Toggle CSS class — used as a hook for box-shadow and backdrop-filter via CSS
+      var logoEl = isMobile ? globalNavHFlexEl : headerlogoDivEl;
+      if (logoEl) {
+        logoEl.classList.toggle('is-scrolled', isScrolled);
+      }
+      // Animate nav links container background
+      gsap.to('.header-links_div', {
+        backgroundColor: isScrolled ? NAV_LINKS_BG_SCROLLED : NAV_LINKS_BG_DEFAULT,
+        duration: NAV_TRANSITION_DURATION,
+        ease: NAV_TRANSITION_EASE,
+      });
+      // Animate nav link text color
+      gsap.to('.global_link', {
+        color: isScrolled ? NAV_LINK_COLOR_SCROLLED : NAV_LINK_COLOR_DEFAULT,
+        duration: NAV_TRANSITION_DURATION,
+        ease: NAV_TRANSITION_EASE,
+      });
+      // Animate nav link underline color
+      gsap.to('.animated_underline.navy', {
+        backgroundColor: isScrolled ? NAV_LINK_COLOR_SCROLLED : NAV_LINK_COLOR_DEFAULT,
+        duration: NAV_TRANSITION_DURATION,
+        ease: NAV_TRANSITION_EASE,
+      });
+      // Animate nav divider border color
+      gsap.to('.globalnav_div', {
+        borderColor: isScrolled ? NAV_DIVIDER_COLOR_SCROLLED : NAV_DIVIDER_COLOR_DEFAULT,
+        duration: NAV_TRANSITION_DURATION,
+        ease: NAV_TRANSITION_EASE,
+      });
+    }
+    // When the viewport crosses the 991px breakpoint, the scrolled-state target switches between
+    // .headerlogo_div (desktop) and .global-nav_h-flex (mobile). GSAP writes inline styles
+    // (backgroundColor, scale, transform) onto whichever element was the target, and those inline
+    // styles persist across a resize — e.g. the mobile background stays stuck on .global-nav_h-flex
+    // at desktop widths. This clears both targets and reapplies the correct state for the new
+    // breakpoint. Debounced so it only fires once resizing pauses.
+    var wasMobile = window.innerWidth <= 991;
+    var breakpointResizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(breakpointResizeTimer);
+      breakpointResizeTimer = setTimeout(function () {
+        var isMobileNow = window.innerWidth <= 991;
+        if (isMobileNow === wasMobile) return;
+        wasMobile = isMobileNow;
+        // Strip the GSAP-applied inline styles and the is-scrolled hook from both possible targets
+        gsap.set(['.headerlogo_div', '.global-nav_h-flex'], { clearProps: 'backgroundColor,scale,transform' });
+        if (headerlogoDivEl) headerlogoDivEl.classList.remove('is-scrolled');
+        if (globalNavHFlexEl) globalNavHFlexEl.classList.remove('is-scrolled');
+        // Reapply the correct state for the new breakpoint based on current scroll position
+        setNavScrolled(window.scrollY > SCROLL_TRIGGER_START);
+      }, 150);
+    });
+    // Hides the nav when scrolling down past NAV_HIDE_THRESHOLD_VH, shows it when scrolling back up.
+    // Only activates beyond the threshold — the top-of-page state is left untouched.
+    var lastScrollY = window.scrollY;
+    var navHidden = false;
+    window.addEventListener(
+      'scroll',
+      function () {
+        var currentScrollY = window.scrollY;
+        var threshold = window.innerHeight * NAV_HIDE_THRESHOLD_VH;
+        if (currentScrollY > threshold) {
+          if (currentScrollY > lastScrollY && !navHidden) {
+            gsap.to('.global_nav', { yPercent: -100, duration: NAV_TRANSITION_DURATION, ease: NAV_TRANSITION_EASE });
+            navHidden = true;
+          } else if (currentScrollY < lastScrollY && navHidden) {
+            gsap.to('.global_nav', { yPercent: 0, duration: NAV_TRANSITION_DURATION, ease: NAV_TRANSITION_EASE });
+            navHidden = false;
+          }
+        } else if (navHidden) {
+          // Scrolled back above the threshold — restore nav without waiting for direction change
+          gsap.to('.global_nav', { yPercent: 0, duration: NAV_TRANSITION_DURATION, ease: NAV_TRANSITION_EASE });
+          navHidden = false;
+        }
+        lastScrollY = currentScrollY;
+      },
+      { passive: true },
+    );
+    // Checks scroll position on load and applies the correct initial nav state.
+    // Without this, the nav would always start in the un-scrolled state even if the user
+    // refreshes mid-page or navigates back to a scrolled position.
+    // The delay gives ScrollTrigger time to finish initializing before the check runs.
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        if (window.scrollY > SCROLL_TRIGGER_START) {
+          setNavScrolled(true);
+        }
+      }, NAV_INIT_DELAY_MS);
+    });
+    // Initializes Lenis smooth scrolling.
+    // lerp controls the catch-up speed: lower = smoother/slower, higher = snappier.
+    var lenis = new Lenis({
+      lerp: 0.05,
+      wheelMultiplier: 0.8,
+      gestureOrientation: 'vertical',
+      normalizeWheel: false,
+      smoothTouch: false,
+    });
+    // Connect Lenis scroll events to ScrollTrigger so scroll-triggered animations
+    // stay in sync with Lenis's smoothed scroll position.
+    lenis.on('scroll', ScrollTrigger.update);
+    // Drive Lenis from the GSAP animation ticker instead of a separate requestAnimationFrame
+    // loop. This keeps Lenis and GSAP animations on the same frame, preventing timing artifacts
+    // where the nav transition or other scroll-driven animations appear to lag the scroll position.
+    gsap.ticker.add(function (time) {
+      lenis.raf(time * 1000); // GSAP reports time in seconds; Lenis raf() expects milliseconds
+    });
+    // Prevents GSAP from skipping frames when the browser tab is backgrounded and then refocused,
+    // which would cause a sudden jump in Lenis scroll position on return.
+    gsap.ticker.lagSmoothing(0);
+    // If a page transition library (e.g. Barba.js, swup) is ever added, Lenis must be stopped
+    // on page leave. Because the ticker callback above is defined inline, you will need to
+    // refactor it into a named reference first so it can be removed:
+    //
+    //   var lenisTickerCallback = function (time) { lenis.raf(time * 1000); };
+    //   gsap.ticker.add(lenisTickerCallback);
+    //
+    // Then on page leave:
+    //   lenis.destroy();
+    //   gsap.ticker.remove(lenisTickerCallback);
+    // Finsweet Disable Scroll sets overflow:hidden on <body> to lock native scroll,
+    // but Lenis bypasses native scroll entirely. This observer detects that style change
+    // and stops/starts Lenis to keep them in sync.
+    var scrollDisableObserver = new MutationObserver(function () {
+      if (document.documentElement.style.overflow === 'hidden') {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    });
+    scrollDisableObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+    var copyrightYearEl = document.getElementById('copyright-year');
+    if (copyrightYearEl) {
+      copyrightYearEl.textContent = new Date().getFullYear();
+    }
+    window.Webflow = window.Webflow || [];
+    window.Webflow.push(function () {
+      // --- CONFIG: Partner logo visibility counts per breakpoint ---
+      // Controls how many logos are shown at each screen size.
+      var LOGO_VISIBLE_COUNT = {
+        desktop: 7, // > 991px
+        tablet: 5, // 768–991px
+        mobileLandscape: 5, // 480–767px
+        mobilePortrait: 3, // < 480px
+      };
+      // --- CONFIG: Resize debounce delay in milliseconds ---
+      // Prevents the visibility update from firing on every pixel during a window resize.
+      var RESIZE_DEBOUNCE_DELAY = 150;
+      // ─────────────────────────────────────────────────────────────────────────
+      // Returns how many logos should be visible based on the current viewport width
+      function getVisibleLogoCount() {
+        var viewportWidth = window.innerWidth;
+        if (viewportWidth > 991) return window._partnerDesktopCount || LOGO_VISIBLE_COUNT.desktop;
+        if (viewportWidth >= 768) return LOGO_VISIBLE_COUNT.tablet;
+        if (viewportWidth >= 480) return LOGO_VISIBLE_COUNT.mobileLandscape;
+        return LOGO_VISIBLE_COUNT.mobilePortrait;
+      }
+      // Shuffles an array in place using the Fisher-Yates algorithm and returns it.
+      // Used to randomize logo display order on each page load.
+      function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+          var randomIndex = Math.floor(Math.random() * (i + 1));
+          var temp = array[i];
+          array[i] = array[randomIndex];
+          array[randomIndex] = temp;
+        }
+        return array;
+      }
+      // Initializes a single partner logos wrapper:
+      // - Reorders items so pinned logos (data-pinned="true") always appear before unpinned ones
+      // - Both groups are individually shuffled on each page load
+      // - Shows only as many logos as the current breakpoint allows
+      // - Re-evaluates visibility on window resize (debounced)
+      //
+      // TODO: Confirm whether .partner-logo_placeholder elements are still in use.
+      // If not, the :not(.partner-logo_placeholder) filter below can be simplified to just .partner-logo_item.
+      function initLogoWrapper(wrapper) {
+        var allLogoItems = Array.from(wrapper.querySelectorAll('.partner-logo_item'));
+        if (!allLogoItems.length) return;
+        // .w-dyn-items is the Webflow CMS list container — the direct parent of logo items
+        var cmsListContainer = allLogoItems[0].parentElement;
+        var pinnedItems = allLogoItems.filter(function (item) {
+          return item.dataset.pinned === 'true';
+        });
+        var poolItems = allLogoItems.filter(function (item) {
+          return item.dataset.pinned !== 'true';
+        });
+        // Reorder the DOM: shuffled pinned items first, then shuffled pool
+        shuffleArray(pinnedItems)
+          .concat(shuffleArray(poolItems))
+          .forEach(function (item) {
+            cmsListContainer.appendChild(item);
+          });
+        // Shows logos up to the breakpoint count; hides the rest
+        function updateLogoVisibility() {
+          var count = getVisibleLogoCount();
+          wrapper.querySelectorAll('.partner-logo_item:not(.partner-logo_placeholder)').forEach(function (item, index) {
+            item.style.display = index < count ? '' : 'none';
+          });
+        }
+        updateLogoVisibility();
+        // Debounced resize listener — waits for resizing to pause before recalculating visibility
+        var resizeDebounceTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeDebounceTimer);
+          resizeDebounceTimer = setTimeout(updateLogoVisibility, RESIZE_DEBOUNCE_DELAY);
+        });
+      }
+      // Strips link behavior from partner logo link blocks that have no URL set.
+      // Webflow CMS link fields output "/" or "#" when left empty; this prevents those from acting as links.
+      function disableEmptyPartnerLinks() {
+        var partnerLinks = document.querySelectorAll('.partner-logo_link-block');
+        partnerLinks.forEach(function (linkBlock) {
+          var href = linkBlock.getAttribute('href');
+          // Treat empty string, "#", or "/" as "no URL set in the CMS"
+          if (!href || href === '' || href === '#' || href === '/') {
+            linkBlock.removeAttribute('href');
+            linkBlock.style.cursor = 'default';
+            linkBlock.style.pointerEvents = 'none';
+          }
+        });
+      }
+      // Run on any page that has a partner logos section
+      document.querySelectorAll('.partner-logos_wrapper').forEach(initLogoWrapper);
+      // Run on any page that has partner logo link blocks
+      disableEmptyPartnerLinks();
+    });
+  });
+</script>
+<!--complete script for Our Team sliders-->
+<script>
+  var Webflow = Webflow || [];
+  Webflow.push(function () {
+    if (document.documentElement.classList.contains('wf-design-mode')) return;
+
+    // --- CONFIG: adjustable values ---
+    var MOBILE_BP = 767;
+    var MOBILE_ROWS = 2; // Rows shown on mobile before "Load More"
+    var GRID_GAP = '1.5rem';
+    var FADE_DURATION_MS = 250;
+
+    // Sets up one slider: builds pagination dots, orders/shuffles items, handles
+    // desktop paging + mobile "Load More", and locks height so slides don't jump.
+    function initSlider(container) {
+      var track = container.querySelector('.slider-track');
+      if (!track) return;
+      var prevBtn = container.querySelector('.slider-prev');
+      var nextBtn = container.querySelector('.slider-next');
+      var dotsWrap = container.querySelector('.slider-dots');
+      var perPage = parseInt(container.getAttribute('data-per-slide'), 10) || 1;
+      var mobilePerPage = parseInt(container.getAttribute('data-mobile-per-slide'), 10) || 1;
+
+      // Filter to real CMS items only. Webflow can inject a .w-dyn-empty sibling
+      // inside the list.
+      var allChildren = Array.prototype.slice.call(track.children);
+      var items = allChildren.filter(function (el) {
+        return el.classList.contains('w-dyn-item');
+      });
+      if (!items.length) return;
+
+      // Permanently hide any non-CMS children so they don't participate in grid layout.
+      for (var j = 0; j < allChildren.length; j++) {
+        if (!allChildren[j].classList.contains('w-dyn-item')) {
+          allChildren[j].style.setProperty('display', 'none', 'important');
+        }
+      }
+
+      var pages = Math.ceil(items.length / perPage);
+      var current = 0;
+
+      track.style.removeProperty('transform');
+      track.style.setProperty('display', 'grid', 'important');
+      track.style.setProperty('width', '100%', 'important');
+      track.style.setProperty('align-items', 'stretch', 'important');
+      track.style.setProperty('justify-items', 'stretch', 'important');
+      track.style.setProperty('grid-auto-flow', 'row', 'important');
+      track.style.setProperty('gap', GRID_GAP, 'important');
+
+      for (var ii = 0; ii < items.length; ii++) {
+        items[ii].style.setProperty('width', '100%', 'important');
+        items[ii].style.setProperty('min-width', '0', 'important');
+        items[ii].style.setProperty('max-width', '100%', 'important');
+        items[ii].style.setProperty('align-self', 'stretch', 'important');
+        items[ii].style.setProperty('box-sizing', 'border-box', 'important');
+        items[ii].style.setProperty('grid-column', 'auto', 'important');
+        items[ii].style.setProperty('grid-row', 'auto', 'important');
+        items[ii].style.setProperty('overflow', 'hidden', 'important');
+        // IX2 entrance animations set transform: scale(0) or translateY as an initial
+        // state before the animation plays. On items that haven't been in the viewport
+        // yet, this makes getBoundingClientRect().width = 0 and visually displaces the
+        // card from its grid cell. Overriding here keeps items in their correct position.
+        // NOTE: this intentionally disables IX2 entrance animations on team cards.
+        items[ii].style.setProperty('transform', 'none', 'important');
+        items[ii].style.setProperty('opacity', '1', 'important');
+      }
+
+      // Items with data-sort-order >= 1 are placed at that exact position (never shuffled).
+      // Items with no value (or 0) are shuffled and appended after.
+      // Slider 1: all founders have values 1–5 → fixed order, no shuffle.
+      // Slider 2: no values set → all shuffled.
+      // Slider 3: three featured members have values 1–3 → locked positions; rest shuffled.
+      function getSortOrder(el) {
+        var child = el.querySelector('[data-sort-order]');
+        return parseInt((child || el).getAttribute('data-sort-order'), 10) || 0;
+      }
+      // Fisher-Yates in-place shuffle; returns the same array for chaining.
+      function shuffle(arr) {
+        for (var si = arr.length - 1; si > 0; si--) {
+          var ri = Math.floor(Math.random() * (si + 1));
+          var tmp = arr[si];
+          arr[si] = arr[ri];
+          arr[ri] = tmp;
+        }
+        return arr;
+      }
+      var anchored = items.filter(function (el) {
+        return getSortOrder(el) > 0;
+      });
+      var pool = items.filter(function (el) {
+        return getSortOrder(el) === 0;
+      });
+      anchored.sort(function (a, b) {
+        return getSortOrder(a) - getSortOrder(b);
+      });
+      var ordered = anchored.concat(shuffle(pool));
+      var frag = document.createDocumentFragment();
+      for (var oi = 0; oi < ordered.length; oi++) frag.appendChild(ordered[oi]);
+      track.appendChild(frag);
+      items = ordered;
+
+      if (dotsWrap) {
+        dotsWrap.innerHTML = '';
+        for (var d = 0; d < pages; d++) {
+          var dot = document.createElement('button');
+          dot.className = 'slider-dot' + (d === 0 ? ' active' : '');
+          dot.setAttribute('data-index', String(d));
+          dotsWrap.appendChild(dot);
+        }
+        dotsWrap.addEventListener('click', function (e) {
+          var idx = e.target.getAttribute('data-index');
+          if (idx !== null) fadeTo(parseInt(idx, 10));
+        });
+      }
+
+      // True when the viewport is at/below the mobile breakpoint.
+      function isMobile() {
+        return window.innerWidth <= MOBILE_BP;
+      }
+
+      // Shows the items belonging to the given page (desktop paging), hides the rest,
+      // and updates the prev/next button and dot states to match.
+      function show(page) {
+        current = Math.max(0, Math.min(page, pages - 1));
+        for (var i = 0; i < items.length; i++) {
+          items[i].style.setProperty('display', Math.floor(i / perPage) === current ? 'block' : 'none', 'important');
+        }
+        if (prevBtn) {
+          prevBtn.style.opacity = current === 0 ? '0.3' : '1';
+          prevBtn.style.pointerEvents = current === 0 ? 'none' : 'auto';
+        }
+        if (nextBtn) {
+          nextBtn.style.opacity = current >= pages - 1 ? '0.3' : '1';
+          nextBtn.style.pointerEvents = current >= pages - 1 ? 'none' : 'auto';
+        }
+        if (dotsWrap) {
+          var dots = dotsWrap.querySelectorAll('.slider-dot');
+          for (var j = 0; j < dots.length; j++) {
+            dots[j].classList.toggle('active', j === current);
+          }
+        }
+      }
+
+      // Crossfades to a page: fades the track out, swaps the visible items, fades back in.
+      function fadeTo(page) {
+        track.style.opacity = '0';
+        setTimeout(function () {
+          show(page);
+          track.style.opacity = '1';
+        }, FADE_DURATION_MS);
+      }
+
+      if (prevBtn)
+        prevBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          fadeTo(current - 1);
+        });
+      if (nextBtn)
+        nextBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          fadeTo(current + 1);
+        });
+
+      // Tracks whether the desktop height lock has been applied successfully, so the
+      // init code below knows whether it still needs to set up the retry observer.
+      var lockHeightSucceeded = false;
+
+      // Lock track height to the tallest page so slides don't cause a height jump.
+      function lockHeight() {
+        if (container.offsetParent === null) return false;
+        var savedPage = current;
+        track.style.visibility = 'hidden';
+        // Clear any previous lock so re-running (e.g. on desktop resize) measures the
+        // natural height and can shrink as well as grow.
+        track.style.removeProperty('min-height');
+        var maxH = 0;
+        for (var p = 0; p < pages; p++) {
+          show(p);
+          if (track.offsetHeight > maxH) maxH = track.offsetHeight;
+        }
+        show(savedPage);
+        track.style.removeProperty('visibility');
+        if (maxH > 0) {
+          track.style.setProperty('min-height', maxH + 'px', 'important');
+          return true;
+        }
+        return false;
+      }
+
+      // Mobile Load More — injected once if items exceed 2 rows.
+      var mobileMaxItems = MOBILE_ROWS * mobilePerPage;
+      var mobileExpanded = false;
+      var loadMoreLink = null;
+
+      if (items.length > mobileMaxItems) {
+        loadMoreLink = document.createElement('a');
+        loadMoreLink.textContent = 'Load More';
+        loadMoreLink.href = '#';
+        loadMoreLink.className = 'slider-load-more';
+        loadMoreLink.style.setProperty('display', 'none', 'important');
+        track.parentNode.insertBefore(loadMoreLink, track.nextSibling);
+
+        loadMoreLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          mobileExpanded = true;
+          applyLayout();
+        });
+      }
+
+      // Applies the correct layout for the current breakpoint: desktop paging with
+      // prev/next + dots, or mobile stack with a collapse-to-2-rows "Load More".
+      function applyLayout() {
+        var mobile = isMobile();
+        track.style.setProperty('grid-template-columns', 'repeat(' + (mobile ? mobilePerPage : perPage) + ', minmax(0, 1fr))', 'important');
+
+        if (mobile) {
+          if (prevBtn) prevBtn.style.setProperty('display', 'none', 'important');
+          if (nextBtn) nextBtn.style.setProperty('display', 'none', 'important');
+          if (dotsWrap) dotsWrap.style.setProperty('display', 'none', 'important');
+          track.style.removeProperty('min-height');
+
+          // Collapse to first 2 rows until the user expands.
+          var collapsed = loadMoreLink && !mobileExpanded;
+
+          for (var i = 0; i < items.length; i++) {
+            items[i].style.setProperty('display', collapsed && i >= mobileMaxItems ? 'none' : 'block', 'important');
+            items[i].style.setProperty('overflow', 'visible', 'important');
+          }
+
+          if (collapsed) {
+            track.style.setProperty('-webkit-mask-image', 'linear-gradient(to bottom, black 55%, transparent 100%)', 'important');
+            track.style.setProperty('mask-image', 'linear-gradient(to bottom, black 55%, transparent 100%)', 'important');
+            loadMoreLink.style.removeProperty('display');
+          } else {
+            track.style.removeProperty('-webkit-mask-image');
+            track.style.removeProperty('mask-image');
+            if (loadMoreLink) loadMoreLink.style.setProperty('display', 'none', 'important');
+          }
+        } else {
+          // Desktop: restore pagination controls, remove mobile overrides.
+          track.style.removeProperty('-webkit-mask-image');
+          track.style.removeProperty('mask-image');
+          if (loadMoreLink) loadMoreLink.style.setProperty('display', 'none', 'important');
+          if (prevBtn) prevBtn.style.removeProperty('display');
+          if (nextBtn) nextBtn.style.removeProperty('display');
+          if (dotsWrap) dotsWrap.style.removeProperty('display');
+          for (var i = 0; i < items.length; i++) {
+            items[i].style.setProperty('overflow', 'hidden', 'important');
+          }
+          show(current);
+          lockHeightSucceeded = lockHeight();
+        }
+      }
+
+      applyLayout();
+
+      // If the desktop height lock couldn't run yet (e.g. the slider is inside a hidden
+      // tab at init), retry the moment the tab panel becomes visible.
+      if (!isMobile() && !lockHeightSucceeded) {
+        var mo = new MutationObserver(function () {
+          if (container.offsetParent !== null && lockHeight()) mo.disconnect();
+        });
+        mo.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+      }
+
+      track.style.transition = 'opacity ' + FADE_DURATION_MS / 1000 + 's ease';
+
+      // Re-apply layout when crossing the mobile breakpoint; on desktop, also recompute
+      // the height lock so cards don't clip or leave a gap after a width change.
+      var prevMobile = isMobile();
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          var nowMobile = isMobile();
+          if (nowMobile !== prevMobile) {
+            // Crossed the mobile/desktop boundary — rebuild the whole layout.
+            prevMobile = nowMobile;
+            applyLayout();
+          } else if (!nowMobile) {
+            // REVERSIBLE: recompute the desktop height lock on within-desktop resizes so
+            // cards that grow/shrink at different widths don't clip or leave a gap.
+            // If this causes layout issues elsewhere, delete this else-if branch to
+            // return to breakpoint-only recomputation.
+            lockHeight();
+          }
+        }, 150);
+      });
+    }
+
+    // ::before and ::after pseudo-elements on the grid container participate
+    // in grid placement as anonymous items, occupying column 1 invisibly and
+    // pushing real items right. Inline styles can't target pseudo-elements.
+    var pseudoStyle = document.createElement('style');
+    pseudoStyle.textContent = '.slider-track::before, .slider-track::after { display: none !important; content: none !important; }';
+    document.head.appendChild(pseudoStyle);
+
+    var sliders = document.querySelectorAll('.slider');
+    for (var s = 0; s < sliders.length; s++) initSlider(sliders[s]);
+
+    // Sets .team_tabs min-height to the tallest of the three panes so the
+    // section doesn't resize when the user switches tabs.
+    var PANE_IDS = ['tab-pane_founders', 'tab-pane_board', 'tab-pane_team'];
+
+    function lockTabsHeight() {
+      if (window.innerWidth <= MOBILE_BP) return true;
+      var tabsEl = document.querySelector('.team_tabs');
+      if (!tabsEl || tabsEl.offsetParent === null) return false;
+      var contentEl = tabsEl.querySelector('.w-tab-content') || tabsEl;
+      if (contentEl.offsetParent === null) return false;
+
+      var tabsW = tabsEl.offsetWidth;
+      var maxH = 0;
+
+      // Clear any previous lock so re-measuring on resize can shrink as well as grow.
+      contentEl.style.removeProperty('min-height');
+
+      for (var pi = 0; pi < PANE_IDS.length; pi++) {
+        var pane = document.getElementById(PANE_IDS[pi]);
+        if (!pane) continue;
+
+        var wasHidden = !pane.classList.contains('w--tab-active');
+        if (wasHidden) {
+          pane.classList.add('w--tab-active');
+          pane.style.setProperty('display', 'block', 'important');
+          pane.style.setProperty('position', 'absolute', 'important');
+          pane.style.setProperty('visibility', 'hidden', 'important');
+          pane.style.setProperty('width', tabsW + 'px', 'important');
+        }
+
+        // Ensure each slider's track has an accurate min-height before measuring
+        // the pane. For hidden panes, initSlider's own lockHeight() hasn't run yet.
+        var sliderContainers = pane.querySelectorAll('.slider');
+        for (var si = 0; si < sliderContainers.length; si++) {
+          var sc = sliderContainers[si];
+          var track = sc.querySelector('.slider-track');
+          if (!track) continue;
+          var trackItems = Array.prototype.slice.call(track.querySelectorAll('.w-dyn-item'));
+          if (!trackItems.length) continue;
+
+          var perPageCount = parseInt(sc.getAttribute('data-per-slide'), 10) || 1;
+          var pageCount = Math.ceil(trackItems.length / perPageCount);
+
+          var savedTrackVis = track.style.getPropertyValue('visibility');
+          var savedItemDisplays = trackItems.map(function (el) {
+            return el.style.getPropertyValue('display');
+          });
+
+          track.style.setProperty('visibility', 'hidden', 'important');
+          // Clear any previous lock so re-measuring can shrink as well as grow.
+          track.style.removeProperty('min-height');
+
+          var maxTrackH = 0;
+          for (var p = 0; p < pageCount; p++) {
+            for (var ii = 0; ii < trackItems.length; ii++) {
+              trackItems[ii].style.setProperty('display', Math.floor(ii / perPageCount) === p ? 'block' : 'none', 'important');
+            }
+            if (track.offsetHeight > maxTrackH) maxTrackH = track.offsetHeight;
+          }
+
+          for (var ri = 0; ri < trackItems.length; ri++) {
+            if (savedItemDisplays[ri]) {
+              trackItems[ri].style.setProperty('display', savedItemDisplays[ri], 'important');
+            }
+          }
+          if (savedTrackVis) {
+            track.style.setProperty('visibility', savedTrackVis, 'important');
+          } else {
+            track.style.removeProperty('visibility');
+          }
+          if (maxTrackH > 0) {
+            track.style.setProperty('min-height', maxTrackH + 'px', 'important');
+          }
+        }
+
+        var h = pane.offsetHeight;
+        if (h > maxH) maxH = h;
+
+        if (wasHidden) {
+          pane.classList.remove('w--tab-active');
+          pane.style.removeProperty('display');
+          pane.style.removeProperty('position');
+          pane.style.removeProperty('visibility');
+          pane.style.removeProperty('width');
+        }
+      }
+
+      if (maxH > 0) {
+        contentEl.style.setProperty('min-height', maxH + 'px', 'important');
+        return true;
+      }
+      return false;
+    }
+
+    if (!lockTabsHeight()) {
+      var tabsMO = new MutationObserver(function () {
+        if (lockTabsHeight()) tabsMO.disconnect();
+      });
+      tabsMO.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+    }
+
+    var tabsPrevMobile = window.innerWidth <= MOBILE_BP;
+    var tabsResizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(tabsResizeTimer);
+      tabsResizeTimer = setTimeout(function () {
+        var nowMobile = window.innerWidth <= MOBILE_BP;
+        if (nowMobile !== tabsPrevMobile) {
+          tabsPrevMobile = nowMobile;
+          var tabsEl = document.querySelector('.team_tabs');
+          var contentEl = tabsEl && (tabsEl.querySelector('.w-tab-content') || tabsEl);
+          if (nowMobile) {
+            if (contentEl) contentEl.style.removeProperty('min-height');
+          } else {
+            lockTabsHeight();
+          }
+        } else if (!nowMobile) {
+          // REVERSIBLE: recompute the tab-content height lock on within-desktop resizes.
+          // Delete this else-if branch to return to breakpoint-only recomputation.
+          lockTabsHeight();
+        }
+      }, 150);
+    });
+  });
+</script><script>window.IDR_CONFIG={project:"idesign-brand-site",url:"https://puytjdeavhowngzqdymh.supabase.co",key:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY",page:"/about"};</script><script src="https://idesign-creative.github.io/brand-site-review/review-overlay.js?v=2"></script></body></html>
