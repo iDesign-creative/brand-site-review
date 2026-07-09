@@ -476,6 +476,38 @@
     }, 10);
   });
 
+  // ---- in-page anchor links --------------------------------------------------
+  // The mirror sets <base href> to the real site so assets load; a side effect is
+  // that "#anchor" links resolve to the real site and jump off the review. Handle
+  // in-page fragment links ourselves: scroll instead of navigating away.
+  function scrollToFrag(frag) {
+    if (!frag) return false;
+    var target = null;
+    try { target = document.getElementById(frag) || document.querySelector('a[name="' + frag.replace(/"/g, '') + '"]'); } catch (e) {}
+    if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); return true; }
+    return false;
+  }
+  document.addEventListener('click', function (e) {
+    if (state.mode) return;
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a || host.contains(a)) return;
+    var href = a.getAttribute('href') || '';
+    if (href.charAt(0) === '#' && href.length > 1) {
+      if (scrollToFrag(decodeURIComponent(href.slice(1)))) {
+        e.preventDefault(); e.stopPropagation();
+        try { history.replaceState(null, '', href); } catch (x) {}
+      }
+    }
+  }, true);
+  // on load, honor a fragment — either the page's own #hash, or one carried inside
+  // the proxy's ?url= param (path+anchor links like /resources#reading-list)
+  function initialFrag() {
+    if (location.hash && location.hash.length > 1) return decodeURIComponent(location.hash.slice(1));
+    try { var u = new URL(location.href).searchParams.get('url'); if (u) { var h = new URL(u).hash; if (h) return decodeURIComponent(h.slice(1)); } } catch (e) {}
+    return '';
+  }
+  (function () { var f = initialFrag(); if (f) { var tries = 0; var iv = setInterval(function () { if (scrollToFrag(f) || ++tries > 12) clearInterval(iv); }, 400); } })();
+
   // ---- sign out (clears identity and re-shows the gate) --------------------
   function signOut() {
     try { localStorage.removeItem('idr_name'); localStorage.removeItem('idr_email'); } catch (e) {}
