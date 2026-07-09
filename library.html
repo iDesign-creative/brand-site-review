@@ -38,6 +38,10 @@
   .newform input::placeholder{color:#5C7E90}
   .newform .row{display:flex;gap:8px;margin-top:14px}
   .err{color:#FF8A7A;font-size:13px;margin-top:8px}
+  .types{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .tchip{font-size:12px;color:var(--muted);background:rgba(137,242,247,.07);border:1px solid var(--line);border-radius:20px;padding:5px 11px}
+  .tchip b{color:#CCE5EF;font-weight:700}
+  .tchip.soon{opacity:.7;font-style:italic}
   /* cards */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:14px}
   .card{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,transform .15s}
@@ -69,8 +73,14 @@
 
   <div class="newform" id="newform">
     <div class="fields">
-      <div class="f"><label>Site URL to review</label><input id="nurl" type="text" placeholder="https://your-site.webflow.io/"></div>
+      <div class="f"><label>URL to review</label><input id="nurl" type="text" placeholder="https://site.webflow.io  ·  vimeo.com/…  ·  …/file.pdf"></div>
       <div class="f"><label>Label (optional)</label><input id="nname" type="text" placeholder="e.g. Brand site refresh"></div>
+    </div>
+    <div class="types">
+      <span class="tchip"><b>Website</b> — any URL</span>
+      <span class="tchip"><b>Video</b> — Vimeo link or .mp4</span>
+      <span class="tchip"><b>PDF</b> — direct .pdf link</span>
+      <span class="tchip soon">Images &amp; PPT (export to PDF) — coming soon</span>
     </div>
     <div class="row">
       <button class="btn" onclick="createReview()">Create review</button>
@@ -131,7 +141,14 @@ function counts(project){
   return {open:open,res:res};
 }
 function isVideo(u){ return /vimeo\.com|player\.vimeo|\.(mp4|webm|mov|m4v)(\?|$)/i.test(u||''); }
-function reviewLink(r){ return isVideo(r.url) ? ('video.html?v='+encodeURIComponent(r.url)+'&name='+encodeURIComponent(r.name||'')) : (PROXY+'?url='+encodeURIComponent(r.url)); }
+function isPdf(u){ return /\.pdf(\?|$)/i.test(u||''); }
+function kindOf(u){ return isPdf(u)?'PDF':isVideo(u)?'Video':'Website'; }
+function reviewLink(r){
+  if(isPdf(r.url)) return 'pdf.html?v='+encodeURIComponent(r.url)+'&name='+encodeURIComponent(r.name||'');
+  if(isVideo(r.url)) return 'video.html?v='+encodeURIComponent(r.url)+'&name='+encodeURIComponent(r.name||'');
+  return PROXY+'?url='+encodeURIComponent(r.url);
+}
+function viewLabel(u){ return isPdf(u)?'Review PDF':isVideo(u)?'Review video':'View site'; }
 function render(){
   var q=($('search').value||'').toLowerCase();
   var list=REVIEWS.filter(function(r){
@@ -152,12 +169,12 @@ function render(){
               + (!c.open&&!c.res?'<span class="pill none">No comments yet</span>':'');
     var when = r.created_at ? new Date(r.created_at).toLocaleDateString() : '';
     return '<div class="card">'
-      +'<div class="ctop"><div class="cname">'+esc(r.name||r.project)+'</div><span class="ctag">'+(isVideo(r.url)?'Video':'Review')+'</span></div>'
+      +'<div class="ctop"><div class="cname">'+esc(r.name||r.project)+'</div><span class="ctag">'+kindOf(r.url)+'</span></div>'
       +'<div class="curl">'+esc(r.url)+'</div>'
       +'<div class="counts">'+pills+'</div>'
       +'<div class="cmeta">'+esc(r.created_by||'iDesign')+(when?' · '+when:'')+'</div>'
       +'<div class="cactions">'
-        +'<a class="plain" href="'+esc(reviewLink(r))+'" target="_blank"><button class="btn sm">'+(isVideo(r.url)?'Review video':'View site')+'</button></a>'
+        +'<a class="plain" href="'+esc(reviewLink(r))+'" target="_blank"><button class="btn sm">'+viewLabel(r.url)+'</button></a>'
         +'<a class="plain" href="./dashboard.html?site='+encodeURIComponent(r.project)+'" target="_blank"><button class="btn ghost sm">Feedback</button></a>'
         +'<button class="btn ghost sm" onclick="renameReview(\''+r.id+'\')">Rename</button>'
         +(ADMIN ? '<button class="btn ghost sm" onclick="setArchived(\''+r.id+'\','+(r.archived?'false':'true')+')">'+(r.archived?'Unarchive':'Archive')+'</button>'
@@ -183,7 +200,7 @@ function createReview(){
   if(!raw){ $('nerr').textContent='Enter a site URL.'; return; }
   if(!/^https?:\/\//i.test(raw)) raw='https://'+raw;
   var u; try{ u=new URL(raw); }catch(e){ $('nerr').textContent='That doesn’t look like a valid URL.'; return; }
-  var body={ url:u.href, name:($('nname').value||'').trim()||null, project: isVideo(u.href)?u.href:u.hostname, created_by:'iDesign' };
+  var body={ url:u.href, name:($('nname').value||'').trim()||null, project: (isVideo(u.href)||isPdf(u.href))?u.href:u.hostname, created_by:'iDesign' };
   fetch(CFG.url+'/rest/v1/reviews',{method:'POST',headers:Object.assign({'Content-Type':'application/json',Prefer:'return=minimal'},H),body:JSON.stringify([body])})
     .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); $('nurl').value=''; $('nname').value=''; toggleNew(); load(); })
     .catch(function(e){ $('nerr').textContent='Could not save ('+e.message+'). Did you run the reviews-table SQL?'; });
