@@ -488,17 +488,19 @@
     return false;
   }
   document.addEventListener('click', function (e) {
-    if (state.mode) return;
+    // Bubble phase + these guards so we NEVER interfere with the site's own
+    // interactive components (Webflow tabs/accordions/dropdowns use #-links too).
+    if (state.mode || e.defaultPrevented) return;          // site already handled this click
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
     if (!a || host.contains(a)) return;
     var href = a.getAttribute('href') || '';
-    if (href.charAt(0) === '#' && href.length > 1) {
-      if (scrollToFrag(decodeURIComponent(href.slice(1)))) {
-        e.preventDefault(); e.stopPropagation();
-        try { history.replaceState(null, '', href); } catch (x) {}
-      }
+    if (href.charAt(0) !== '#' || href.length < 2) return; // only real "#section" jump links
+    if (a.closest('[data-w-tab],.w-tab-link,.w-dropdown-toggle,.w-tab-menu,[role="tab"],[role="button"],[aria-controls]')) return; // interactive widgets
+    if (scrollToFrag(decodeURIComponent(href.slice(1)))) {
+      e.preventDefault();                                   // no stopPropagation — let other listeners run
+      try { history.replaceState(null, '', href); } catch (x) {}
     }
-  }, true);
+  }, false);
   // on load, honor a fragment — either the page's own #hash, or one carried inside
   // the proxy's ?url= param (path+anchor links like /resources#reading-list)
   function initialFrag() {
