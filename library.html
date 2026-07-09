@@ -101,7 +101,7 @@ var H = { apikey: CFG.key, Authorization: 'Bearer ' + CFG.key };
 var REVIEWS = [], COMMENTS = [], FILTER = 'all';
 // Admin gate: Delete/Archive are hidden until unlocked with the passcode.
 // Only a SHA-256 hash is stored here — never the passcode itself.
-var PASS_HASH = '057ba03d6c44104863dc7361fe4578965d1887360f90a0895882e58a6248fc86'; // temp: "changeme"
+var PASS_HASH = 'f4527dc1f2eb12028f3ef794499cb82492181c2a1161224598c98426e74f381c'; // SHA-256 of the admin passcode (plaintext not stored)
 var ADMIN = sessionStorage.getItem('idr_admin')==='1';
 function $(id){return document.getElementById(id);}
 async function sha256(s){ var b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,'0');}).join(''); }
