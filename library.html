@@ -61,6 +61,7 @@
 <header>
   <span class="dot"></span><h1>Creative + Marketing Site Reviewer | iDesign</h1>
   <span class="spacer"></span>
+  <button class="btn ghost" id="adminBtn" onclick="toggleAdmin()">Admin: locked</button>
   <button class="btn" onclick="toggleNew()">+ New review</button>
 </header>
 <div class="wrap">
@@ -98,7 +99,21 @@ var CFG = {
 var PROXY = 'https://funny-eagle-3488.idesign-creative.deno.net/';
 var H = { apikey: CFG.key, Authorization: 'Bearer ' + CFG.key };
 var REVIEWS = [], COMMENTS = [], FILTER = 'all';
+// Admin gate: Delete/Archive are hidden until unlocked with the passcode.
+// Only a SHA-256 hash is stored here — never the passcode itself.
+var PASS_HASH = '057ba03d6c44104863dc7361fe4578965d1887360f90a0895882e58a6248fc86'; // temp: "changeme"
+var ADMIN = sessionStorage.getItem('idr_admin')==='1';
 function $(id){return document.getElementById(id);}
+async function sha256(s){ var b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,'0');}).join(''); }
+function updateAdminBtn(){ var b=$('adminBtn'); if(b) b.textContent = ADMIN ? 'Admin: unlocked (lock)' : 'Admin: locked'; }
+async function toggleAdmin(){
+  if(ADMIN){ ADMIN=false; sessionStorage.removeItem('idr_admin'); updateAdminBtn(); render(); return; }
+  var p=prompt('Enter the admin passcode to enable Delete / Archive:');
+  if(p===null) return;
+  var h=await sha256(p);
+  if(h===PASS_HASH){ ADMIN=true; sessionStorage.setItem('idr_admin','1'); updateAdminBtn(); render(); }
+  else alert('Incorrect passcode.');
+}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
 function toggleNew(){ $('newform').classList.toggle('show'); $('nerr').textContent=''; if($('newform').classList.contains('show')) $('nurl').focus(); }
 function setF(f){ FILTER=f; [].forEach.call(document.querySelectorAll('.tab'),function(t){t.classList.toggle('on',t.dataset.f===f);}); render(); }
@@ -144,8 +159,8 @@ function render(){
         +'<a class="plain" href="'+esc(reviewLink(r.url))+'" target="_blank"><button class="btn sm">View site</button></a>'
         +'<a class="plain" href="./dashboard.html?site='+encodeURIComponent(r.project)+'" target="_blank"><button class="btn ghost sm">Feedback</button></a>'
         +'<button class="btn ghost sm" onclick="renameReview(\''+r.id+'\')">Rename</button>'
-        +'<button class="btn ghost sm" onclick="setArchived(\''+r.id+'\','+(r.archived?'false':'true')+')">'+(r.archived?'Unarchive':'Archive')+'</button>'
-        +'<button class="btn ghost sm danger" onclick="delReview(\''+r.id+'\')">Delete</button>'
+        +(ADMIN ? '<button class="btn ghost sm" onclick="setArchived(\''+r.id+'\','+(r.archived?'false':'true')+')">'+(r.archived?'Unarchive':'Archive')+'</button>'
+                 +'<button class="btn ghost sm danger" onclick="delReview(\''+r.id+'\')">Delete</button>' : '')
       +'</div></div>';
   }).join('');
 }
@@ -172,6 +187,7 @@ function createReview(){
     .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); $('nurl').value=''; $('nname').value=''; toggleNew(); load(); })
     .catch(function(e){ $('nerr').textContent='Could not save ('+e.message+'). Did you run the reviews-table SQL?'; });
 }
+updateAdminBtn();
 load();
 setInterval(load, 20000);
 </script>
