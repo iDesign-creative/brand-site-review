@@ -275,12 +275,16 @@
     shown.forEach(function (c) {
       var n = numberOf(c);
       var reps = repliesOf(c.id).length;
-      var row = el('div', { class: 'idr-item' + (c.resolved ? ' done' : ''), onclick: function () { scrollToPin(c); openThread(c); } }, [
+      var otherPage = c.page !== PAGE;
+      var row = el('div', { class: 'idr-item' + (c.resolved ? ' done' : ''), onclick: function () { if (otherPage) { gotoPage(c.page); } else { scrollToPin(c); openThread(c); } } }, [
         el('span', { class: 'idr-badge' + (c.resolved ? ' done' : ''), text: c.resolved ? '✓' : String(n) }),
         el('div', { class: 'idr-item-body' }, [
           el('div', { class: 'idr-item-top' }, [ el('span', { class: 'idr-au', text: c.author }), el('span', { class: 'idr-ago', text: timeAgo(c.created_at) }) ]),
           el('div', { class: 'idr-item-txt', text: c.body }),
-          reps ? el('div', { class: 'idr-item-reps', text: reps + ' repl' + (reps > 1 ? 'ies' : 'y') }) : null
+          el('div', { class: 'idr-item-meta' }, [
+            el('span', { class: 'idr-pg' + (otherPage ? ' other' : ''), text: (otherPage ? 'on ' : '') + (c.page || '/') }),
+            reps ? el('span', { class: 'idr-item-reps', text: reps + ' repl' + (reps > 1 ? 'ies' : 'y') }) : null
+          ])
         ])
       ]);
       list.appendChild(row);
@@ -299,9 +303,21 @@
     if (state.filter === 'mine') return p.filter(function (c) { return c.author === getAuthor(); });
     return p;
   }
-  function topLevel() { return state.comments.filter(function (c) { return c.page === PAGE && !c.parent_id; }).sort(function (a, b) { return new Date(a.created_at) - new Date(b.created_at); }); }
+  // Site-wide: the list + counts show every page's comments (so feedback on other
+  // pages is never hidden). Pins are still drawn only for the current page.
+  function topLevel() { return state.comments.filter(function (c) { return !c.parent_id; }).sort(function (a, b) { return new Date(a.created_at) - new Date(b.created_at); }); }
   function repliesOf(id) { return state.comments.filter(function (c) { return c.parent_id === id; }).sort(function (a, b) { return new Date(a.created_at) - new Date(b.created_at); }); }
-  function numberOf(c) { return topLevel().indexOf(c) + 1; }
+  // numbered within their own page (each page has pins 1..n)
+  function numberOf(c) { var same = state.comments.filter(function (x) { return !x.parent_id && x.page === c.page; }).sort(function (a, b) { return new Date(a.created_at) - new Date(b.created_at); }); return same.indexOf(c) + 1; }
+  // navigate to another page (works on the proxy/mirror and on the live site via bookmarklet)
+  function gotoPage(pg) {
+    try {
+      var loc = new URL(location.href);
+      var proxied = loc.searchParams.get('url');
+      if (proxied) { var t = new URL(proxied); t.pathname = pg; loc.searchParams.set('url', t.href); location.href = loc.href; }
+      else { location.href = location.origin + pg; }
+    } catch (e) { location.pathname = pg; }
+  }
 
   // ---- comment mode + click capture ----------------------------------------
   function setMode(on) {
@@ -390,6 +406,7 @@
     pinLayer.innerHTML = '';
     var vw = window.innerWidth, vh = window.innerHeight;
     filtered().forEach(function (c) {
+      if (c.page !== PAGE) return;   // only pin comments that belong to THIS page
       var pos = resolveAnchor(c.anchor); if (!pos) return;
       // for text comments, draw a highlight over the quoted text
       if (pos.rects && pos.rects.length) {
@@ -572,7 +589,10 @@
     '.idr-au{font-size:12px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px}',
     '.idr-ago{font-size:11px;color:var(--muted);flex:none}',
     '.idr-item-txt{font-size:13px;color:#CCE5EF;line-height:1.4;margin-top:2px}',
-    '.idr-item-reps{font-size:11px;color:var(--primary2);margin-top:3px;font-weight:700}',
+    '.idr-item-reps{font-size:11px;color:var(--primary2);font-weight:700}',
+    '.idr-item-meta{display:flex;gap:8px;align-items:center;margin-top:4px;flex-wrap:wrap}',
+    '.idr-pg{font-size:10px;font-weight:700;color:var(--muted);background:rgba(137,242,247,.08);border-radius:20px;padding:2px 8px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
+    '.idr-pg.other{color:#7FD3EE;background:rgba(1,127,174,.18)}',
     '.idr-foot{display:flex;justify-content:space-between;align-items:center;padding:9px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}',
     '.idr-pop{position:fixed;width:324px;background:var(--surf);border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 50px rgba(0,10,20,.6);padding:14px;pointer-events:auto;color:var(--text);z-index:20}',
     '.idr-pop.wide{width:344px}',
