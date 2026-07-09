@@ -151,9 +151,52 @@
       fpy: (clientY + window.scrollY) / docH
     };
   }
-  // returns viewport {x,y} for a comment's anchor, or null if off-viewport but resolvable
+  // anchor tied to a specific run of highlighted text
+  function makeTextAnchor(range, quote) {
+    var container = range.commonAncestorContainer;
+    var elx = container.nodeType === 3 ? container.parentElement : container;
+    var docW = document.documentElement.scrollWidth || 1;
+    var docH = document.documentElement.scrollHeight || 1;
+    var rc = range.getBoundingClientRect();
+    return {
+      type: 'text',
+      sel: cssPath(elx),
+      tx: (quote || '').slice(0, 300),
+      fpx: (rc.left + window.scrollX) / docW,
+      fpy: (rc.top + window.scrollY) / docH
+    };
+  }
+  // re-locate a quoted string inside an element and return a DOM Range spanning it
+  function findQuoteRange(elx, quote) {
+    if (!elx || !quote) return null;
+    var idx = (elx.textContent || '').indexOf(quote);
+    if (idx < 0) return null;
+    var end = idx + quote.length, pos = 0, startNode, startOff, endNode, endOff, n;
+    var w = document.createTreeWalker(elx, NodeFilter.SHOW_TEXT, null);
+    while ((n = w.nextNode())) {
+      var len = n.nodeValue.length;
+      if (startNode == null && pos + len > idx) { startNode = n; startOff = idx - pos; }
+      if (startNode != null && pos + len >= end) { endNode = n; endOff = end - pos; break; }
+      pos += len;
+    }
+    if (!startNode || !endNode) return null;
+    try { var range = document.createRange(); range.setStart(startNode, startOff); range.setEnd(endNode, endOff); return range; } catch (e) { return null; }
+  }
+  // returns viewport {x,y} (and rects[] for text) for a comment's anchor
   function resolveAnchor(a) {
     if (!a) return null;
+    if (a.type === 'text') {
+      var tn = null; try { tn = a.sel && document.querySelector(a.sel); } catch (e) {}
+      if (tn) {
+        var rg = findQuoteRange(tn, a.tx);
+        if (rg) {
+          var rects = [].map.call(rg.getClientRects(), function (r) { return { left: r.left, top: r.top, width: r.width, height: r.height }; });
+          var lastr = rects[rects.length - 1] || rg.getBoundingClientRect();
+          return { x: lastr.left + lastr.width, y: lastr.top + lastr.height / 2, ok: true, rects: rects };
+        }
+      }
+      // fall through to fraction fallback below
+    }
     var node = null;
     try { node = a.sel && document.querySelector(a.sel); } catch (e) {}
     if (!node && a.tx) {
@@ -184,13 +227,16 @@
   var panel = el('div', { class: 'idr-panel' });
   var popHost = el('div', { class: 'idr-pop-host' });
   var scrim = el('div', { class: 'idr-scrim', style: 'display:none' });
+  var selChip = el('button', { class: 'idr-selchip', style: 'display:none', text: '+ Comment on text' });
   root.appendChild(pinLayer);
   root.appendChild(captureLayer);
   root.appendChild(panel);
   root.appendChild(popHost);
   root.appendChild(scrim);
+  root.appendChild(selChip);
 
   var state = { comments: [], mode: false, filter: 'open', openPop: null, open: true };
+  var pendingSel = null;
 
   // ---- panel (control bar + comment list) ----------------------------------
   function renderPanel() {
@@ -286,8 +332,10 @@
   function newCommentPop(anchor, x, y) {
     clearPop();
     var ta = el('textarea', { class: 'idr-ta', placeholder: 'What needs to change here?' });
+    var quoteEl = (anchor && anchor.type === 'text' && anchor.tx) ? el('div', { class: 'idr-quote', text: '“' + anchor.tx + '”' }) : null;
     var box = el('div', { class: 'idr-pop' }, [
-      el('div', { class: 'idr-pop-h', text: 'New comment' }),
+      el('div', { class: 'idr-pop-h', text: quoteEl ? 'Comment on selected text' : 'New comment' }),
+      quoteEl,
       ta,
       el('div', { class: 'idr-pop-a' }, [
         el('button', { class: 'idr-btn ghost', text: 'Cancel', onclick: clearPop }),
@@ -312,6 +360,7 @@
         item.author === getAuthor() ? el('button', { class: 'idr-trash', title: 'Delete', text: '🗑', onclick: function () { Store.remove(item.id).then(function () { clearPop(); refresh(); }).catch(err); } }) : null
       ]);
     }
+    if (c.anchor && c.anchor.type === 'text' && c.anchor.tx) wrap.appendChild(el('div', { class: 'idr-quote', text: '“' + c.anchor.tx + '”' }));
     wrap.appendChild(line(c, false));
     repliesOf(c.id).forEach(function (r) { wrap.appendChild(line(r, true)); });
     var ta = el('textarea', { class: 'idr-ta', placeholder: 'Reply…' });
@@ -342,6 +391,15 @@
     var vw = window.innerWidth, vh = window.innerHeight;
     filtered().forEach(function (c) {
       var pos = resolveAnchor(c.anchor); if (!pos) return;
+      // for text comments, draw a highlight over the quoted text
+      if (pos.rects && pos.rects.length) {
+        pos.rects.forEach(function (rc) {
+          if (!rc.width && !rc.height) return;
+          var hl = el('div', { class: 'idr-hl' + (c.resolved ? ' done' : ''), title: c.author + ': ' + c.body, onclick: function (ev) { ev.stopPropagation(); openThread(c); } });
+          hl.style.left = rc.left + 'px'; hl.style.top = rc.top + 'px'; hl.style.width = rc.width + 'px'; hl.style.height = rc.height + 'px';
+          pinLayer.appendChild(hl);
+        });
+      }
       var onScreen = pos.x > -30 && pos.x < vw + 30 && pos.y > -30 && pos.y < vh + 30;
       var pin = el('button', {
         class: 'idr-pin' + (c.resolved ? ' done' : '') + (onScreen ? '' : ' off'),
@@ -364,6 +422,42 @@
   }
   window.addEventListener('scroll', schedulePins, { passive: true });
   window.addEventListener('resize', schedulePins);
+
+  // ---- comment on highlighted text -----------------------------------------
+  function hideSelChip() { selChip.style.display = 'none'; pendingSel = null; }
+  function startTextComment() {
+    if (!pendingSel) return;
+    var range = pendingSel.range, quote = pendingSel.quote;
+    var anchor = makeTextAnchor(range, quote);
+    var rc = range.getBoundingClientRect();
+    selChip.style.display = 'none';
+    try { window.getSelection().removeAllRanges(); } catch (e) {}
+    newCommentPop(anchor, rc.left + rc.width / 2, rc.bottom + 6);
+    pendingSel = null;
+  }
+  // keep the selection alive when pressing the chip, and don't let the doc-mousedown hide it
+  selChip.addEventListener('mousedown', function (e) { e.preventDefault(); e.stopPropagation(); });
+  selChip.addEventListener('click', function (e) { e.stopPropagation(); startTextComment(); });
+  document.addEventListener('mousedown', function () { if (selChip.style.display !== 'none') hideSelChip(); });
+  document.addEventListener('mouseup', function () {
+    setTimeout(function () {
+      if (state.mode) return;                 // element-pin mode handles its own clicks
+      var sel = window.getSelection && window.getSelection();
+      if (!sel || sel.isCollapsed) return;
+      var quote = (sel.toString() || '').trim();
+      if (quote.length < 2) return;
+      var range;
+      try { range = sel.getRangeAt(0); } catch (e) { return; }
+      // ignore selections inside our own UI
+      if (host.contains(range.commonAncestorContainer)) return;
+      var rc = range.getBoundingClientRect();
+      if (!rc.width && !rc.height) return;
+      pendingSel = { quote: quote, range: range.cloneRange() };
+      selChip.style.left = Math.min(window.innerWidth - 170, Math.max(8, rc.left + rc.width / 2 - 80)) + 'px';
+      selChip.style.top = Math.max(8, rc.top - 40) + 'px';
+      selChip.style.display = 'block';
+    }, 10);
+  });
 
   // ---- sign out (clears identity and re-shows the gate) --------------------
   function signOut() {
@@ -507,7 +601,13 @@
     '.idr-gate-brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:14px;color:#fff;margin-bottom:16px}',
     '.idr-gate-h{font-weight:900;font-size:19px;color:#fff;margin-bottom:6px;letter-spacing:.2px}',
     '.idr-gate .idr-input{margin-top:10px}',
-    '.idr-gate .idr-btn{width:100%;padding:12px}'
+    '.idr-gate .idr-btn{width:100%;padding:12px}',
+    '.idr-selchip{position:fixed;z-index:36;background:var(--primary);color:#fff;border:none;border-radius:9px;padding:8px 13px;font-size:12.5px;font-weight:700;cursor:pointer;pointer-events:auto;box-shadow:0 6px 18px rgba(1,127,174,.5);white-space:nowrap}',
+    '.idr-selchip:hover{background:var(--primary2)}',
+    '.idr-hl{position:fixed;background:rgba(1,127,174,.30);border-bottom:2px solid var(--primary);pointer-events:auto;cursor:pointer;border-radius:2px}',
+    '.idr-hl.done{background:rgba(111,238,172,.28);border-bottom-color:var(--green)}',
+    '.idr-hl:hover{background:rgba(0,165,225,.38)}',
+    '.idr-quote{font-size:12px;color:#CCE5EF;background:var(--field);border-left:3px solid var(--primary);border-radius:0 8px 8px 0;padding:6px 9px;margin-bottom:9px;max-height:60px;overflow:auto;font-style:italic}'
   ].join('\n'); }
 
 })();
