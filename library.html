@@ -24,6 +24,8 @@
   .btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-weight:700;font-size:13.5px;cursor:pointer}
   .btn:hover{background:var(--primary2)}
   .btn.ghost{background:transparent;color:var(--text);border:1.5px solid var(--line)}
+  .btn.danger{background:transparent;color:#FF8A7A;border:1.5px solid rgba(255,138,122,.4)}
+  .btn.danger:hover{background:rgba(255,138,122,.12)}
   .btn.ghost:hover{background:var(--surf2)}
   .btn.sm{padding:7px 14px;font-size:12.5px;border-radius:9px}
   /* new-review form */
@@ -81,6 +83,7 @@
     <button class="tab on" data-f="all" onclick="setF('all')">All</button>
     <button class="tab" data-f="open" onclick="setF('open')">Has open</button>
     <button class="tab" data-f="done" onclick="setF('done')">All resolved</button>
+    <button class="tab" data-f="archived" onclick="setF('archived')">Archived</button>
     <button class="btn ghost sm" onclick="load()">Refresh</button>
   </div>
 
@@ -118,6 +121,8 @@ function render(){
   var list=REVIEWS.filter(function(r){
     var hay=((r.name||'')+' '+(r.url||'')+' '+(r.project||'')).toLowerCase();
     if(q && hay.indexOf(q)<0) return false;
+    if(FILTER==='archived') return !!r.archived;   // archived-only view
+    if(r.archived) return false;                    // hide archived from all other views
     var c=counts(r.project);
     if(FILTER==='open') return c.open>0;
     if(FILTER==='done') return c.open===0 && c.res>0;
@@ -138,8 +143,23 @@ function render(){
       +'<div class="cactions">'
         +'<a class="plain" href="'+esc(reviewLink(r.url))+'" target="_blank"><button class="btn sm">View site</button></a>'
         +'<a class="plain" href="./dashboard.html?site='+encodeURIComponent(r.project)+'" target="_blank"><button class="btn ghost sm">Feedback</button></a>'
+        +'<button class="btn ghost sm" onclick="renameReview(\''+r.id+'\')">Rename</button>'
+        +'<button class="btn ghost sm" onclick="setArchived(\''+r.id+'\','+(r.archived?'false':'true')+')">'+(r.archived?'Unarchive':'Archive')+'</button>'
+        +'<button class="btn ghost sm danger" onclick="delReview(\''+r.id+'\')">Delete</button>'
       +'</div></div>';
   }).join('');
+}
+function patchReview(id,body){ return fetch(CFG.url+'/rest/v1/reviews?id=eq.'+id,{method:'PATCH',headers:Object.assign({'Content-Type':'application/json'},H),body:JSON.stringify(body)}); }
+function renameReview(id){
+  var r=REVIEWS.filter(function(x){return x.id===id;})[0];
+  var n=prompt('Rename this review:', (r&&r.name)||'');
+  if(n===null) return;
+  patchReview(id,{name:n.trim()||null}).then(function(res){ if(!res.ok) alert('Rename failed — run the archive/update SQL.'); load(); });
+}
+function setArchived(id,val){ patchReview(id,{archived:val}).then(function(res){ if(!res.ok) alert('Archive failed — run the archive/update SQL.'); load(); }); }
+function delReview(id){
+  if(!confirm('Delete this review permanently? (This does not delete its comments.)')) return;
+  fetch(CFG.url+'/rest/v1/reviews?id=eq.'+id,{method:'DELETE',headers:H}).then(load);
 }
 function createReview(){
   $('nerr').textContent='';
