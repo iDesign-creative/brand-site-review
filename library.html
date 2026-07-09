@@ -130,7 +130,8 @@ function counts(project){
   COMMENTS.forEach(function(c){ if(c.parent_id) return; if(c.project!==project) return; if(c.resolved) res++; else open++; });
   return {open:open,res:res};
 }
-function reviewLink(url){ return PROXY+'?url='+encodeURIComponent(url); }
+function isVideo(u){ return /vimeo\.com|player\.vimeo|\.(mp4|webm|mov|m4v)(\?|$)/i.test(u||''); }
+function reviewLink(r){ return isVideo(r.url) ? ('video.html?v='+encodeURIComponent(r.url)+'&name='+encodeURIComponent(r.name||'')) : (PROXY+'?url='+encodeURIComponent(r.url)); }
 function render(){
   var q=($('search').value||'').toLowerCase();
   var list=REVIEWS.filter(function(r){
@@ -151,12 +152,12 @@ function render(){
               + (!c.open&&!c.res?'<span class="pill none">No comments yet</span>':'');
     var when = r.created_at ? new Date(r.created_at).toLocaleDateString() : '';
     return '<div class="card">'
-      +'<div class="ctop"><div class="cname">'+esc(r.name||r.project)+'</div><span class="ctag">Review</span></div>'
+      +'<div class="ctop"><div class="cname">'+esc(r.name||r.project)+'</div><span class="ctag">'+(isVideo(r.url)?'Video':'Review')+'</span></div>'
       +'<div class="curl">'+esc(r.url)+'</div>'
       +'<div class="counts">'+pills+'</div>'
       +'<div class="cmeta">'+esc(r.created_by||'iDesign')+(when?' · '+when:'')+'</div>'
       +'<div class="cactions">'
-        +'<a class="plain" href="'+esc(reviewLink(r.url))+'" target="_blank"><button class="btn sm">View site</button></a>'
+        +'<a class="plain" href="'+esc(reviewLink(r))+'" target="_blank"><button class="btn sm">'+(isVideo(r.url)?'Review video':'View site')+'</button></a>'
         +'<a class="plain" href="./dashboard.html?site='+encodeURIComponent(r.project)+'" target="_blank"><button class="btn ghost sm">Feedback</button></a>'
         +'<button class="btn ghost sm" onclick="renameReview(\''+r.id+'\')">Rename</button>'
         +(ADMIN ? '<button class="btn ghost sm" onclick="setArchived(\''+r.id+'\','+(r.archived?'false':'true')+')">'+(r.archived?'Unarchive':'Archive')+'</button>'
@@ -182,7 +183,7 @@ function createReview(){
   if(!raw){ $('nerr').textContent='Enter a site URL.'; return; }
   if(!/^https?:\/\//i.test(raw)) raw='https://'+raw;
   var u; try{ u=new URL(raw); }catch(e){ $('nerr').textContent='That doesn’t look like a valid URL.'; return; }
-  var body={ url:u.href, name:($('nname').value||'').trim()||null, project:u.hostname, created_by:'iDesign' };
+  var body={ url:u.href, name:($('nname').value||'').trim()||null, project: isVideo(u.href)?u.href:u.hostname, created_by:'iDesign' };
   fetch(CFG.url+'/rest/v1/reviews',{method:'POST',headers:Object.assign({'Content-Type':'application/json',Prefer:'return=minimal'},H),body:JSON.stringify([body])})
     .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); $('nurl').value=''; $('nname').value=''; toggleNew(); load(); })
     .catch(function(e){ $('nerr').textContent='Could not save ('+e.message+'). Did you run the reviews-table SQL?'; });

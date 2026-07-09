@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Review | Creative + Marketing Site Reviewer | iDesign</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+  :root{--bg:#001E2E;--surf:#002B40;--surf2:#0A3A52;--field:#00263A;--line:rgba(137,242,247,.16);--primary:#017FAE;--primary2:#00A5E1;--green:#6FEEAC;--text:#E9F3F7;--muted:#7FA6B8}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Lato',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
+  header{background:linear-gradient(135deg,#00263A,#013A52);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+  header .dot{width:14px;height:14px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(1,127,174,.28)}
+  header h1{font-size:15px;margin:0;font-weight:900}
+  header .who{margin-left:auto;font-size:12px;color:var(--muted);display:flex;gap:10px;align-items:center}
+  .link{background:none;border:none;color:var(--primary2);cursor:pointer;font-size:12px;font-weight:700}
+  .layout{display:flex;gap:0;height:calc(100vh - 45px);min-height:480px}
+  .stage{flex:1;min-width:0;display:flex;flex-direction:column;padding:20px;gap:14px;overflow:auto}
+  .player-wrap{position:relative;width:100%;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:16/9;border:1px solid var(--line)}
+  .player-wrap iframe,.player-wrap video{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:11px 18px;font-weight:700;font-size:14px;cursor:pointer}
+  .btn:hover{background:var(--primary2)}
+  .btn.ghost{background:transparent;color:var(--text);border:1.5px solid var(--line)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .tcode{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary2);font-size:14px}
+  .side{width:360px;flex:none;border-left:1px solid var(--line);background:var(--surf);display:flex;flex-direction:column}
+  .side-h{padding:14px 16px;border-bottom:1px solid var(--line);font-weight:900;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+  .list{flex:1;overflow:auto;padding:8px 10px}
+  .empty{color:var(--muted);text-align:center;padding:28px 10px;font-size:13px;line-height:1.5}
+  .cmt{padding:10px;border-radius:12px;cursor:pointer;margin-bottom:6px}
+  .cmt:hover{background:var(--surf2)}
+  .cmt.done{opacity:.55}
+  .cmt-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+  .stamp{background:rgba(1,127,174,.22);color:#7FD3EE;font-weight:700;font-size:11px;padding:2px 8px;border-radius:20px;font-variant-numeric:tabular-nums}
+  .cmt.done .stamp{background:rgba(111,238,172,.18);color:var(--green)}
+  .who-n{font-size:12px;font-weight:700}
+  .ago{font-size:11px;color:var(--muted)}
+  .cmt-body{font-size:13.5px;color:#CCE5EF;margin-top:4px;line-height:1.4;white-space:pre-wrap}
+  .cmt-actions{margin-top:6px;display:flex;gap:10px}
+  .foot{padding:9px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
+  .composer{padding:12px;border-top:1px solid var(--line);display:none}
+  .composer.show{display:block}
+  textarea{width:100%;min-height:64px;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:9px;color:var(--text);font-size:13px;font-family:inherit;resize:vertical}
+  textarea:focus{outline:none;border-color:var(--primary)}
+  input[type=text],input[type=email]{width:100%;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--text);font-size:14px;font-family:inherit}
+  input::placeholder,textarea::placeholder{color:#5C7E90}
+  .scrim{position:fixed;inset:0;background:rgba(0,18,28,.82);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .scrim.show{display:flex}
+  .gate{width:380px;max-width:calc(100vw - 40px);background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:26px 24px;box-shadow:0 30px 80px rgba(0,8,16,.7)}
+  .gate h2{font-size:19px;margin:0 0 6px;color:#fff}
+  .gate p{font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5}
+  .gate input{margin-bottom:10px}
+  .gate .btn{width:100%}
+  @media(max-width:820px){ .layout{flex-direction:column;height:auto} .side{width:100%;border-left:0;border-top:1px solid var(--line)} }
+</style>
+</head>
+<body>
+<header>
+  <span class="dot"></span><h1 id="title">Video Review</h1>
+  <span class="who"><span id="whoName">—</span><button class="link" id="signBtn" onclick="askIdentity()">change</button></span>
+</header>
+
+<div class="layout">
+  <div class="stage">
+    <div class="player-wrap" id="playerWrap"></div>
+    <div class="toolbar">
+      <button class="btn" id="addBtn" onclick="startComment()">+ Comment at <span class="tcode" id="curTime">0:00</span></button>
+      <span style="color:var(--muted);font-size:13px">Scrub to the moment, then add your note.</span>
+    </div>
+  </div>
+  <div class="side">
+    <div class="side-h"><span>Comments</span><span id="count" class="ago"></span></div>
+    <div class="list" id="list"><div class="empty">Loading…</div></div>
+    <div class="composer" id="composer">
+      <div class="stamp" id="composerStamp" style="display:inline-block;margin-bottom:8px">0:00</div>
+      <textarea id="ta" placeholder="What should change at this moment?"></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px"><button class="btn" onclick="postComment()">Post</button><button class="btn ghost" onclick="cancelComment()">Cancel</button></div>
+    </div>
+    <div class="foot"><span id="statusMode">● shared</span><button class="link" onclick="load()">refresh</button></div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim">
+  <div class="gate">
+    <h2>Sign in to review</h2>
+    <p>So the team knows who left each comment. Scrub the video, then add timestamped notes.</p>
+    <input id="gName" type="text" placeholder="Your name">
+    <input id="gEmail" type="email" placeholder="you@idesignedu.org">
+    <button class="btn" onclick="saveIdentity()">Start reviewing</button>
+    <div id="gErr" style="color:#FF8A7A;font-size:12.5px;margin-top:6px"></div>
+  </div>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+var SUPA_URL='https://puytjdeavhowngzqdymh.supabase.co';
+var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY';
+var H={apikey:SUPA_KEY,Authorization:'Bearer '+SUPA_KEY,'Content-Type':'application/json'};
+var params=new URLSearchParams(location.search);
+var SRC=params.get('v')||'';
+var NAME=params.get('name')||'';
+var PROJECT=SRC;                 // one video = one project (matches the Library card)
+var PAGE='video';
+var DATA=[], curT=0, player=null, pendingT=0;
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
+function fmt(s){ s=Math.max(0,Math.floor(s||0)); var h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60; return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(ss).padStart(2,'0'); }
+function ago(iso){var s=Math.max(1,(Date.now()-new Date(iso))/1000);if(s<60)return'just now';var m=s/60;if(m<60)return Math.floor(m)+'m ago';var h=m/60;if(h<24)return Math.floor(h)+'h ago';return Math.floor(h/24)+'d ago';}
+// identity (shared with the site tool)
+function getName(){return localStorage.getItem('idr_name')||'';}
+function getEmail(){return localStorage.getItem('idr_email')||'';}
+function author(){var n=getName(),e=getEmail();return n?(e?n+' ('+e+')':n):e;}
+function updateWho(){ $('whoName').textContent=author()||'not signed in'; }
+
+// ---- player setup (Vimeo or direct video file) ----
+function vimeoId(u){ var m=String(u).match(/vimeo\.com\/(?:video\/)?(\d+)/); return m?m[1]:null; }
+function isVideoFile(u){ return /\.(mp4|webm|mov|m4v)(\?|$)/i.test(u); }
+function setupPlayer(){
+  var wrap=$('playerWrap'); var vid=vimeoId(SRC);
+  if(vid){
+    var f=document.createElement('iframe'); f.src='https://player.vimeo.com/video/'+vid; f.allow='autoplay; fullscreen; picture-in-picture'; f.setAttribute('allowfullscreen','');
+    wrap.appendChild(f);
+    player=new Vimeo.Player(f);
+    player.on('timeupdate',function(d){ curT=d.seconds; $('curTime').textContent=fmt(curT); });
+    getTime=function(){ return player.getCurrentTime(); };
+    seek=function(t){ return player.setCurrentTime(t).then(function(){return player.pause();}); };
+  } else if(isVideoFile(SRC)){
+    var v=document.createElement('video'); v.src=SRC; v.controls=true;
+    wrap.appendChild(v);
+    v.addEventListener('timeupdate',function(){ curT=v.currentTime; $('curTime').textContent=fmt(curT); });
+    getTime=function(){ return Promise.resolve(v.currentTime); };
+    seek=function(t){ v.currentTime=t; v.pause(); return Promise.resolve(); };
+  } else {
+    wrap.innerHTML='<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#7FA6B8;text-align:center;padding:20px">Unsupported video source. Use a <b style="color:#E9F3F7">Vimeo</b> link or a direct <b style="color:#E9F3F7">.mp4</b> URL.</div>';
+    $('addBtn').disabled=true;
+  }
+}
+var getTime=function(){return Promise.resolve(curT);}, seek=function(){return Promise.resolve();};
+
+// ---- comment flow ----
+function startComment(){
+  if(!getEmail()){ askIdentity(); return; }
+  getTime().then(function(t){ pendingT=t||0; $('composerStamp').textContent=fmt(pendingT); $('composer').classList.add('show'); $('ta').focus(); });
+}
+function cancelComment(){ $('composer').classList.remove('show'); $('ta').value=''; }
+function postComment(){
+  var body=$('ta').value.trim(); if(!body){ $('ta').focus(); return; }
+  var c={project:PROJECT,page:PAGE,author:author(),body:body,anchor:{type:'video',t:pendingT,tx:'at '+fmt(pendingT)},parent_id:null,resolved:false};
+  fetch(SUPA_URL+'/rest/v1/review_comments',{method:'POST',headers:Object.assign({Prefer:'return=minimal'},H),body:JSON.stringify([c])})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); cancelComment(); load(); })
+    .catch(function(e){ alert('Could not post ('+e.message+').'); });
+}
+function resolveToggle(id,val){ fetch(SUPA_URL+'/rest/v1/review_comments?id=eq.'+id,{method:'PATCH',headers:H,body:JSON.stringify({resolved:val})}).then(load); }
+function del(id){ if(!confirm('Delete this comment?'))return; fetch(SUPA_URL+'/rest/v1/review_comments?id=eq.'+id,{method:'DELETE',headers:H}).then(load); }
+
+function load(){
+  fetch(SUPA_URL+'/rest/v1/review_comments?project=eq.'+encodeURIComponent(PROJECT)+'&select=*&order=created_at.asc',{headers:H})
+    .then(function(r){return r.ok?r.json():[];})
+    .then(function(rows){ DATA=rows||[]; render(); })
+    .catch(function(){ $('list').innerHTML='<div class="empty">Could not load comments.</div>'; });
+}
+function render(){
+  var parents=DATA.filter(function(c){return !c.parent_id;}).sort(function(a,b){return (a.anchor&&a.anchor.t||0)-(b.anchor&&b.anchor.t||0);});
+  $('count').textContent=parents.length+' comment'+(parents.length===1?'':'s');
+  if(!parents.length){ $('list').innerHTML='<div class="empty">No comments yet. Scrub to a moment and hit <b>+ Comment</b>.</div>'; return; }
+  $('list').innerHTML=parents.map(function(c){
+    var t=c.anchor&&c.anchor.t||0; var mine=c.author===author();
+    return '<div class="cmt'+(c.resolved?' done':'')+'" onclick="seekTo('+t+')">'
+      +'<div class="cmt-top"><span class="stamp">'+fmt(t)+'</span><span class="ago">'+ago(c.created_at)+'</span></div>'
+      +'<div class="who-n">'+esc(c.author)+'</div>'
+      +'<div class="cmt-body">'+esc(c.body)+'</div>'
+      +'<div class="cmt-actions" onclick="event.stopPropagation()">'
+        +'<button class="link" onclick="resolveToggle(\''+c.id+'\','+(c.resolved?'false':'true')+')">'+(c.resolved?'reopen':'resolve')+'</button>'
+        +(mine?'<button class="link" onclick="del(\''+c.id+'\')">delete</button>':'')
+      +'</div></div>';
+  }).join('');
+}
+function seekTo(t){ seek(t); }
+
+// ---- identity gate ----
+function askIdentity(){ $('gName').value=getName(); $('gEmail').value=getEmail(); $('scrim').classList.add('show'); setTimeout(function(){$('gName').focus();},30); }
+function saveIdentity(){
+  var n=$('gName').value.trim(), e=$('gEmail').value.trim();
+  if(!n){ $('gErr').textContent='Enter your name.'; return; }
+  if(!/.+@.+\..+/.test(e)){ $('gErr').textContent='Enter a valid email.'; return; }
+  localStorage.setItem('idr_name',n); localStorage.setItem('idr_email',e);
+  $('scrim').classList.remove('show'); updateWho();
+}
+
+// ---- boot ----
+if(NAME) { $('title').textContent=NAME+' — Video Review'; document.title=NAME+' | Video Review'; }
+setupPlayer();
+updateWho();
+if(!getEmail()) askIdentity();
+load();
+setInterval(load,6000);
+</script>
+</body>
+</html>
