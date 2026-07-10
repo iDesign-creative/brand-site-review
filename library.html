@@ -59,6 +59,24 @@
   .cactions{display:flex;gap:8px;margin-top:6px}
   .muted{color:var(--muted);text-align:center;padding:50px 10px;font-size:14px}
   a.plain{text-decoration:none}
+  /* collections */
+  .colls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:2px 0 16px}
+  .colls .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-right:2px}
+  .collchip{display:inline-flex;align-items:center;gap:8px;background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:6px 6px 6px 13px;font-size:12.5px;font-weight:700;color:#CCE5EF;cursor:pointer}
+  .collchip:hover{border-color:rgba(0,165,225,.5)}
+  .collchip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .collchip .n{font-weight:400;opacity:.75}
+  .collchip .cog{display:inline-flex;gap:4px}
+  .collchip .mini{background:rgba(137,242,247,.12);border:none;color:inherit;border-radius:14px;width:22px;height:22px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0}
+  .collchip .mini:hover{background:rgba(137,242,247,.28)}
+  .collchip.on .mini{background:rgba(255,255,255,.18)}
+  .collnew{background:transparent;border:1.5px dashed var(--line);color:var(--muted);border-radius:20px;padding:6px 14px;font-size:12.5px;font-weight:700;cursor:pointer}
+  .collnew:hover{color:#CCE5EF;border-color:rgba(0,165,225,.5)}
+  .mem{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .memchip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;background:rgba(0,165,225,.14);color:#7FD3EE;border:1px solid rgba(1,127,174,.4);border-radius:16px;padding:3px 5px 3px 9px}
+  .memchip button{background:none;border:none;color:inherit;cursor:pointer;font-size:13px;line-height:1;padding:0;opacity:.7}
+  .memchip button:hover{opacity:1}
+  .addcoll{background:var(--field);border:1px solid var(--line);color:var(--muted);border-radius:16px;padding:4px 8px;font-size:11.5px;font-family:inherit;cursor:pointer}
 </style>
 </head>
 <body>
@@ -99,6 +117,8 @@
     <button class="btn ghost sm" onclick="load()">Refresh</button>
   </div>
 
+  <div class="colls" id="colls"></div>
+
   <div id="grid"><div class="muted">Loading…</div></div>
 </div>
 
@@ -109,7 +129,7 @@ var CFG = {
 };
 var PROXY = 'https://funny-eagle-3488.idesign-creative.deno.net/';
 var H = { apikey: CFG.key, Authorization: 'Bearer ' + CFG.key };
-var REVIEWS = [], COMMENTS = [], FILTER = 'all';
+var REVIEWS = [], COMMENTS = [], COLLECTIONS = [], MEMBERS = [], FILTER = 'all', COLL_FILTER = null;
 // Admin gate: Delete/Archive are hidden until unlocked with the passcode.
 // Only a SHA-256 hash is stored here — never the passcode itself.
 var PASS_HASH = 'f4527dc1f2eb12028f3ef794499cb82492181c2a1161224598c98426e74f381c'; // SHA-256 of the admin passcode (plaintext not stored)
@@ -132,9 +152,64 @@ function setF(f){ FILTER=f; [].forEach.call(document.querySelectorAll('.tab'),fu
 function load(){
   Promise.all([
     fetch(CFG.url+'/rest/v1/reviews?select=*&order=created_at.desc',{headers:H}).then(function(r){return r.ok?r.json():Promise.reject('reviews '+r.status);}),
-    fetch(CFG.url+'/rest/v1/review_comments?select=project,resolved,parent_id',{headers:H}).then(function(r){return r.ok?r.json():[];})
-  ]).then(function(res){ REVIEWS=res[0]; COMMENTS=res[1]||[]; render(); })
+    fetch(CFG.url+'/rest/v1/review_comments?select=project,resolved,parent_id',{headers:H}).then(function(r){return r.ok?r.json():[];}),
+    fetch(CFG.url+'/rest/v1/collections?select=*&order=created_at.desc',{headers:H}).then(function(r){return r.ok?r.json():[];}),
+    fetch(CFG.url+'/rest/v1/collection_items?select=*',{headers:H}).then(function(r){return r.ok?r.json():[];})
+  ]).then(function(res){ REVIEWS=res[0]; COMMENTS=res[1]||[]; COLLECTIONS=res[2]||[]; MEMBERS=res[3]||[]; renderColls(); render(); })
    .catch(function(e){ $('grid').innerHTML='<div class="muted">Could not load ('+e+'). Make sure the <b>reviews</b> table exists (run the setup SQL).</div>'; });
+}
+// --- collections -----------------------------------------------------------
+function collName(id){ var c=COLLECTIONS.filter(function(x){return x.id===id;})[0]; return c?c.name:'Collection'; }
+function collSize(id){ return MEMBERS.filter(function(m){return m.collection_id===id;}).length; }
+function membersOf(reviewId){ return MEMBERS.filter(function(m){return m.review_id===reviewId;}); }
+function collLink(id){ return location.href.replace(/[^\/]*$/,'')+'collection.html?id='+encodeURIComponent(id); }
+function setCollFilter(id){ COLL_FILTER = (COLL_FILTER===id? null : id); renderColls(); render(); }
+function renderColls(){
+  var strip=$('colls'); if(!strip) return;
+  var html='<span class="lbl">Collections</span>';
+  html+='<span class="collchip'+(COLL_FILTER===null?' on':'')+'" onclick="setCollFilter(null)">All items <span class="n">('+REVIEWS.filter(function(r){return !r.archived;}).length+')</span></span>';
+  COLLECTIONS.forEach(function(c){
+    html+='<span class="collchip'+(COLL_FILTER===c.id?' on':'')+'" onclick="setCollFilter(\''+c.id+'\')">'
+      +esc(c.name)+' <span class="n">('+collSize(c.id)+')</span>'
+      +'<span class="cog" onclick="event.stopPropagation()">'
+        +'<button class="mini" title="Copy reviewer link" onclick="shareCollection(\''+c.id+'\')">🔗</button>'
+        +'<button class="mini" title="Rename" onclick="renameCollection(\''+c.id+'\')">✎</button>'
+        +(ADMIN?'<button class="mini" title="Delete collection" onclick="delCollection(\''+c.id+'\')">🗑</button>':'')
+      +'</span></span>';
+  });
+  html+='<button class="collnew" onclick="createCollection()">+ New collection</button>';
+  strip.innerHTML=html;
+}
+function createCollection(cb){
+  var n=prompt('Name this collection (e.g. “Fall campaign — send to Krista”):','');
+  if(n===null) return; n=n.trim(); if(!n) return;
+  fetch(CFG.url+'/rest/v1/collections',{method:'POST',headers:Object.assign({'Content-Type':'application/json',Prefer:'return=representation'},H),body:JSON.stringify([{name:n,created_by:'iDesign'}])})
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(rows){ var id=rows&&rows[0]&&rows[0].id; return (typeof cb==='function'&&id)?cb(id):load(); })
+    .catch(function(e){ alert('Could not create collection ('+e.message+'). Did you run collections-setup.sql?'); });
+}
+function renameCollection(id){
+  var n=prompt('Rename collection:', collName(id)); if(n===null) return; n=n.trim(); if(!n) return;
+  fetch(CFG.url+'/rest/v1/collections?id=eq.'+id,{method:'PATCH',headers:Object.assign({'Content-Type':'application/json'},H),body:JSON.stringify({name:n})}).then(load);
+}
+function delCollection(id){
+  if(!confirm('Delete the collection “'+collName(id)+'”? (The reviews themselves are not deleted.)')) return;
+  fetch(CFG.url+'/rest/v1/collections?id=eq.'+id,{method:'DELETE',headers:H}).then(function(){ if(COLL_FILTER===id) COLL_FILTER=null; load(); });
+}
+function addToCollection(reviewId,collectionId){
+  if(!collectionId) return;
+  if(collectionId==='__new'){ createCollection(function(id){ return addToCollection(reviewId,id); }); return; }
+  fetch(CFG.url+'/rest/v1/collection_items',{method:'POST',headers:Object.assign({'Content-Type':'application/json',Prefer:'return=minimal'},H),body:JSON.stringify([{collection_id:collectionId,review_id:reviewId}])})
+    .then(function(r){ if(!r.ok && r.status!==409) throw new Error('HTTP '+r.status); load(); })
+    .catch(function(e){ alert('Could not add to collection ('+e.message+').'); });
+}
+function removeFromCollection(reviewId,collectionId){
+  fetch(CFG.url+'/rest/v1/collection_items?review_id=eq.'+reviewId+'&collection_id=eq.'+collectionId,{method:'DELETE',headers:H}).then(load);
+}
+function shareCollection(id){
+  var url=collLink(id);
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(function(){ alert('Reviewer link copied:\n\n'+url); },function(){ prompt('Copy this reviewer link:',url); }); }
+  else prompt('Copy this reviewer link:',url);
 }
 function counts(project){
   var open=0,res=0;
@@ -154,9 +229,11 @@ function reviewLink(r){
 function viewLabel(u){ return isPdf(u)?'Review PDF':isVideo(u)?'Review video':'View site'; }
 function render(){
   var q=($('search').value||'').toLowerCase();
+  var inColl = COLL_FILTER ? MEMBERS.filter(function(m){return m.collection_id===COLL_FILTER;}).reduce(function(a,m){a[m.review_id]=1;return a;},{}) : null;
   var list=REVIEWS.filter(function(r){
     var hay=((r.name||'')+' '+(r.url||'')+' '+(r.project||'')).toLowerCase();
     if(q && hay.indexOf(q)<0) return false;
+    if(inColl && !inColl[r.id]) return false;        // restrict to the selected collection
     if(FILTER==='archived') return !!r.archived;   // archived-only view
     if(r.archived) return false;                    // hide archived from all other views
     var c=counts(r.project);
@@ -164,17 +241,25 @@ function render(){
     if(FILTER==='done') return c.open===0 && c.res>0;
     return true;
   });
-  if(!list.length){ $('grid').innerHTML='<div class="muted">'+(REVIEWS.length?'No reviews match.':'No reviews yet. Click <b>+ New review</b> to add one.')+'</div>'; return; }
+  if(!list.length){ $('grid').innerHTML='<div class="muted">'+(COLL_FILTER?'No items in this collection yet. Add some with the “+ collection” control on a card.':(REVIEWS.length?'No reviews match.':'No reviews yet. Click <b>+ New review</b> to add one.'))+'</div>'; return; }
   $('grid').innerHTML=list.map(function(r){
     var c=counts(r.project);
     var pills = (c.open?'<span class="pill open">'+c.open+' open</span>':'')
               + (c.res?'<span class="pill res">'+c.res+' resolved</span>':'')
               + (!c.open&&!c.res?'<span class="pill none">No comments yet</span>':'');
     var when = r.created_at ? new Date(r.created_at).toLocaleDateString() : '';
+    var mems=membersOf(r.id);
+    var memIds=mems.map(function(m){return m.collection_id;});
+    var memHtml=mems.map(function(m){ return '<span class="memchip">'+esc(collName(m.collection_id))+'<button title="Remove from collection" onclick="removeFromCollection(\''+r.id+'\',\''+m.collection_id+'\')">×</button></span>'; }).join('');
+    var opts='<option value="">+ collection…</option>'
+      + COLLECTIONS.filter(function(c){return memIds.indexOf(c.id)<0;}).map(function(c){return '<option value="'+c.id+'">'+esc(c.name)+'</option>';}).join('')
+      + '<option value="__new">＋ New collection…</option>';
+    var memRow='<div class="mem">'+memHtml+'<select class="addcoll" onchange="addToCollection(\''+r.id+'\',this.value);this.value=\'\';">'+opts+'</select></div>';
     return '<div class="card">'
       +'<div class="ctop"><div class="cname">'+esc(r.name||r.project)+'</div><span class="ctag">'+kindOf(r.url)+'</span></div>'
       +'<div class="curl">'+esc(r.url)+'</div>'
       +'<div class="counts">'+pills+'</div>'
+      +memRow
       +'<div class="cmeta">'+esc(r.created_by||'iDesign')+(when?' · '+when:'')+'</div>'
       +'<div class="cactions">'
         +'<a class="plain" href="'+esc(reviewLink(r))+'" target="_blank"><button class="btn sm">'+viewLabel(r.url)+'</button></a>'

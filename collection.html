@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review collection | Creative + Marketing Site Reviewer | iDesign</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+  :root{--bg:#001E2E;--surf:#002B40;--surf2:#0A3A52;--field:#00263A;--line:rgba(137,242,247,.16);--primary:#017FAE;--primary2:#00A5E1;--green:#6FEEAC;--text:#E9F3F7;--muted:#7FA6B8}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Lato',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg)}
+  header{background:linear-gradient(135deg,#00263A,#013A52);color:#fff;padding:18px 32px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+  header .dot{width:16px;height:16px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(1,127,174,.28)}
+  header h1{font-size:16px;margin:0;font-weight:900}
+  header .who{margin-left:auto;font-size:12px;color:var(--muted);display:flex;gap:10px;align-items:center}
+  .link{background:none;border:none;color:var(--primary2);cursor:pointer;font-size:12px;font-weight:700}
+  .wrap{max-width:960px;margin:0 auto;padding:26px 24px 90px}
+  .cname{font-size:24px;font-weight:900;color:#fff;margin:0 0 4px}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 20px}
+  .grid{display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--primary);color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .body{flex:1;min-width:200px}
+  .ttl{font-size:15.5px;font-weight:900;color:#fff;line-height:1.2;word-break:break-word}
+  .url{font-size:12px;color:var(--muted);word-break:break-all;margin-top:2px}
+  .ctag{flex:none;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 9px;border-radius:20px;background:rgba(1,127,174,.22);color:#7FD3EE;border:1px solid rgba(1,127,174,.4)}
+  .pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+  .pill.open{background:rgba(1,127,174,.20);color:#7FD3EE}
+  .pill.res{background:rgba(111,238,172,.16);color:#6FEEAC}
+  .pill.none{background:rgba(137,242,247,.08);color:var(--muted)}
+  .btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-weight:700;font-size:13.5px;cursor:pointer;text-decoration:none;display:inline-block}
+  .btn:hover{background:var(--primary2)}
+  .muted{color:var(--muted);text-align:center;padding:50px 10px;font-size:14px}
+  a.plain{text-decoration:none}
+  .scrim{position:fixed;inset:0;background:rgba(0,18,28,.82);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .scrim.show{display:flex}
+  .gate{width:390px;max-width:calc(100vw - 40px);background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:26px 24px;box-shadow:0 30px 80px rgba(0,8,16,.7)}
+  .gate h2{font-size:20px;margin:0 0 6px;color:#fff}.gate p{font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.5}
+  .gate input{width:100%;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--text);font-size:14px;font-family:inherit;margin-bottom:10px}
+  .gate input::placeholder{color:#5C7E90}.gate .btn{width:100%}
+</style>
+</head>
+<body>
+<header>
+  <span class="dot"></span><h1>Creative + Marketing Site Reviewer | iDesign</h1>
+  <span class="who"><span id="whoName">—</span><button class="link" onclick="askIdentity()">change</button></span>
+</header>
+<div class="wrap">
+  <h2 class="cname" id="cname">Loading…</h2>
+  <p class="lead" id="lead"></p>
+  <div class="grid" id="grid"><div class="muted">Loading…</div></div>
+</div>
+<div class="scrim" id="scrim">
+  <div class="gate">
+    <h2>Sign in to review</h2>
+    <p>You've been sent a set of items to review. Enter your name so the team knows who left each comment — you'll only do this once.</p>
+    <input id="gName" type="text" placeholder="Your name">
+    <input id="gEmail" type="email" placeholder="you@idesignedu.org">
+    <button class="btn" onclick="saveIdentity()">Start reviewing</button>
+    <div id="gErr" style="color:#FF8A7A;font-size:12.5px;margin-top:6px"></div>
+  </div>
+</div>
+<script>
+var CFG={ url:'https://puytjdeavhowngzqdymh.supabase.co', key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY' };
+var PROXY='https://funny-eagle-3488.idesign-creative.deno.net/';
+var H={ apikey:CFG.key, Authorization:'Bearer '+CFG.key };
+var ID=new URLSearchParams(location.search).get('id')||'';
+var REVIEWS=[], COMMENTS=[];
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
+function getName(){return localStorage.getItem('idr_name')||'';}
+function getEmail(){return localStorage.getItem('idr_email')||'';}
+function author(){var n=getName(),e=getEmail();return n?(e?n+' ('+e+')':n):e;}
+function updateWho(){ $('whoName').textContent=author()||'not signed in'; }
+function askIdentity(){ $('gName').value=getName(); $('gEmail').value=getEmail(); $('scrim').classList.add('show'); setTimeout(function(){$('gName').focus();},30); }
+function saveIdentity(){ var n=$('gName').value.trim(),e=$('gEmail').value.trim(); if(!n){$('gErr').textContent='Enter your name.';return;} if(!/.+@.+\..+/.test(e)){$('gErr').textContent='Enter a valid email.';return;} localStorage.setItem('idr_name',n); localStorage.setItem('idr_email',e); $('scrim').classList.remove('show'); updateWho(); }
+
+function isVideo(u){ return /vimeo\.com|player\.vimeo|\.(mp4|webm|mov|m4v)(\?|$)/i.test(u||''); }
+function isDrive(u){ return /drive\.google\.com\/(file\/d\/|open\?|uc\?)|drive\.usercontent\.google\.com|docs\.google\.com\/(document|presentation|spreadsheets)\//i.test(u||''); }
+function isPdf(u){ return /\.pdf(\?|$)/i.test(u||'') || isDrive(u); }
+function kindOf(u){ return isPdf(u)?'PDF':isVideo(u)?'Video':'Website'; }
+function reviewLink(r){
+  if(isPdf(r.url)) return 'pdf.html?v='+encodeURIComponent(r.url)+'&name='+encodeURIComponent(r.name||'');
+  if(isVideo(r.url)) return 'video.html?v='+encodeURIComponent(r.url)+'&name='+encodeURIComponent(r.name||'');
+  return PROXY+'?url='+encodeURIComponent(r.url);
+}
+function viewLabel(u){ return isPdf(u)?'Review PDF':isVideo(u)?'Review video':'Review site'; }
+function counts(project){ var open=0,res=0; COMMENTS.forEach(function(c){ if(c.parent_id||c.project!==project) return; if(c.resolved) res++; else open++; }); return {open:open,res:res}; }
+
+function load(){
+  if(!ID){ $('cname').textContent='No collection specified'; $('grid').innerHTML='<div class="muted">This link is missing a collection id.</div>'; return; }
+  Promise.all([
+    fetch(CFG.url+'/rest/v1/collections?id=eq.'+encodeURIComponent(ID)+'&select=*',{headers:H}).then(function(r){return r.ok?r.json():[];}),
+    fetch(CFG.url+'/rest/v1/collection_items?collection_id=eq.'+encodeURIComponent(ID)+'&select=review_id,created_at&order=created_at.asc',{headers:H}).then(function(r){return r.ok?r.json():[];}),
+    fetch(CFG.url+'/rest/v1/reviews?select=*',{headers:H}).then(function(r){return r.ok?r.json():[];}),
+    fetch(CFG.url+'/rest/v1/review_comments?select=project,resolved,parent_id',{headers:H}).then(function(r){return r.ok?r.json():[];})
+  ]).then(function(res){
+    var coll=res[0][0]; var items=res[1]||[]; var all=res[2]||[]; COMMENTS=res[3]||[];
+    if(!coll){ $('cname').textContent='Collection not found'; $('grid').innerHTML='<div class="muted">This collection may have been deleted.</div>'; return; }
+    document.title=coll.name+' | Review collection';
+    $('cname').textContent=coll.name;
+    var byId={}; all.forEach(function(r){byId[r.id]=r;});
+    REVIEWS=items.map(function(m){return byId[m.review_id];}).filter(Boolean);
+    $('lead').textContent=REVIEWS.length? ('Please review the '+REVIEWS.length+' item'+(REVIEWS.length>1?'s':'')+' below. Open each one, leave your comments, and come back for the next.') : 'This collection is empty.';
+    render();
+  }).catch(function(e){ $('grid').innerHTML='<div class="muted">Could not load ('+e+').</div>'; });
+}
+function render(){
+  if(!REVIEWS.length){ $('grid').innerHTML='<div class="muted">Nothing to review here yet.</div>'; return; }
+  $('grid').innerHTML=REVIEWS.map(function(r,i){
+    var c=counts(r.project);
+    var pills=(c.open?'<span class="pill open">'+c.open+' open</span>':'')+(c.res?'<span class="pill res">'+c.res+' resolved</span>':'')+(!c.open&&!c.res?'<span class="pill none">No comments yet</span>':'');
+    return '<div class="card">'
+      +'<div class="num">'+(i+1)+'</div>'
+      +'<div class="body"><div class="ttl">'+esc(r.name||r.project)+'</div><div class="url">'+esc(r.url)+'</div></div>'
+      +'<span class="ctag">'+kindOf(r.url)+'</span>'
+      +pills
+      +'<a class="plain" href="'+esc(reviewLink(r))+'" target="_blank"><button class="btn">'+viewLabel(r.url)+' →</button></a>'
+      +'</div>';
+  }).join('');
+}
+updateWho();
+if(!getEmail()) askIdentity();
+load();
+setInterval(load, 20000);
+</script>
+</body>
+</html>
