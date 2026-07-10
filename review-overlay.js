@@ -221,7 +221,11 @@
   }
 
   // ---- UI root (shadow DOM keeps the site's CSS from touching us) -----------
-  var host = el('div', { id: 'idr-host', style: 'all:initial;position:fixed;inset:0;z-index:2147483000;pointer-events:none;' });
+  // data-lenis-prevent: many Webflow sites run a smooth-scroll engine (Lenis /
+  // Locomotive / GSAP ScrollSmoother) that hijacks wheel + touch globally. Without
+  // this, the panel's inner list can't scroll — the engine swallows the gesture.
+  // Lenis checks composedPath, so the flag on the host covers the whole overlay.
+  var host = el('div', { id: 'idr-host', 'data-lenis-prevent': '', 'data-lenis-prevent-wheel': '', 'data-lenis-prevent-touch': '', style: 'all:initial;position:fixed;inset:0;z-index:2147483000;pointer-events:none;' });
   document.documentElement.appendChild(host);
   var root = host.attachShadow({ mode: 'open' });
   root.appendChild(el('style', { text: STYLES() }));
@@ -273,7 +277,16 @@
     var tabs = el('div', { class: 'idr-tabs' }, ['open', 'all', 'resolved', 'mine'].map(function (f) {
       return el('button', { class: 'idr-tab' + (state.filter === f ? ' on' : ''), text: f + (f === 'mine' ? ' (' + mine + ')' : f === 'open' ? ' (' + openN + ')' : ''), onclick: function () { state.filter = f; renderPanel(); schedulePins(); } });
     }));
-    var list = el('div', { class: 'idr-list' });
+    var list = el('div', { class: 'idr-list', 'data-lenis-prevent': '', 'data-lenis-prevent-wheel': '', 'data-lenis-prevent-touch': '', onwheel: function (e) {
+      // Fallback for smooth-scroll engines that don't honor data-lenis-prevent:
+      // drive the list scroll ourselves and stop the wheel from bubbling to the
+      // page engine. Only swallow it while the list can still move that direction,
+      // so reaching an edge lets the page scroll normally.
+      var atTop = list.scrollTop <= 0;
+      var atBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 1;
+      if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) { list.scrollTop += e.deltaY; e.preventDefault(); }
+      e.stopPropagation();
+    } });
     var shown = filtered();
     if (!shown.length) list.appendChild(el('div', { class: 'idr-empty', text: state.mode ? 'Now click anywhere on the page to drop a comment.' : 'No comments yet. Hit “Add comment”, then click any element or text.' }));
     shown.forEach(function (c) {
