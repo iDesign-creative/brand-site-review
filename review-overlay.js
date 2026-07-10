@@ -20,6 +20,10 @@
   // site's feedback stays separate. Mirror pages still pass an explicit project.
   var PROJECT = CFG.project || location.hostname || 'idesign-review';
   var PAGE = CFG.page || location.pathname || '/';   // mirror pages pass the real path via CFG.page
+  // A dashboard "open" link can ask us to jump straight to one comment via
+  // ?focus=<id> (the proxy forwards the query string, so this survives the hop).
+  var FOCUS = null;
+  try { FOCUS = new URL(location.href).searchParams.get('focus') || null; } catch (e) {}
   // Supabase creds are baked in here (this file is deployed directly, so they're
   // guaranteed intact). CFG values from the proxy/bookmarklet are only trusted if
   // they look valid — some hosts corrupt the injected key (e.g. mask it as bullets),
@@ -569,8 +573,20 @@
 
   // ---- data refresh --------------------------------------------------------
   function refresh() {
-    return Store.list().then(function (rows) { state.comments = rows || []; renderPanel(); schedulePins(); })
+    return Store.list().then(function (rows) { state.comments = rows || []; renderPanel(); schedulePins(); maybeFocus(); })
       .catch(function (e) { err(e); return null; });
+  }
+  // Honor ?focus=<id> exactly once: jump to (and open) the referenced comment.
+  // If it lives on another page, hop there first — the focus param rides along.
+  function maybeFocus() {
+    if (!FOCUS) return;
+    var target = state.comments.filter(function (c) { return String(c.id) === String(FOCUS); })[0];
+    if (!target) return;                       // not loaded / different project — leave it be
+    var top = target.parent_id ? (state.comments.filter(function (c) { return String(c.id) === String(target.parent_id); })[0] || target) : target;
+    FOCUS = null;                              // one-shot, whichever branch we take
+    if (top.page && top.page !== PAGE) { gotoPage(top.page); return; }
+    host.style.display = '';                   // make sure the overlay is visible
+    setTimeout(function () { scrollToPin(top); openThread(top); }, 500);
   }
   function err(e) { console.warn('[iDesign Review]', e); }
 
@@ -593,7 +609,7 @@
     '.idr-pin.done{background:var(--green);color:#002B40;border-color:#002B40}',
     '.idr-pin.off{opacity:.45}',
     '.idr-pin:hover{filter:brightness(1.1);z-index:10}',
-    '.idr-panel{position:fixed;top:16px;right:16px;width:322px;max-height:calc(100vh - 32px);background:var(--surf);border:1px solid var(--line);border-radius:16px;box-shadow:0 16px 50px rgba(0,10,20,.55);pointer-events:auto;display:flex;flex-direction:column;overflow:hidden;color:var(--text)}',
+    '.idr-panel{position:fixed;top:16px;right:16px;width:322px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);background:var(--surf);border:1px solid var(--line);border-radius:16px;box-shadow:0 16px 50px rgba(0,10,20,.55);pointer-events:auto;display:flex;flex-direction:column;overflow:hidden;color:var(--text)}',
     '.idr-collapsed{width:auto;background:transparent;box-shadow:none;border:none}',
     '.idr-fab{pointer-events:auto;background:var(--primary);color:#fff;border:none;border-radius:24px;padding:12px 20px;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 6px 22px rgba(1,127,174,.5)}',
     '.idr-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:linear-gradient(135deg,#00263A,#013A52);color:#fff;border-bottom:1px solid var(--line)}',
@@ -612,7 +628,7 @@
     '.idr-tabs{display:flex;gap:5px;padding:6px 14px;flex-wrap:wrap}',
     '.idr-tab{border:none;background:rgba(137,242,247,.08);color:var(--muted);border-radius:20px;padding:5px 11px;font-size:11px;font-weight:700;cursor:pointer}',
     '.idr-tab.on{background:var(--primary);color:#fff}',
-    '.idr-list{overflow:auto;padding:6px 10px 4px;flex:1}',
+    '.idr-list{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 10px 4px;flex:1 1 auto;min-height:0}',
     '.idr-empty{color:var(--muted);font-size:13px;padding:20px 8px;text-align:center;line-height:1.5}',
     '.idr-item{display:flex;gap:10px;padding:10px;border-radius:12px;cursor:pointer}',
     '.idr-item:hover{background:var(--surf2)}',

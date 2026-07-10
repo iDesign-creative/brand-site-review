@@ -34,6 +34,8 @@
   .cmt{padding:10px;border-radius:12px;cursor:pointer;margin-bottom:6px}
   .cmt:hover{background:var(--surf2)}
   .cmt.done{opacity:.55}
+  .cmt.flash{animation:flash 2.2s ease-out}
+  @keyframes flash{0%,40%{background:rgba(0,165,225,.28);box-shadow:0 0 0 2px var(--primary2)}100%{background:transparent;box-shadow:none}}
   .cmt-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
   .badge{background:var(--primary);color:#fff;font-weight:700;font-size:11px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
   .cmt.done .badge{background:var(--green);color:#002B40}
@@ -99,6 +101,7 @@ var PROXY='https://funny-eagle-3488.idesign-creative.deno.net/';   // used to fe
 var H={apikey:SUPA_KEY,Authorization:'Bearer '+SUPA_KEY,'Content-Type':'application/json'};
 var params=new URLSearchParams(location.search);
 var SRC=params.get('v')||''; var NAME=params.get('name')||'';
+var FOCUS=params.get('focus')||'';   // dashboard deep-link: jump to & highlight this comment
 var PROJECT=SRC, PAGE='pdf';
 var DATA=[], MODE=false, pending=null, pageEls={};
 if(window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -162,8 +165,19 @@ function openThread(c,n){
 function load(){
   fetch(SUPA_URL+'/rest/v1/review_comments?project=eq.'+encodeURIComponent(PROJECT)+'&select=*&order=created_at.asc',{headers:H})
     .then(function(r){return r.ok?r.json():[];})
-    .then(function(rows){ DATA=rows||[]; renderList(); renderPins(); })
+    .then(function(rows){ DATA=rows||[]; renderList(); renderPins(); maybeFocus(); })
     .catch(function(){ $('list').innerHTML='<div class="empty">Could not load comments.</div>'; });
+}
+function maybeFocus(){
+  if(!FOCUS) return;
+  var c=DATA.filter(function(x){return String(x.id)===String(FOCUS);})[0]; if(!c) return;
+  var top=c.parent_id?(DATA.filter(function(x){return String(x.id)===String(c.parent_id);})[0]||c):c;
+  FOCUS='';                                  // one-shot
+  var pg=(top.anchor&&top.anchor.pg)||1;
+  var go=function(){ scrollToPage(pg); };
+  go(); setTimeout(go,700);                   // retry once pages have rendered
+  var node=document.getElementById('c-'+top.id);
+  if(node){ node.classList.add('flash'); }
 }
 function renderList(){
   var parents=DATA.filter(function(c){return !c.parent_id;});
@@ -171,7 +185,7 @@ function renderList(){
   $('count').textContent=parents.length+' comment'+(parents.length===1?'':'s');
   if(!parents.length){ $('list').innerHTML='<div class="empty">No comments yet. Click <b>+ Add comment</b>, then click a spot on a page.</div>'; return; }
   $('list').innerHTML=parents.map(function(c,i){ var a=c.anchor||{}; var mine=c.author===author();
-    return '<div class="cmt'+(c.resolved?' done':'')+'" onclick="scrollToPage('+(a.pg||1)+')">'
+    return '<div class="cmt'+(c.resolved?' done':'')+'" id="c-'+c.id+'" onclick="scrollToPage('+(a.pg||1)+')">'
       +'<div class="cmt-top"><span class="badge">'+(c.resolved?'✓':(i+1))+'</span><span class="pgtag">Page '+(a.pg||'?')+'</span><span class="ago">'+ago(c.created_at)+'</span></div>'
       +'<div class="who-n">'+esc(c.author)+'</div><div class="cmt-body">'+esc(c.body)+'</div>'
       +'<div class="cmt-actions" onclick="event.stopPropagation()">'

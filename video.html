@@ -31,6 +31,8 @@
   .cmt{padding:10px;border-radius:12px;cursor:pointer;margin-bottom:6px}
   .cmt:hover{background:var(--surf2)}
   .cmt.done{opacity:.55}
+  .cmt.flash{animation:flash 2.2s ease-out}
+  @keyframes flash{0%,40%{background:rgba(0,165,225,.28);box-shadow:0 0 0 2px var(--primary2)}100%{background:transparent;box-shadow:none}}
   .cmt-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
   .stamp{background:rgba(1,127,174,.22);color:#7FD3EE;font-weight:700;font-size:11px;padding:2px 8px;border-radius:20px;font-variant-numeric:tabular-nums}
   .cmt.done .stamp{background:rgba(111,238,172,.18);color:var(--green)}
@@ -100,6 +102,7 @@ var H={apikey:SUPA_KEY,Authorization:'Bearer '+SUPA_KEY,'Content-Type':'applicat
 var params=new URLSearchParams(location.search);
 var SRC=params.get('v')||'';
 var NAME=params.get('name')||'';
+var FOCUS=params.get('focus')||'';   // dashboard deep-link: seek to & highlight this comment
 var PROJECT=SRC;                 // one video = one project (matches the Library card)
 var PAGE='video';
 var DATA=[], curT=0, player=null, pendingT=0;
@@ -157,8 +160,17 @@ function del(id){ if(!confirm('Delete this comment?'))return; fetch(SUPA_URL+'/r
 function load(){
   fetch(SUPA_URL+'/rest/v1/review_comments?project=eq.'+encodeURIComponent(PROJECT)+'&select=*&order=created_at.asc',{headers:H})
     .then(function(r){return r.ok?r.json():[];})
-    .then(function(rows){ DATA=rows||[]; render(); })
+    .then(function(rows){ DATA=rows||[]; render(); maybeFocus(); })
     .catch(function(){ $('list').innerHTML='<div class="empty">Could not load comments.</div>'; });
+}
+function maybeFocus(){
+  if(!FOCUS) return;
+  var c=DATA.filter(function(x){return String(x.id)===String(FOCUS);})[0]; if(!c) return;
+  var top=c.parent_id?(DATA.filter(function(x){return String(x.id)===String(c.parent_id);})[0]||c):c;
+  FOCUS='';                                  // one-shot
+  var t=top.anchor&&top.anchor.t||0; seekTo(t);
+  var node=document.getElementById('c-'+top.id);
+  if(node){ node.scrollIntoView({behavior:'smooth',block:'center'}); node.classList.add('flash'); }
 }
 function render(){
   var parents=DATA.filter(function(c){return !c.parent_id;}).sort(function(a,b){return (a.anchor&&a.anchor.t||0)-(b.anchor&&b.anchor.t||0);});
@@ -166,7 +178,7 @@ function render(){
   if(!parents.length){ $('list').innerHTML='<div class="empty">No comments yet. Scrub to a moment and hit <b>+ Comment</b>.</div>'; return; }
   $('list').innerHTML=parents.map(function(c){
     var t=c.anchor&&c.anchor.t||0; var mine=c.author===author();
-    return '<div class="cmt'+(c.resolved?' done':'')+'" onclick="seekTo('+t+')">'
+    return '<div class="cmt'+(c.resolved?' done':'')+'" id="c-'+c.id+'" onclick="seekTo('+t+')">'
       +'<div class="cmt-top"><span class="stamp">'+fmt(t)+'</span><span class="ago">'+ago(c.created_at)+'</span></div>'
       +'<div class="who-n">'+esc(c.author)+'</div>'
       +'<div class="cmt-body">'+esc(c.body)+'</div>'
