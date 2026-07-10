@@ -21,9 +21,17 @@
   .btn:hover{background:var(--primary2)}
   .btn.on{background:transparent;border:1.5px solid var(--line);color:var(--muted)}
   .pages{flex:1;overflow:auto;padding:20px;display:flex;flex-direction:column;align-items:center;gap:18px;background:#00141f}
-  .pdf-page{position:relative;box-shadow:0 6px 24px rgba(0,0,0,.5);border-radius:4px;overflow:hidden}
+  .pages.viewer{padding:0;display:block;overflow:hidden;min-height:70vh}
+  #viewer{width:100%;height:100%;min-height:70vh;border:0;display:block;background:#fff}
+  .pdf-page{position:relative;box-shadow:0 6px 24px rgba(0,0,0,.5);border-radius:4px;overflow:hidden;background:#fff}
   .pdf-page canvas{display:block}
   .pdf-page.commenting{cursor:crosshair}
+  .pdf-page.loading{background:#eef3f6}
+  .pdf-page.loading::after{content:'Rendering…';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#5C7E90;font-size:12px}
+  .pdf-page.failed{background:#f7ecea}
+  .pdf-page.failed::after{content:'Could not render this page';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#b64a33;font-size:12px}
+  .spin{display:inline-block;width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:8px}
+  @keyframes spin{to{transform:rotate(360deg)}}
   .players{position:absolute;inset:0;pointer-events:none}
   .pin{position:absolute;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50% 50% 50% 3px;background:var(--primary);color:#fff;border:2px solid #E9F3F7;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;pointer-events:auto;box-shadow:0 2px 8px rgba(0,0,0,.5)}
   .pin.done{background:var(--green);color:#002B40;border-color:#002B40}
@@ -57,7 +65,7 @@
   .gate{width:380px;max-width:calc(100vw - 40px);background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:26px 24px;box-shadow:0 30px 80px rgba(0,8,16,.7)}
   .gate h2{font-size:19px;margin:0 0 6px;color:#fff}.gate p{font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5}
   .gate input{margin-bottom:10px}.gate .btn{width:100%}
-  @media(max-width:820px){ .layout{flex-direction:column;height:auto} .side{width:100%;border-left:0;border-top:1px solid var(--line)} }
+  @media(max-width:820px){ .layout{flex-direction:column;height:auto} .stage{height:80vh} .side{width:100%;border-left:0;border-top:1px solid var(--line)} }
 </style>
 </head>
 <body>
@@ -68,8 +76,8 @@
 <div class="layout">
   <div class="stage">
     <div class="bar">
-      <button class="btn" id="addBtn" onclick="toggleMode()">+ Add comment</button>
-      <span id="hint" style="color:var(--muted);font-size:13px">Click <b>+ Add comment</b>, then click the spot on the page.</span>
+      <button class="btn" id="addBtn" onclick="openComposer()">+ Add comment</button>
+      <span id="hint" style="color:var(--muted);font-size:13px">Add a comment to a page. Click any comment to jump to its page.</span>
     </div>
     <div class="pages" id="pages"><div class="empty" style="margin:auto">Loading PDF…</div></div>
   </div>
@@ -80,8 +88,11 @@
   </div>
 </div>
 <div class="pop" id="pop">
-  <div class="pgtag" id="popPg" style="margin-bottom:6px"></div>
-  <textarea id="ta" placeholder="What needs to change here?"></textarea>
+  <div class="pgtag" style="margin-bottom:8px">Comment on page
+    <input id="popPg" type="number" min="1" value="1" style="width:64px;display:inline-block;padding:5px 7px;margin-left:6px">
+    <span id="popOf" class="ago"></span>
+  </div>
+  <textarea id="ta" placeholder="What needs to change on this page?"></textarea>
   <div class="pop-a"><button class="btn on" onclick="closePop()">Cancel</button><button class="btn" onclick="postComment()">Post</button></div>
 </div>
 <div class="scrim" id="scrim">
@@ -103,7 +114,7 @@ var params=new URLSearchParams(location.search);
 var SRC=params.get('v')||''; var NAME=params.get('name')||'';
 var FOCUS=params.get('focus')||'';   // dashboard deep-link: jump to & highlight this comment
 var PROJECT=SRC, PAGE='pdf';
-var DATA=[], MODE=false, pending=null, pageEls={};
+var DATA=[], pending=null;
 if(window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
@@ -112,8 +123,6 @@ function getName(){return localStorage.getItem('idr_name')||'';}
 function getEmail(){return localStorage.getItem('idr_email')||'';}
 function author(){var n=getName(),e=getEmail();return n?(e?n+' ('+e+')':n):e;}
 function updateWho(){ $('whoName').textContent=author()||'not signed in'; }
-
-function toggleMode(){ MODE=!MODE; $('addBtn').textContent=MODE?'✕ Cancel (click a page)':'+ Add comment'; $('addBtn').classList.toggle('on',MODE); document.querySelectorAll('.pdf-page').forEach(function(p){p.classList.toggle('commenting',MODE);}); }
 
 // Pull a Drive/Docs file id out of any of the link shapes people paste.
 function driveId(u){
@@ -135,67 +144,67 @@ function toFetchUrl(src){
   }
   return src; // already a direct .pdf link
 }
-async function renderPdf(){
+// Native-viewer approach: fetch the bytes, hand them to the browser's own PDF
+// engine via a same-origin blob URL. This renders any PDF instantly — including
+// vector-dense design exports that the in-browser rasterizer (PDF.js) chokes on.
+// Comments are page-level (the native viewer doesn't expose click coordinates).
+var BLOB=null, NUMPAGES=0, curPage=1;
+async function loadPdf(){
+  var host=$('pages');
+  host.classList.remove('viewer');
+  host.innerHTML='<div class="empty" style="margin:auto"><span class="spin"></span>Loading PDF…</div>';
   try{
-    var task=pdfjsLib.getDocument(PROXY+'?url='+encodeURIComponent(toFetchUrl(SRC)));
-    var pdf=await task.promise;
-    $('pages').innerHTML='';
-    var cw=$('pages').clientWidth-40;
-    for(var p=1;p<=pdf.numPages;p++){
-      var page=await pdf.getPage(p);
-      var v1=page.getViewport({scale:1});
-      var scale=Math.min(1.6,(Math.min(cw,900))/v1.width);
-      var vp=page.getViewport({scale:scale});
-      var wrap=document.createElement('div'); wrap.className='pdf-page'+(MODE?' commenting':''); wrap.style.width=vp.width+'px'; wrap.dataset.pg=p;
-      var cv=document.createElement('canvas'); cv.width=vp.width; cv.height=vp.height;
-      var ov=document.createElement('div'); ov.className='players';
-      wrap.appendChild(cv); wrap.appendChild(ov); $('pages').appendChild(wrap);
-      pageEls[p]={wrap:wrap,ov:ov,w:vp.width,h:vp.height};
-      await page.render({canvasContext:cv.getContext('2d'),viewport:vp}).promise;
-    }
-    renderPins();
-  }catch(err){ $('pages').innerHTML='<div class="empty" style="margin:auto">Could not load the PDF.<br>For a Google Drive file, set it to <b>“Anyone with the link · Viewer”</b> and paste the normal share link.<br>Direct <b>.pdf</b> links also work.<br><span style="font-size:11px">'+esc(String(err))+'</span></div>'; }
+    var resp=await fetch(PROXY+'?url='+encodeURIComponent(toFetchUrl(SRC)));
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
+    var buf=await resp.arrayBuffer();
+    // Metadata only (fast — parse, no rasterize) to learn the page count. Give
+    // PDF.js a COPY, since it transfers/detaches the buffer to its worker.
+    try{ var pdf=await pdfjsLib.getDocument({data:buf.slice(0)}).promise; NUMPAGES=pdf.numPages; }catch(e){ NUMPAGES=0; }
+    BLOB=URL.createObjectURL(new Blob([buf],{type:'application/pdf'}));
+    host.classList.add('viewer');
+    host.innerHTML='<iframe id="viewer" title="PDF" src="'+BLOB+'#page=1&zoom=page-width"></iframe>';
+    curPage=1;
+    $('popOf').textContent=NUMPAGES?('of '+NUMPAGES):'';
+    if(NUMPAGES) $('popPg').max=NUMPAGES;
+    maybeFocus();
+  }catch(err){ host.classList.remove('viewer'); host.innerHTML='<div class="empty" style="margin:auto">Could not load the PDF.<br>For a Google Drive file, set it to <b>“Anyone with the link · Viewer”</b> and paste the normal share link.<br>Direct <b>.pdf</b> links also work.<br><span style="font-size:11px">'+esc(String(err))+'</span></div>'; }
 }
-function renderPins(){
-  Object.keys(pageEls).forEach(function(p){ pageEls[p].ov.innerHTML=''; });
-  var parents=DATA.filter(function(c){return !c.parent_id;});
-  parents.forEach(function(c,i){
-    var a=c.anchor||{}; var pe=pageEls[a.pg]; if(!pe) return;
-    var pin=document.createElement('button'); pin.className='pin'+(c.resolved?' done':''); pin.textContent=c.resolved?'✓':(i+1); pin.title=c.author+': '+c.body;
-    pin.style.left=(a.x*pe.w)+'px'; pin.style.top=(a.y*pe.h)+'px';
-    pin.onclick=function(ev){ ev.stopPropagation(); openThread(c,i+1); };
-    pe.ov.appendChild(pin);
-  });
+function jumpToPage(pg){
+  pg=parseInt(pg,10)||1; curPage=pg;
+  var v=$('viewer'); if(v && BLOB) v.src=BLOB+'#page='+pg+'&zoom=page-width';
+}
+function openComposer(){
+  if(!getEmail()){ askIdentity(); return; }
+  pending=true;
+  $('popPg').value=curPage||1; $('popOf').textContent=NUMPAGES?('of '+NUMPAGES):'';
+  var pop=$('pop'); pop.classList.add('show');
+  pop.style.left='24px'; pop.style.top='118px';
+  $('ta').value=''; $('ta').focus();
 }
 function postComment(){
-  var body=$('ta').value.trim(); if(!body||!pending){ $('ta').focus(); return; }
-  var c={project:PROJECT,page:PAGE,author:author(),body:body,anchor:{type:'pdf',pg:pending.pg,x:pending.x,y:pending.y,tx:'p.'+pending.pg},parent_id:null,resolved:false};
+  var body=$('ta').value.trim(); if(!body){ $('ta').focus(); return; }
+  var pg=parseInt($('popPg').value,10)||1; if(pg<1)pg=1; if(NUMPAGES&&pg>NUMPAGES)pg=NUMPAGES;
+  var c={project:PROJECT,page:PAGE,author:author(),body:body,anchor:{type:'pdf',pg:pg,tx:'p.'+pg},parent_id:null,resolved:false};
   fetch(SUPA_URL+'/rest/v1/review_comments',{method:'POST',headers:Object.assign({Prefer:'return=minimal'},H),body:JSON.stringify([c])})
-    .then(function(r){ if(!r.ok)throw new Error(r.status); closePop(); if(MODE) toggleMode(); load(); })
+    .then(function(r){ if(!r.ok)throw new Error(r.status); closePop(); load(); })
     .catch(function(e){ alert('Could not post ('+e.message+').'); });
 }
 function closePop(){ $('pop').classList.remove('show'); pending=null; }
-function openThread(c,n){
-  var msg=c.author+' — '+ago(c.created_at)+'\n\n'+c.body+'\n\n(Page '+(c.anchor&&c.anchor.pg)+')';
-  var act=prompt(msg+'\n\n— Type "r" to resolve/reopen, "d" to delete (your own), or Cancel.','');
-  if(act===null) return;
-  if(act.toLowerCase()==='r') fetch(SUPA_URL+'/rest/v1/review_comments?id=eq.'+c.id,{method:'PATCH',headers:H,body:JSON.stringify({resolved:!c.resolved})}).then(load);
-  else if(act.toLowerCase()==='d' && c.author===author()){ fetch(SUPA_URL+'/rest/v1/review_comments?id=eq.'+c.id,{method:'DELETE',headers:H}).then(load); }
-}
 function load(){
   fetch(SUPA_URL+'/rest/v1/review_comments?project=eq.'+encodeURIComponent(PROJECT)+'&select=*&order=created_at.asc',{headers:H})
     .then(function(r){return r.ok?r.json():[];})
-    .then(function(rows){ DATA=rows||[]; renderList(); renderPins(); maybeFocus(); })
+    .then(function(rows){ DATA=rows||[]; renderList(); maybeFocus(); })
     .catch(function(){ $('list').innerHTML='<div class="empty">Could not load comments.</div>'; });
 }
+// Runs from both load() (needs DATA) and loadPdf() (needs the viewer). Fires once
+// whichever completes second; guards until both the comment and viewer are ready.
 function maybeFocus(){
   if(!FOCUS) return;
   var c=DATA.filter(function(x){return String(x.id)===String(FOCUS);})[0]; if(!c) return;
+  if(!BLOB) return;                           // viewer not ready yet; loadPdf will call again
   var top=c.parent_id?(DATA.filter(function(x){return String(x.id)===String(c.parent_id);})[0]||c):c;
-  FOCUS='';                                  // one-shot
-  var pg=(top.anchor&&top.anchor.pg)||1;
-  var go=function(){ scrollToPage(pg); };
-  go(); setTimeout(go,700);                   // retry once pages have rendered
+  FOCUS='';                                   // one-shot
+  jumpToPage((top.anchor&&top.anchor.pg)||1);
   var node=document.getElementById('c-'+top.id);
   if(node){ node.classList.add('flash'); }
 }
@@ -205,7 +214,7 @@ function renderList(){
   $('count').textContent=parents.length+' comment'+(parents.length===1?'':'s');
   if(!parents.length){ $('list').innerHTML='<div class="empty">No comments yet. Click <b>+ Add comment</b>, then click a spot on a page.</div>'; return; }
   $('list').innerHTML=parents.map(function(c,i){ var a=c.anchor||{}; var mine=c.author===author();
-    return '<div class="cmt'+(c.resolved?' done':'')+'" id="c-'+c.id+'" onclick="scrollToPage('+(a.pg||1)+')">'
+    return '<div class="cmt'+(c.resolved?' done':'')+'" id="c-'+c.id+'" onclick="jumpToPage('+(a.pg||1)+')">'
       +'<div class="cmt-top"><span class="badge">'+(c.resolved?'✓':(i+1))+'</span><span class="pgtag">Page '+(a.pg||'?')+'</span><span class="ago">'+ago(c.created_at)+'</span></div>'
       +'<div class="who-n">'+esc(c.author)+'</div><div class="cmt-body">'+esc(c.body)+'</div>'
       +'<div class="cmt-actions" onclick="event.stopPropagation()">'
@@ -215,30 +224,15 @@ function renderList(){
 }
 function tog(id,v){ fetch(SUPA_URL+'/rest/v1/review_comments?id=eq.'+id,{method:'PATCH',headers:H,body:JSON.stringify({resolved:v})}).then(load); }
 function delc(id){ if(!confirm('Delete this comment?'))return; fetch(SUPA_URL+'/rest/v1/review_comments?id=eq.'+id,{method:'DELETE',headers:H}).then(load); }
-function scrollToPage(p){ if(pageEls[p]) pageEls[p].wrap.scrollIntoView({behavior:'smooth',block:'center'}); }
 function askIdentity(){ $('gName').value=getName(); $('gEmail').value=getEmail(); $('scrim').classList.add('show'); setTimeout(function(){$('gName').focus();},30); }
 function saveIdentity(){ var n=$('gName').value.trim(),e=$('gEmail').value.trim(); if(!n){$('gErr').textContent='Enter your name.';return;} if(!/.+@.+\..+/.test(e)){$('gErr').textContent='Enter a valid email.';return;} localStorage.setItem('idr_name',n); localStorage.setItem('idr_email',e); $('scrim').classList.remove('show'); updateWho(); }
 
 if(NAME){ $('title').textContent=NAME+' — PDF Review'; document.title=NAME+' | PDF Review'; }
 updateWho();
 if(!getEmail()) askIdentity();
-// one delegated click listener on the pages container (robust across re-renders)
-$('pages').addEventListener('click', function(e){
-  if(!MODE) return;
-  var wrap = e.target && e.target.closest ? e.target.closest('.pdf-page') : null;
-  if(!wrap) return;
-  if(!getEmail()){ askIdentity(); return; }
-  var pg=+wrap.dataset.pg; var rect=wrap.getBoundingClientRect();
-  pending={pg:pg, x:(e.clientX-rect.left)/rect.width, y:(e.clientY-rect.top)/rect.height};
-  $('popPg').textContent='Page '+pg;
-  var pop=$('pop'); pop.classList.add('show');
-  pop.style.left=Math.min(window.innerWidth-320,e.clientX+8)+'px'; pop.style.top=Math.min(window.innerHeight-200,e.clientY+8)+'px';
-  $('ta').value=''; $('ta').focus();
-});
-if(SRC && window.pdfjsLib) renderPdf(); else $('pages').innerHTML='<div class="empty" style="margin:auto">No PDF specified.</div>';
+if(SRC) loadPdf(); else $('pages').innerHTML='<div class="empty" style="margin:auto">No PDF specified.</div>';
 load();
 setInterval(load,6000);
-window.addEventListener('resize',function(){ /* keep pins aligned */ renderPins(); });
 </script>
 </body>
 </html>
