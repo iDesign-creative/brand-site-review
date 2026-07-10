@@ -73,13 +73,14 @@
 
   <div class="newform" id="newform">
     <div class="fields">
-      <div class="f"><label>URL to review</label><input id="nurl" type="text" placeholder="https://site.webflow.io  ·  vimeo.com/…  ·  …/file.pdf"></div>
+      <div class="f"><label>URL to review</label><input id="nurl" type="text" placeholder="https://site.webflow.io  ·  vimeo.com/…  ·  …/file.pdf  ·  Google Drive link"></div>
       <div class="f"><label>Label (optional)</label><input id="nname" type="text" placeholder="e.g. Brand site refresh"></div>
     </div>
     <div class="types">
       <span class="tchip"><b>Website</b> — any URL</span>
       <span class="tchip"><b>Video</b> — Vimeo link or .mp4</span>
-      <span class="tchip"><b>PDF</b> — direct .pdf link</span>
+      <span class="tchip"><b>PDF</b> — .pdf link or Google Drive share link</span>
+      <span class="tchip"><b>Google Docs / Slides / Sheets</b> — share link (auto-exports to PDF)</span>
       <span class="tchip soon">Images &amp; PPT (export to PDF) — coming soon</span>
     </div>
     <div class="row">
@@ -141,7 +142,9 @@ function counts(project){
   return {open:open,res:res};
 }
 function isVideo(u){ return /vimeo\.com|player\.vimeo|\.(mp4|webm|mov|m4v)(\?|$)/i.test(u||''); }
-function isPdf(u){ return /\.pdf(\?|$)/i.test(u||''); }
+// Google Drive files + Docs/Slides/Sheets are reviewed as PDF (pdf.html exports them).
+function isDrive(u){ return /drive\.google\.com\/(file\/d\/|open\?|uc\?)|drive\.usercontent\.google\.com|docs\.google\.com\/(document|presentation|spreadsheets)\//i.test(u||''); }
+function isPdf(u){ return /\.pdf(\?|$)/i.test(u||'') || isDrive(u); }
 function kindOf(u){ return isPdf(u)?'PDF':isVideo(u)?'Video':'Website'; }
 function reviewLink(r){
   if(isPdf(r.url)) return 'pdf.html?v='+encodeURIComponent(r.url)+'&name='+encodeURIComponent(r.name||'');

@@ -115,9 +115,29 @@ function updateWho(){ $('whoName').textContent=author()||'not signed in'; }
 
 function toggleMode(){ MODE=!MODE; $('addBtn').textContent=MODE?'✕ Cancel (click a page)':'+ Add comment'; $('addBtn').classList.toggle('on',MODE); document.querySelectorAll('.pdf-page').forEach(function(p){p.classList.toggle('commenting',MODE);}); }
 
+// Pull a Drive/Docs file id out of any of the link shapes people paste.
+function driveId(u){
+  var m=u.match(/\/file\/d\/([-\w]{20,})/)||u.match(/\/d\/([-\w]{20,})/)||u.match(/[?&]id=([-\w]{20,})/);
+  return m?m[1]:'';
+}
+// Turn a Google Drive/Docs share link into a direct-bytes URL PDF.js can read
+// (streamed through the proxy for CORS). Requires the file be shared
+// "Anyone with the link can view." Non-Drive links pass through untouched.
+function toFetchUrl(src){
+  var id=driveId(src);
+  if(/docs\.google\.com\/(document|presentation|spreadsheets)\//.test(src)&&id){
+    if(/\/spreadsheets\//.test(src)) return 'https://docs.google.com/spreadsheets/d/'+id+'/export?format=pdf';
+    if(/\/presentation\//.test(src)) return 'https://docs.google.com/presentation/d/'+id+'/export/pdf';
+    return 'https://docs.google.com/document/d/'+id+'/export?format=pdf';
+  }
+  if(/drive\.(google|usercontent\.google)\.com/.test(src)&&id){
+    return 'https://drive.usercontent.google.com/download?id='+id+'&export=download&confirm=t';
+  }
+  return src; // already a direct .pdf link
+}
 async function renderPdf(){
   try{
-    var task=pdfjsLib.getDocument(PROXY+'?url='+encodeURIComponent(SRC));
+    var task=pdfjsLib.getDocument(PROXY+'?url='+encodeURIComponent(toFetchUrl(SRC)));
     var pdf=await task.promise;
     $('pages').innerHTML='';
     var cw=$('pages').clientWidth-40;
@@ -134,7 +154,7 @@ async function renderPdf(){
       await page.render({canvasContext:cv.getContext('2d'),viewport:vp}).promise;
     }
     renderPins();
-  }catch(err){ $('pages').innerHTML='<div class="empty" style="margin:auto">Could not load the PDF.<br>Use a direct <b>.pdf</b> link (Google Drive needs a direct-download link).<br><span style="font-size:11px">'+esc(String(err))+'</span></div>'; }
+  }catch(err){ $('pages').innerHTML='<div class="empty" style="margin:auto">Could not load the PDF.<br>For a Google Drive file, set it to <b>“Anyone with the link · Viewer”</b> and paste the normal share link.<br>Direct <b>.pdf</b> links also work.<br><span style="font-size:11px">'+esc(String(err))+'</span></div>'; }
 }
 function renderPins(){
   Object.keys(pageEls).forEach(function(p){ pageEls[p].ov.innerHTML=''; });
