@@ -84,7 +84,9 @@
   <span class="dot"></span><h1>Creative + Marketing Site Reviewer | iDesign</h1>
   <span class="spacer"></span>
   <button class="btn ghost" id="adminBtn" onclick="toggleAdmin()">Admin: locked</button>
+  <button class="btn ghost" id="uploadBtn" onclick="document.getElementById('pdffile').click()">⬆ Upload PDF</button>
   <button class="btn" onclick="toggleNew()">+ New review</button>
+  <input type="file" id="pdffile" accept="application/pdf,.pdf" style="display:none" onchange="uploadPdf(this.files[0]); this.value='';">
 </header>
 <div class="wrap">
   <div class="lead">iDesign's shared library of site reviews — send a link, collect feedback, track what's open.</div>
@@ -281,6 +283,30 @@ function setArchived(id,val){ patchReview(id,{archived:val}).then(function(res){
 function delReview(id){
   if(!confirm('Delete this review permanently? (This does not delete its comments.)')) return;
   fetch(CFG.url+'/rest/v1/reviews?id=eq.'+id,{method:'DELETE',headers:H}).then(load);
+}
+var BUCKET='pdf-reviews';
+// Upload a PDF from the user's computer into Supabase Storage, then add it as a
+// review card. The stored file gets a public URL that pdf.html opens in the
+// native viewer, exactly like a Drive/direct PDF link.
+async function uploadPdf(file){
+  if(!file) return;
+  if(!/pdf$/i.test(file.type) && !/\.pdf$/i.test(file.name)){ alert('Please choose a PDF file.'); return; }
+  if(file.size > 50*1024*1024 && !confirm('This file is '+(file.size/1048576).toFixed(1)+' MB. Uploads over ~50 MB may be rejected by Supabase. Try anyway?')) return;
+  var btn=$('uploadBtn'); var label=btn.textContent; btn.textContent='Uploading…'; btn.disabled=true;
+  var base=file.name.replace(/\.pdf$/i,'').replace(/[^a-zA-Z0-9-_]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60)||'document';
+  var path=base+'-'+Date.now()+'.pdf';
+  try{
+    var up=await fetch(CFG.url+'/storage/v1/object/'+BUCKET+'/'+path,{method:'POST',headers:{apikey:CFG.key,Authorization:'Bearer '+CFG.key,'Content-Type':'application/pdf','x-upsert':'true'},body:file});
+    if(!up.ok){ var t=await up.text(); throw new Error('storage '+up.status+' '+t.slice(0,140)); }
+    var publicUrl=CFG.url+'/storage/v1/object/public/'+BUCKET+'/'+path;
+    var body={url:publicUrl, name:file.name.replace(/\.pdf$/i,''), project:publicUrl, created_by:'iDesign'};
+    var res=await fetch(CFG.url+'/rest/v1/reviews',{method:'POST',headers:Object.assign({'Content-Type':'application/json',Prefer:'return=minimal'},H),body:JSON.stringify([body])});
+    if(!res.ok) throw new Error('review save '+res.status);
+    load();
+    alert('Uploaded “'+file.name+'”. It’s now in the library as a PDF review.');
+  }catch(e){
+    alert('Upload failed: '+e.message+'\n\nIf this is your first upload, run storage-setup.sql in Supabase to create the pdf-reviews bucket.');
+  }finally{ btn.textContent=label; btn.disabled=false; }
 }
 function createReview(){
   $('nerr').textContent='';
