@@ -251,6 +251,10 @@
     var parents = topLevel();
     var mine = parents.filter(function (c) { return c.author === getAuthor(); }).length;
     var openN = parents.filter(function (c) { return !c.resolved; }).length;
+    // Preserve the reader's scroll position across the 5s auto-refresh (which
+    // rebuilds the list) so they aren't yanked back to the top mid-read.
+    var prevList = panel.querySelector('.idr-list');
+    var prevScroll = prevList ? prevList.scrollTop : 0;
     panel.innerHTML = '';
     if (!state.open) {
       panel.className = 'idr-panel idr-collapsed';
@@ -311,6 +315,7 @@
       el('button', { class: 'idr-link', text: 'refresh', onclick: refresh })
     ]);
     [head, who, addBtn, tabs, list, foot].forEach(function (x) { panel.appendChild(x); });
+    if (prevScroll) list.scrollTop = prevScroll;   // restore after the rebuild (clamps if the list got shorter)
   }
 
   function filtered() {
