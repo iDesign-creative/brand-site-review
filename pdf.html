@@ -56,6 +56,10 @@
   .reply .cmt-body{font-size:12.5px;margin-top:2px}
   .reply .who-n{font-size:11.5px;font-weight:700}
   .reply .cmt-actions{margin-top:4px}
+  .statustag{font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px}
+  .statustag.in_review{background:rgba(137,242,247,.10);color:#9FC3D4}
+  .statustag.changes{background:rgba(255,138,122,.16);color:#FF9E8F}
+  .statustag.approved{background:rgba(111,238,172,.18);color:#6FEEAC}
   .foot{padding:9px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
   .pop{position:fixed;width:300px;background:var(--surf);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 44px rgba(0,8,16,.6);padding:12px;z-index:40;display:none}
   .pop.show{display:block}
@@ -82,6 +86,9 @@
     <div class="bar">
       <button class="btn" id="addBtn" onclick="openComposer()">+ Add comment</button>
       <a class="plain" id="openOrig" href="#" target="_blank" rel="noopener"><button class="btn ghost">Open original ↗</button></a>
+      <span class="statustag" id="revStatus" style="display:none"></span>
+      <button class="btn ghost" onclick="setReviewStatus('changes')">● Request changes</button>
+      <button class="btn ghost" onclick="setReviewStatus('approved')">✓ Approve</button>
       <span id="hint" style="color:var(--muted);font-size:13px">Add a comment to a page. Click any comment to jump to its page.</span>
     </div>
     <div class="pages" id="pages"><div class="empty" style="margin:auto">Loading PDF…</div></div>
@@ -270,6 +277,24 @@ function renderList(){
 }
 function tog(id,v){ fetch(SUPA_URL+'/rest/v1/review_comments?id=eq.'+id,{method:'PATCH',headers:H,body:JSON.stringify({resolved:v})}).then(load); }
 function delc(id){ if(!confirm('Delete this comment?'))return; fetch(SUPA_URL+'/rest/v1/review_comments?id=eq.'+id,{method:'DELETE',headers:H}).then(load); }
+// ---- review status (approve / request changes) ----
+// Keyed by project (= the PDF's URL). No-ops gracefully if this file isn't a
+// library review or the status column doesn't exist yet.
+function renderStatus(s){ var el=$('revStatus'); if(!el)return; s=s||'in_review'; el.style.display=''; el.className='statustag '+s; el.textContent=(s==='approved'?'✓ Approved':s==='changes'?'● Changes requested':'◐ In review'); }
+function loadStatus(){
+  fetch(SUPA_URL+'/rest/v1/reviews?project=eq.'+encodeURIComponent(PROJECT)+'&select=status&limit=1',{headers:H})
+    .then(function(r){return r.ok?r.json():[];})
+    .then(function(rows){ if(rows&&rows.length) renderStatus(rows[0].status); })
+    .catch(function(){});
+}
+function setReviewStatus(val){
+  if(!getEmail()){ askIdentity(); return; }
+  renderStatus(val);
+  fetch(SUPA_URL+'/rest/v1/reviews?project=eq.'+encodeURIComponent(PROJECT),{method:'PATCH',headers:Object.assign({'Content-Type':'application/json',Prefer:'return=representation'},H),body:JSON.stringify({status:val})})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(rows){ if(!rows||!rows.length){ alert('This PDF isn’t in the Review Library yet, so its status can’t be saved. Add it via the Library first.'); } })
+    .catch(function(e){ alert('Could not set status ('+e.message+').'); });
+}
 function askIdentity(){ $('gName').value=getName(); $('gEmail').value=getEmail(); $('scrim').classList.add('show'); setTimeout(function(){$('gName').focus();},30); }
 function saveIdentity(){ var n=$('gName').value.trim(),e=$('gEmail').value.trim(); if(!n){$('gErr').textContent='Enter your name.';return;} if(!/.+@.+\..+/.test(e)){$('gErr').textContent='Enter a valid email.';return;} localStorage.setItem('idr_name',n); localStorage.setItem('idr_email',e); $('scrim').classList.remove('show'); updateWho(); }
 
@@ -278,6 +303,7 @@ updateWho();
 if(SRC){ var oo=$('openOrig'); if(oo) oo.href=SRC; } else { var oo2=$('openOrig'); if(oo2) oo2.style.display='none'; }
 if(!getEmail()) askIdentity();
 if(SRC) loadPdf(); else $('pages').innerHTML='<div class="empty" style="margin:auto">No PDF specified.</div>';
+if(SRC) loadStatus();
 load();
 setInterval(load,6000);
 </script>

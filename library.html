@@ -55,6 +55,10 @@
   .pill.open{background:rgba(1,127,174,.20);color:#7FD3EE}
   .pill.res{background:rgba(111,238,172,.16);color:#6FEEAC}
   .pill.none{background:rgba(137,242,247,.08);color:var(--muted)}
+  .statustag{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+  .statustag.in_review{background:rgba(137,242,247,.10);color:#9FC3D4}
+  .statustag.changes{background:rgba(255,138,122,.16);color:#FF9E8F}
+  .statustag.approved{background:rgba(111,238,172,.18);color:#6FEEAC}
   .cmeta{font-size:11.5px;color:var(--muted);margin-top:2px}
   .cactions{display:flex;gap:8px;margin-top:6px}
   .muted{color:var(--muted);text-align:center;padding:50px 10px;font-size:14px}
@@ -258,21 +262,30 @@ function render(){
       + COLLECTIONS.filter(function(c){return memIds.indexOf(c.id)<0;}).map(function(c){return '<option value="'+c.id+'">'+esc(c.name)+'</option>';}).join('')
       + '<option value="__new">＋ New collection…</option>';
     var memRow='<div class="mem">'+memHtml+'<select class="addcoll" onchange="addToCollection(\''+r.id+'\',this.value);this.value=\'\';">'+opts+'</select></div>';
+    var st=statusOf(r);
     return '<div class="card">'
       +'<div class="ctop"><div class="cname">'+esc(r.name||r.project)+'</div><span class="ctag">'+kindOf(r.url)+'</span></div>'
       +'<div class="curl">'+esc(r.url)+'</div>'
-      +'<div class="counts">'+pills+'</div>'
+      +'<div class="counts"><span class="statustag '+st+'">'+statusLabel(st)+'</span>'+pills+'</div>'
       +memRow
       +'<div class="cmeta">'+esc(r.created_by||'iDesign')+(when?' · '+when:'')+'</div>'
       +'<div class="cactions">'
         +'<a class="plain" href="'+esc(reviewLink(r))+'" target="_blank"><button class="btn sm">'+viewLabel(r.url)+'</button></a>'
         +'<a class="plain" href="./dashboard.html?site='+encodeURIComponent(r.project)+'" target="_blank"><button class="btn ghost sm">Feedback</button></a>'
+        +'<select class="addcoll" title="Set review status" onchange="setStatus(\''+r.id+'\',this.value)">'
+          +'<option value="in_review"'+(st==='in_review'?' selected':'')+'>◐ In review</option>'
+          +'<option value="changes"'+(st==='changes'?' selected':'')+'>● Changes requested</option>'
+          +'<option value="approved"'+(st==='approved'?' selected':'')+'>✓ Approved</option>'
+        +'</select>'
         +'<button class="btn ghost sm" onclick="renameReview(\''+r.id+'\')">Rename</button>'
         +(ADMIN ? '<button class="btn ghost sm" onclick="setArchived(\''+r.id+'\','+(r.archived?'false':'true')+')">'+(r.archived?'Unarchive':'Archive')+'</button>'
                  +'<button class="btn ghost sm danger" onclick="delReview(\''+r.id+'\')">Delete</button>' : '')
       +'</div></div>';
   }).join('');
 }
+function statusOf(r){ return r.status||'in_review'; }
+function statusLabel(s){ return s==='approved'?'✓ Approved':s==='changes'?'● Changes requested':'◐ In review'; }
+function setStatus(id,val){ patchReview(id,{status:val}).then(function(res){ if(!res.ok) alert('Could not set status — run: alter table public.reviews add column if not exists status text not null default \'in_review\';'); load(); }); }
 function patchReview(id,body){ return fetch(CFG.url+'/rest/v1/reviews?id=eq.'+id,{method:'PATCH',headers:Object.assign({'Content-Type':'application/json'},H),body:JSON.stringify(body)}); }
 function renameReview(id){
   var r=REVIEWS.filter(function(x){return x.id===id;})[0];

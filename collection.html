@@ -28,6 +28,10 @@
   .pill.open{background:rgba(1,127,174,.20);color:#7FD3EE}
   .pill.res{background:rgba(111,238,172,.16);color:#6FEEAC}
   .pill.none{background:rgba(137,242,247,.08);color:var(--muted)}
+  .statustag{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+  .statustag.in_review{background:rgba(137,242,247,.10);color:#9FC3D4}
+  .statustag.changes{background:rgba(255,138,122,.16);color:#FF9E8F}
+  .statustag.approved{background:rgba(111,238,172,.18);color:#6FEEAC}
   .btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-weight:700;font-size:13.5px;cursor:pointer;text-decoration:none;display:inline-block}
   .btn:hover{background:var(--primary2)}
   .muted{color:var(--muted);text-align:center;padding:50px 10px;font-size:14px}
@@ -110,9 +114,11 @@ function render(){
   $('grid').innerHTML=REVIEWS.map(function(r,i){
     var c=counts(r.project);
     var pills=(c.open?'<span class="pill open">'+c.open+' open</span>':'')+(c.res?'<span class="pill res">'+c.res+' resolved</span>':'')+(!c.open&&!c.res?'<span class="pill none">No comments yet</span>':'');
+    var st=r.status||'in_review';
     return '<div class="card">'
       +'<div class="num">'+(i+1)+'</div>'
       +'<div class="body"><div class="ttl">'+esc(r.name||r.project)+'</div><div class="url">'+esc(r.url)+'</div></div>'
+      +'<span class="statustag '+st+'">'+(st==='approved'?'✓ Approved':st==='changes'?'● Changes requested':'◐ In review')+'</span>'
       +'<span class="ctag">'+kindOf(r.url)+'</span>'
       +pills
       +'<a class="plain" href="'+esc(reviewLink(r))+'" target="_blank"><button class="btn">'+viewLabel(r.url)+' →</button></a>'
