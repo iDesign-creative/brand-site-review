@@ -67,6 +67,15 @@
   .topnav a{font-size:13px;font-weight:700;color:#9FC3D4;text-decoration:none;padding:7px 13px;border-radius:18px}
   .topnav a:hover{color:#fff;background:rgba(137,242,247,.10)}
   .topnav a.on{color:#fff;background:rgba(137,242,247,.16)}
+  .guide{display:flex;gap:10px;align-items:stretch;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:6px 0 20px;position:relative;flex-wrap:wrap}
+  .gstep{flex:1;min-width:190px;display:flex;flex-direction:column;gap:3px}
+  .gstep .gn{width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center;margin-bottom:3px}
+  .gstep b{color:#fff;font-size:13.5px}
+  .gstep span:last-child{color:var(--muted);font-size:12.5px;line-height:1.45}
+  .garrow{display:flex;align-items:center;color:var(--muted);font-size:18px}
+  .gx{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer}
+  .gx:hover{color:#fff}
+  @media(max-width:760px){.garrow{display:none}.gstep{min-width:150px}}
   /* collections */
   .colls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:2px 0 16px}
   .colls .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-right:2px}
@@ -98,7 +107,16 @@
   <input type="file" id="pdffile" accept="application/pdf,.pdf" style="display:none" onchange="uploadPdf(this.files[0]); this.value='';">
 </header>
 <div class="wrap">
-  <div class="lead">iDesign's shared library of site reviews — send a link, collect feedback, track what's open.</div>
+  <div class="lead">Everything your team sends out for review — websites, PDFs, and videos — in one place.</div>
+
+  <div class="guide" id="guide">
+    <div class="gstep"><span class="gn">1</span><b>Add what needs review</b><span>Upload a PDF, or paste a website, video, or Google Drive link.</span></div>
+    <div class="garrow">→</div>
+    <div class="gstep"><span class="gn">2</span><b>Share the link</b><span>Send one item, or bundle several into a collection and send a single link.</span></div>
+    <div class="garrow">→</div>
+    <div class="gstep"><span class="gn">3</span><b>Collect &amp; decide</b><span>Feedback lands in the Dashboard. Mark each item Approved or Changes requested.</span></div>
+    <button class="gx" onclick="dismissGuide()">Got it ✕</button>
+  </div>
 
   <div class="newform" id="newform">
     <div class="fields">
@@ -253,7 +271,7 @@ function render(){
     if(FILTER==='done') return c.open===0 && c.res>0;
     return true;
   });
-  if(!list.length){ $('grid').innerHTML='<div class="muted">'+(COLL_FILTER?'No items in this collection yet. Add some with the “+ collection” control on a card.':(REVIEWS.length?'No reviews match.':'No reviews yet. Click <b>+ New review</b> to add one.'))+'</div>'; return; }
+  if(!list.length){ $('grid').innerHTML='<div class="muted">'+(COLL_FILTER?'No items in this collection yet. Add some with the “+ collection” control on any card below.':(REVIEWS.length?'Nothing matches your search or filter.':'Nothing to review yet.<br>Click <b>⬆ Upload PDF</b> or <b>+ New review</b> up top to add your first item.'))+'</div>'; return; }
   $('grid').innerHTML=list.map(function(r){
     var c=counts(r.project);
     var pills = (c.open?'<span class="pill open">'+c.open+' open</span>':'')
@@ -338,6 +356,8 @@ function createReview(){
     .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); $('nurl').value=''; $('nname').value=''; toggleNew(); load(); })
     .catch(function(e){ $('nerr').textContent='Could not save ('+e.message+'). Did you run the reviews-table SQL?'; });
 }
+function dismissGuide(){ try{localStorage.setItem('idr_guide','1');}catch(e){} var g=$('guide'); if(g) g.style.display='none'; }
+try{ if(localStorage.getItem('idr_guide')==='1'){ var _g=$('guide'); if(_g) _g.style.display='none'; } }catch(e){}
 updateAdminBtn();
 load();
 setInterval(load, 20000);
