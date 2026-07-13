@@ -51,6 +51,11 @@
   .reply b{color:var(--text)}
   .muted{color:var(--muted);text-align:center;padding:40px 10px}
   .err{color:#FF8A7A}
+  #scope{margin:14px 0 2px;font-size:15px;font-weight:900;color:#fff;display:none}
+  #scope.show{display:block}
+  #scope .k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--primary2);display:block;margin-bottom:2px}
+  #scope a{color:var(--muted);font-size:12px;font-weight:700;text-decoration:none;margin-left:10px}
+  #scope a:hover{color:var(--text)}
 </style>
 </head>
 <body>
@@ -59,8 +64,10 @@
   <span class="pill" id="live">● live</span>
 </header>
 <div class="wrap">
+  <div id="scope"></div>
   <div class="kpis" id="kpis"></div>
   <div class="bar">
+    <select id="collSel" onchange="COLLECTION=this.value;SITE='';computeCollScope();syncSiteSelector();render()"></select>
     <select id="siteSel" onchange="SITE=this.value;render()"></select>
     <button class="tab on" data-f="open" onclick="setF('open')">Open</button>
     <button class="tab" data-f="all" onclick="setF('all')">All</button>
@@ -78,8 +85,18 @@ var CFG = {
   key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY'
 };
 var DATA=[], FILTER='open', SITE='';   // SITE '' = all sites
+var COLLECTIONS=[], MEMBERS=[], REVIEWS=[], COLLECTION='', COLLNAME='', COLLPROJECTS=null; // COLLECTION '' = all
 var PROXY='https://funny-eagle-3488.idesign-creative.deno.net/';
 function $(id){return document.getElementById(id);}
+// A collection scopes the board to the projects (reviews) it contains.
+function computeCollScope(){
+  if(!COLLECTION){ COLLPROJECTS=null; COLLNAME=''; return; }
+  var revIds={}; MEMBERS.forEach(function(m){ if(m.collection_id===COLLECTION) revIds[m.review_id]=1; });
+  var projs={}; REVIEWS.forEach(function(r){ if(revIds[r.id]) projs[r.project]=1; });
+  COLLPROJECTS=projs;
+  var cc=COLLECTIONS.filter(function(x){return x.id===COLLECTION;})[0]; COLLNAME=cc?cc.name:'';
+}
+function inScope(c){ if(COLLPROJECTS && !COLLPROJECTS[c.project]) return false; if(SITE && c.project!==SITE) return false; return true; }
 // Build the reviewer URL that lands on the exact spot a comment refers to.
 // Video/PDF reviews are their own pages; everything else goes through the proxy.
 // ?focus=<id> tells the reviewer to scroll to and open that comment on load.
@@ -99,26 +116,39 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return
 function ago(iso){var s=Math.max(1,(Date.now()-new Date(iso))/1000);if(s<60)return'just now';var m=s/60;if(m<60)return Math.floor(m)+'m ago';var h=m/60;if(h<24)return Math.floor(h)+'h ago';return Math.floor(h/24)+'d ago';}
 function setF(f){FILTER=f;[].forEach.call(document.querySelectorAll('.tab'),function(t){t.classList.toggle('on',t.dataset.f===f);});render();}
 function load(){
-  fetch(CFG.url+'/rest/v1/review_comments?select=*&order=created_at.asc',{headers:{apikey:CFG.key,Authorization:'Bearer '+CFG.key}})
-   .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
-   .then(function(rows){DATA=rows;syncSiteSelector();render();})
+  var H={apikey:CFG.key,Authorization:'Bearer '+CFG.key};
+  Promise.all([
+    fetch(CFG.url+'/rest/v1/review_comments?select=*&order=created_at.asc',{headers:H}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}),
+    fetch(CFG.url+'/rest/v1/collections?select=*&order=created_at.desc',{headers:H}).then(function(r){return r.ok?r.json():[];}),
+    fetch(CFG.url+'/rest/v1/collection_items?select=*',{headers:H}).then(function(r){return r.ok?r.json():[];}),
+    fetch(CFG.url+'/rest/v1/reviews?select=id,project',{headers:H}).then(function(r){return r.ok?r.json():[];})
+  ]).then(function(res){ DATA=res[0]; COLLECTIONS=res[1]||[]; MEMBERS=res[2]||[]; REVIEWS=res[3]||[]; computeCollScope(); syncCollSelector(); syncSiteSelector(); render(); })
    .catch(function(e){$('board').innerHTML='<div class="muted err">Could not load ('+e.message+').</div>';});
 }
-function sites(){var s={};DATA.forEach(function(c){s[c.project]=1;});return Object.keys(s).sort();}
+function sites(){var s={};DATA.forEach(function(c){ if(COLLPROJECTS && !COLLPROJECTS[c.project]) return; s[c.project]=1;});return Object.keys(s).sort();}
 function syncSiteSelector(){
-  var cur=SITE, opts='<option value="">All sites</option>';
+  var cur=SITE, opts='<option value="">'+(COLLECTION?'All items in collection':'All sites')+'</option>';
   sites().forEach(function(p){opts+='<option value="'+esc(p)+'"'+(p===cur?' selected':'')+'>'+esc(p)+'</option>';});
   $('siteSel').innerHTML=opts;
 }
+function syncCollSelector(){
+  var opts='<option value="">All collections</option>';
+  COLLECTIONS.forEach(function(c){opts+='<option value="'+esc(c.id)+'"'+(c.id===COLLECTION?' selected':'')+'>'+esc(c.name)+'</option>';});
+  $('collSel').innerHTML=opts;
+  $('collSel').style.display=COLLECTIONS.length?'':'none';
+}
 function render(){
-  var parents=DATA.filter(function(c){return !c.parent_id && (!SITE || c.project===SITE);});
+  var sc=$('scope');
+  if(COLLECTION){ sc.className='show'; sc.innerHTML='<span class="k">Collection</span>📦 '+esc(COLLNAME||'—')+'<a href="./dashboard.html">× clear</a>'; }
+  else { sc.className=''; sc.innerHTML=''; }
+  var parents=DATA.filter(function(c){return !c.parent_id && inScope(c);});
   var open=parents.filter(function(c){return !c.resolved;}).length;
   var res=parents.length-open;
   var people=Object.keys(parents.reduce(function(a,c){a[c.author]=1;return a;},{})).length;
   var nSites=SITE?1:sites().length;
-  $('kpis').innerHTML=kpi(parents.length,'comments')+kpi(open,'open')+kpi(res,'resolved')+kpi(people,'reviewers')+(SITE?'':kpi(nSites,'sites'));
+  $('kpis').innerHTML=kpi(parents.length,'comments')+kpi(open,'open')+kpi(res,'resolved')+kpi(people,'reviewers')+(SITE?'':kpi(nSites,COLLECTION?'items':'sites'));
   var shown=parents.filter(function(c){return FILTER==='all'?true:FILTER==='open'?!c.resolved:c.resolved;});
-  if(!shown.length){$('board').innerHTML='<div class="muted">No '+FILTER+' comments'+(SITE?' for this site':'')+' yet.</div>';return;}
+  if(!shown.length){$('board').innerHTML='<div class="muted">No '+FILTER+' comments'+(SITE?' for this item':(COLLECTION?' in this collection':''))+' yet.</div>';return;}
   // group by site -> page
   var bySite={};shown.forEach(function(c){(bySite[c.project]=bySite[c.project]||[]).push(c);});
   var html='';
@@ -146,12 +176,15 @@ function render(){
 function kpi(n,l){return '<div class="kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
 function exportCsv(){
   var rows=[['site','page','status','comment','element_text','author','created_at','type']];
-  DATA.filter(function(c){return !SITE||c.project===SITE;}).forEach(function(c){rows.push([c.project,c.page,c.resolved?'resolved':'open',c.body,(c.anchor&&c.anchor.tx)||'',c.author,c.created_at,c.parent_id?'reply':'comment']);});
+  DATA.filter(inScope).forEach(function(c){rows.push([c.project,c.page,c.resolved?'resolved':'open',c.body,(c.anchor&&c.anchor.tx)||'',c.author,c.created_at,c.parent_id?'reply':'comment']);});
   if(rows.length<2){alert('Nothing to export yet.');return;}
   var csv=rows.map(function(r){return r.map(function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
-  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='idesign-site-review.csv';a.click();
+  var slug=(COLLNAME||'all').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='idesign-review-'+slug+'.csv';a.click();
 }
-var _site=new URLSearchParams(location.search).get('site'); if(_site) SITE=_site;
+var _q=new URLSearchParams(location.search);
+if(_q.get('site')) SITE=_q.get('site');
+if(_q.get('collection')) COLLECTION=_q.get('collection');
 load();
 setInterval(load, 15000);
 </script>

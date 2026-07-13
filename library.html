@@ -175,6 +175,7 @@ function renderColls(){
       +esc(c.name)+' <span class="n">('+collSize(c.id)+')</span>'
       +'<span class="cog" onclick="event.stopPropagation()">'
         +'<button class="mini" title="Copy reviewer link" onclick="shareCollection(\''+c.id+'\')">🔗</button>'
+        +'<button class="mini" title="View all feedback for this collection" onclick="window.open(\'./dashboard.html?collection='+c.id+'\',\'_blank\')">📊</button>'
         +'<button class="mini" title="Rename" onclick="renameCollection(\''+c.id+'\')">✎</button>'
         +(ADMIN?'<button class="mini" title="Delete collection" onclick="delCollection(\''+c.id+'\')">🗑</button>':'')
       +'</span></span>';
