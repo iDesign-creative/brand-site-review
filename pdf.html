@@ -77,6 +77,7 @@
   <div class="stage">
     <div class="bar">
       <button class="btn" id="addBtn" onclick="openComposer()">+ Add comment</button>
+      <a class="plain" id="openOrig" href="#" target="_blank" rel="noopener"><button class="btn ghost">Open original ↗</button></a>
       <span id="hint" style="color:var(--muted);font-size:13px">Add a comment to a page. Click any comment to jump to its page.</span>
     </div>
     <div class="pages" id="pages"><div class="empty" style="margin:auto">Loading PDF…</div></div>
@@ -92,6 +93,7 @@
     <input id="popPg" type="number" min="1" value="1" style="width:64px;display:inline-block;padding:5px 7px;margin-left:6px">
     <span id="popOf" class="ago"></span>
   </div>
+  <div style="font-size:11px;color:var(--muted);margin:0 0 8px">Tip: the current page number is shown at the top of the PDF viewer.</div>
   <textarea id="ta" placeholder="What needs to change on this page?"></textarea>
   <div class="pop-a"><button class="btn on" onclick="closePop()">Cancel</button><button class="btn" onclick="postComment()">Post</button></div>
 </div>
@@ -149,10 +151,24 @@ function toFetchUrl(src){
 // vector-dense design exports that the in-browser rasterizer (PDF.js) chokes on.
 // Comments are page-level (the native viewer doesn't expose click coordinates).
 var BLOB=null, NUMPAGES=0, curPage=1;
+// A Supabase Storage public URL already serves application/pdf and can be framed
+// directly, so the native viewer STREAMS it (fetches only the pages you view) —
+// no downloading the whole file. Big win for large uploads (e.g. 50 MB backdrops).
+function directFrameable(u){ return /\/storage\/v1\/object\/public\//.test(u||'') && !/drive\.|docs\.google/.test(u||''); }
 async function loadPdf(){
   var host=$('pages');
   host.classList.remove('viewer');
   host.innerHTML='<div class="empty" style="margin:auto"><span class="spin"></span>Loading PDF…</div>';
+  if(directFrameable(SRC)){
+    BLOB=SRC; NUMPAGES=0; curPage=1;               // native viewer streams straight from the URL
+    host.classList.add('viewer');
+    host.innerHTML='<iframe id="viewer" title="PDF" src="'+esc(SRC)+'#page=1&zoom=page-width"></iframe>';
+    $('popOf').textContent='';
+    maybeFocus();
+    return;
+  }
+  // Fallback (Drive/Docs + other links): fetch bytes through the proxy and hand
+  // the browser a blob — needed for URL conversion, CORS, and octet-stream fixes.
   try{
     var resp=await fetch(PROXY+'?url='+encodeURIComponent(toFetchUrl(SRC)));
     if(!resp.ok) throw new Error('HTTP '+resp.status);
@@ -212,7 +228,7 @@ function renderList(){
   var parents=DATA.filter(function(c){return !c.parent_id;});
   parents.sort(function(a,b){ var pa=(a.anchor&&a.anchor.pg||0),pb=(b.anchor&&b.anchor.pg||0); return pa-pb || (a.anchor&&a.anchor.y||0)-(b.anchor&&b.anchor.y||0); });
   $('count').textContent=parents.length+' comment'+(parents.length===1?'':'s');
-  if(!parents.length){ $('list').innerHTML='<div class="empty">No comments yet. Click <b>+ Add comment</b>, then click a spot on a page.</div>'; return; }
+  if(!parents.length){ $('list').innerHTML='<div class="empty">No comments yet. Click <b>+ Add comment</b>, choose the page, and leave a note.</div>'; return; }
   $('list').innerHTML=parents.map(function(c,i){ var a=c.anchor||{}; var mine=c.author===author();
     return '<div class="cmt'+(c.resolved?' done':'')+'" id="c-'+c.id+'" onclick="jumpToPage('+(a.pg||1)+')">'
       +'<div class="cmt-top"><span class="badge">'+(c.resolved?'✓':(i+1))+'</span><span class="pgtag">Page '+(a.pg||'?')+'</span><span class="ago">'+ago(c.created_at)+'</span></div>'
@@ -229,6 +245,7 @@ function saveIdentity(){ var n=$('gName').value.trim(),e=$('gEmail').value.trim(
 
 if(NAME){ $('title').textContent=NAME+' — PDF Review'; document.title=NAME+' | PDF Review'; }
 updateWho();
+if(SRC){ var oo=$('openOrig'); if(oo) oo.href=SRC; } else { var oo2=$('openOrig'); if(oo2) oo2.style.display='none'; }
 if(!getEmail()) askIdentity();
 if(SRC) loadPdf(); else $('pages').innerHTML='<div class="empty" style="margin:auto">No PDF specified.</div>';
 load();
