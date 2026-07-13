@@ -40,6 +40,10 @@
   .ago{font-size:11px;color:var(--muted)}
   .cmt-body{font-size:13.5px;color:#CCE5EF;margin-top:4px;line-height:1.4;white-space:pre-wrap}
   .cmt-actions{margin-top:6px;display:flex;gap:10px}
+  .reply{margin:8px 0 2px 12px;padding:7px 9px;background:rgba(137,242,247,.05);border-left:2px solid var(--line);border-radius:0 8px 8px 0}
+  .reply .cmt-body{font-size:12.5px;margin-top:2px}
+  .reply .who-n{font-size:11.5px;font-weight:700}
+  .reply .cmt-actions{margin-top:4px}
   .foot{padding:9px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
   .composer{padding:12px;border-top:1px solid var(--line);display:none}
   .composer.show{display:block}
@@ -76,8 +80,9 @@
     <div class="list" id="list"><div class="empty">Loading…</div></div>
     <div class="composer" id="composer">
       <div class="stamp" id="composerStamp" style="display:inline-block;margin-bottom:8px">0:00</div>
+      <div id="composerReply" style="display:none;font-size:12px;color:var(--muted);margin-bottom:8px">Replying to <b id="composerReplyName"></b></div>
       <textarea id="ta" placeholder="What should change at this moment?"></textarea>
-      <div style="display:flex;gap:8px;margin-top:8px"><button class="btn" onclick="postComment()">Post</button><button class="btn ghost" onclick="cancelComment()">Cancel</button></div>
+      <div style="display:flex;gap:8px;margin-top:8px"><button class="btn" id="postBtn" onclick="postComment()">Post</button><button class="btn ghost" onclick="cancelComment()">Cancel</button></div>
     </div>
     <div class="foot"><span id="statusMode">● shared</span><button class="link" onclick="load()">refresh</button></div>
   </div>
@@ -142,18 +147,31 @@ function setupPlayer(){
 var getTime=function(){return Promise.resolve(curT);}, seek=function(){return Promise.resolve();};
 
 // ---- comment flow ----
+var replyTo=null;
 function startComment(){
   if(!getEmail()){ askIdentity(); return; }
+  replyTo=null; $('composerReply').style.display='none'; $('composerStamp').style.display='inline-block';
+  $('postBtn').textContent='Post'; $('ta').placeholder='What should change at this moment?';
   getTime().then(function(t){ pendingT=t||0; $('composerStamp').textContent=fmt(pendingT); $('composer').classList.add('show'); $('ta').focus(); });
 }
-function cancelComment(){ $('composer').classList.remove('show'); $('ta').value=''; }
+function openReply(id){
+  if(!getEmail()){ askIdentity(); return; }
+  var c=DATA.filter(function(x){return String(x.id)===String(id);})[0]; if(!c) return;
+  replyTo=id; $('composerReply').style.display=''; $('composerReplyName').textContent=c.author||'comment';
+  $('composerStamp').style.display='none'; $('postBtn').textContent='Reply'; $('ta').placeholder='Write a reply…';
+  $('composer').classList.add('show'); $('ta').value=''; $('ta').focus();
+}
+function cancelComment(){ $('composer').classList.remove('show'); $('ta').value=''; replyTo=null; }
 function postComment(){
   var body=$('ta').value.trim(); if(!body){ $('ta').focus(); return; }
-  var c={project:PROJECT,page:PAGE,author:author(),body:body,anchor:{type:'video',t:pendingT,tx:'at '+fmt(pendingT)},parent_id:null,resolved:false};
+  var c;
+  if(replyTo){ c={project:PROJECT,page:PAGE,author:author(),body:body,anchor:null,parent_id:replyTo,resolved:false}; }
+  else { c={project:PROJECT,page:PAGE,author:author(),body:body,anchor:{type:'video',t:pendingT,tx:'at '+fmt(pendingT)},parent_id:null,resolved:false}; }
   fetch(SUPA_URL+'/rest/v1/review_comments',{method:'POST',headers:Object.assign({Prefer:'return=minimal'},H),body:JSON.stringify([c])})
     .then(function(r){ if(!r.ok) throw new Error(r.status); cancelComment(); load(); })
     .catch(function(e){ alert('Could not post ('+e.message+').'); });
 }
+function repliesOf(id){ return DATA.filter(function(c){return String(c.parent_id)===String(id);}).sort(function(a,b){return new Date(a.created_at)-new Date(b.created_at);}); }
 function resolveToggle(id,val){ fetch(SUPA_URL+'/rest/v1/review_comments?id=eq.'+id,{method:'PATCH',headers:H,body:JSON.stringify({resolved:val})}).then(load); }
 function del(id){ if(!confirm('Delete this comment?'))return; fetch(SUPA_URL+'/rest/v1/review_comments?id=eq.'+id,{method:'DELETE',headers:H}).then(load); }
 
@@ -178,11 +196,19 @@ function render(){
   if(!parents.length){ $('list').innerHTML='<div class="empty">No comments yet. Scrub to a moment and hit <b>+ Comment</b>.</div>'; return; }
   $('list').innerHTML=parents.map(function(c){
     var t=c.anchor&&c.anchor.t||0; var mine=c.author===author();
+    var reps=repliesOf(c.id);
+    var repHtml=reps.map(function(r){ var rmine=r.author===author();
+      return '<div class="reply"><div class="cmt-top"><span class="who-n">'+esc(r.author)+'</span><span class="ago">'+ago(r.created_at)+'</span></div>'
+        +'<div class="cmt-body">'+esc(r.body)+'</div>'
+        +(rmine?'<div class="cmt-actions"><button class="link" onclick="event.stopPropagation();del(\''+r.id+'\')">delete</button></div>':'')+'</div>';
+    }).join('');
     return '<div class="cmt'+(c.resolved?' done':'')+'" id="c-'+c.id+'" onclick="seekTo('+t+')">'
       +'<div class="cmt-top"><span class="stamp">'+fmt(t)+'</span><span class="ago">'+ago(c.created_at)+'</span></div>'
       +'<div class="who-n">'+esc(c.author)+'</div>'
       +'<div class="cmt-body">'+esc(c.body)+'</div>'
+      +repHtml
       +'<div class="cmt-actions" onclick="event.stopPropagation()">'
+        +'<button class="link" onclick="openReply(\''+c.id+'\')">reply'+(reps.length?' ('+reps.length+')':'')+'</button>'
         +'<button class="link" onclick="resolveToggle(\''+c.id+'\','+(c.resolved?'false':'true')+')">'+(c.resolved?'reopen':'resolve')+'</button>'
         +(mine?'<button class="link" onclick="del(\''+c.id+'\')">delete</button>':'')
       +'</div></div>';

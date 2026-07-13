@@ -52,6 +52,10 @@
   .ago{font-size:11px;color:var(--muted)}
   .cmt-body{font-size:13.5px;color:#CCE5EF;margin-top:3px;line-height:1.4;white-space:pre-wrap}
   .cmt-actions{margin-top:6px;display:flex;gap:10px}
+  .reply{margin:8px 0 2px 12px;padding:7px 9px;background:rgba(137,242,247,.05);border-left:2px solid var(--line);border-radius:0 8px 8px 0}
+  .reply .cmt-body{font-size:12.5px;margin-top:2px}
+  .reply .who-n{font-size:11.5px;font-weight:700}
+  .reply .cmt-actions{margin-top:4px}
   .foot{padding:9px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
   .pop{position:fixed;width:300px;background:var(--surf);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 44px rgba(0,8,16,.6);padding:12px;z-index:40;display:none}
   .pop.show{display:block}
@@ -89,13 +93,14 @@
   </div>
 </div>
 <div class="pop" id="pop">
-  <div class="pgtag" style="margin-bottom:8px">Comment on page
+  <div id="popReplyTo" class="pgtag" style="margin-bottom:8px;display:none">Replying to <b id="popReplyName"></b></div>
+  <div id="popPgRow" class="pgtag" style="margin-bottom:8px">Comment on page
     <input id="popPg" type="number" min="1" value="1" style="width:64px;display:inline-block;padding:5px 7px;margin-left:6px">
     <span id="popOf" class="ago"></span>
   </div>
-  <div style="font-size:11px;color:var(--muted);margin:0 0 8px">Tip: the current page number is shown at the top of the PDF viewer.</div>
+  <div id="popTip" style="font-size:11px;color:var(--muted);margin:0 0 8px">Tip: the current page number is shown at the top of the PDF viewer.</div>
   <textarea id="ta" placeholder="What needs to change on this page?"></textarea>
-  <div class="pop-a"><button class="btn on" onclick="closePop()">Cancel</button><button class="btn" onclick="postComment()">Post</button></div>
+  <div class="pop-a"><button class="btn on" onclick="closePop()">Cancel</button><button class="btn" id="popPost" onclick="postComment()">Post</button></div>
 </div>
 <div class="scrim" id="scrim">
   <div class="gate">
@@ -189,23 +194,40 @@ function jumpToPage(pg){
   pg=parseInt(pg,10)||1; curPage=pg;
   var v=$('viewer'); if(v && BLOB) v.src=BLOB+'#page='+pg+'&zoom=page-width';
 }
+var replyTo=null;
 function openComposer(){
   if(!getEmail()){ askIdentity(); return; }
-  pending=true;
+  replyTo=null; pending=true;
+  $('popReplyTo').style.display='none'; $('popPgRow').style.display=''; $('popTip').style.display='';
+  $('popPost').textContent='Post'; $('ta').placeholder='What needs to change on this page?';
   $('popPg').value=curPage||1; $('popOf').textContent=NUMPAGES?('of '+NUMPAGES):'';
+  var pop=$('pop'); pop.classList.add('show');
+  pop.style.left='24px'; pop.style.top='118px';
+  $('ta').value=''; $('ta').focus();
+}
+function openReply(id){
+  if(!getEmail()){ askIdentity(); return; }
+  var c=DATA.filter(function(x){return String(x.id)===String(id);})[0]; if(!c) return;
+  replyTo=id; pending=true;
+  $('popReplyTo').style.display=''; $('popReplyName').textContent=c.author||'comment';
+  $('popPgRow').style.display='none'; $('popTip').style.display='none';
+  $('popPost').textContent='Reply'; $('ta').placeholder='Write a reply…';
   var pop=$('pop'); pop.classList.add('show');
   pop.style.left='24px'; pop.style.top='118px';
   $('ta').value=''; $('ta').focus();
 }
 function postComment(){
   var body=$('ta').value.trim(); if(!body){ $('ta').focus(); return; }
-  var pg=parseInt($('popPg').value,10)||1; if(pg<1)pg=1; if(NUMPAGES&&pg>NUMPAGES)pg=NUMPAGES;
-  var c={project:PROJECT,page:PAGE,author:author(),body:body,anchor:{type:'pdf',pg:pg,tx:'p.'+pg},parent_id:null,resolved:false};
+  var c;
+  if(replyTo){ c={project:PROJECT,page:PAGE,author:author(),body:body,anchor:null,parent_id:replyTo,resolved:false}; }
+  else { var pg=parseInt($('popPg').value,10)||1; if(pg<1)pg=1; if(NUMPAGES&&pg>NUMPAGES)pg=NUMPAGES;
+    c={project:PROJECT,page:PAGE,author:author(),body:body,anchor:{type:'pdf',pg:pg,tx:'p.'+pg},parent_id:null,resolved:false}; }
   fetch(SUPA_URL+'/rest/v1/review_comments',{method:'POST',headers:Object.assign({Prefer:'return=minimal'},H),body:JSON.stringify([c])})
     .then(function(r){ if(!r.ok)throw new Error(r.status); closePop(); load(); })
     .catch(function(e){ alert('Could not post ('+e.message+').'); });
 }
-function closePop(){ $('pop').classList.remove('show'); pending=null; }
+function closePop(){ $('pop').classList.remove('show'); pending=null; replyTo=null; }
+function repliesOf(id){ return DATA.filter(function(c){return String(c.parent_id)===String(id);}).sort(function(a,b){return new Date(a.created_at)-new Date(b.created_at);}); }
 function load(){
   fetch(SUPA_URL+'/rest/v1/review_comments?project=eq.'+encodeURIComponent(PROJECT)+'&select=*&order=created_at.asc',{headers:H})
     .then(function(r){return r.ok?r.json():[];})
@@ -230,10 +252,18 @@ function renderList(){
   $('count').textContent=parents.length+' comment'+(parents.length===1?'':'s');
   if(!parents.length){ $('list').innerHTML='<div class="empty">No comments yet. Click <b>+ Add comment</b>, choose the page, and leave a note.</div>'; return; }
   $('list').innerHTML=parents.map(function(c,i){ var a=c.anchor||{}; var mine=c.author===author();
+    var reps=repliesOf(c.id);
+    var repHtml=reps.map(function(r){ var rmine=r.author===author();
+      return '<div class="reply"><div class="cmt-top"><span class="who-n">'+esc(r.author)+'</span><span class="ago">'+ago(r.created_at)+'</span></div>'
+        +'<div class="cmt-body">'+esc(r.body)+'</div>'
+        +(rmine?'<div class="cmt-actions"><button class="link" onclick="event.stopPropagation();delc(\''+r.id+'\')">delete</button></div>':'')+'</div>';
+    }).join('');
     return '<div class="cmt'+(c.resolved?' done':'')+'" id="c-'+c.id+'" onclick="jumpToPage('+(a.pg||1)+')">'
       +'<div class="cmt-top"><span class="badge">'+(c.resolved?'✓':(i+1))+'</span><span class="pgtag">Page '+(a.pg||'?')+'</span><span class="ago">'+ago(c.created_at)+'</span></div>'
       +'<div class="who-n">'+esc(c.author)+'</div><div class="cmt-body">'+esc(c.body)+'</div>'
+      +repHtml
       +'<div class="cmt-actions" onclick="event.stopPropagation()">'
+        +'<button class="link" onclick="openReply(\''+c.id+'\')">reply'+(reps.length?' ('+reps.length+')':'')+'</button>'
         +'<button class="link" onclick="tog(\''+c.id+'\','+(c.resolved?'false':'true')+')">'+(c.resolved?'reopen':'resolve')+'</button>'
         +(mine?'<button class="link" onclick="delc(\''+c.id+'\')">delete</button>':'')+'</div></div>';
   }).join('');
