@@ -45,6 +45,10 @@
   .swrow{display:flex;gap:8px;align-items:center;font-size:13px;color:#CCE5EF;padding:5px 0}
   .swrow .pos{width:22px;height:22px;border-radius:50%;background:rgba(1,127,174,.25);color:#7FD3EE;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none}
   .muted{color:var(--muted);text-align:center;padding:24px;font-size:13px}
+  .topnav{display:flex;gap:4px;margin-left:20px}
+  .topnav a{font-size:13px;font-weight:700;color:#9FC3D4;text-decoration:none;padding:7px 13px;border-radius:18px}
+  .topnav a:hover{color:#fff;background:rgba(137,242,247,.10)}
+  .topnav a.on{color:#fff;background:rgba(137,242,247,.16)}
   /* workflow template builder */
   .wstep{background:var(--field);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
   .wstep-h{display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -73,7 +77,8 @@
 <body>
 <header>
   <span class="dot"></span><h1>Creative + Marketing Site Reviewer | iDesign</h1>
-  <span class="pill">Hub</span><span class="spacer"></span>
+  <nav class="topnav"><a href="./library.html">📚 Library</a><a class="on" href="./hub.html">⚙️ Hub</a><a href="./dashboard.html">📊 Dashboard</a></nav>
+  <span class="spacer"></span>
   <span class="pill" id="ssoNote">SSO: coming (temp passcode)</span>
 </header>
 <div class="wrap">

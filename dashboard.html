@@ -51,6 +51,10 @@
   .reply b{color:var(--text)}
   .muted{color:var(--muted);text-align:center;padding:40px 10px}
   .err{color:#FF8A7A}
+  .topnav{display:flex;gap:4px;margin-left:20px}
+  .topnav a{font-size:13px;font-weight:700;color:#9FC3D4;text-decoration:none;padding:7px 13px;border-radius:18px}
+  .topnav a:hover{color:#fff;background:rgba(137,242,247,.10)}
+  .topnav a.on{color:#fff;background:rgba(137,242,247,.16)}
   #scope{margin:14px 0 2px;font-size:15px;font-weight:900;color:#fff;display:none}
   #scope.show{display:block}
   #scope .k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--primary2);display:block;margin-bottom:2px}
@@ -60,7 +64,9 @@
 </head>
 <body>
 <header>
-  <span class="dot"></span><h1>Creative + Marketing Site Reviewer | iDesign — All Feedback</h1>
+  <span class="dot"></span><h1>All Feedback</h1>
+  <nav class="topnav"><a href="./library.html">📚 Library</a><a href="./hub.html">⚙️ Hub</a><a class="on" href="./dashboard.html">📊 Dashboard</a></nav>
+  <span style="flex:1"></span>
   <span class="pill" id="live">● live</span>
 </header>
 <div class="wrap">
