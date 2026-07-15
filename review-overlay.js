@@ -453,11 +453,53 @@
     });
   }
   function schedulePins() { if (!rafPending) { rafPending = true; requestAnimationFrame(positionPins); } }
+  // Locate the DOM node a comment points at: its CSS-path first, then its quoted
+  // text (robust when the path is brittle or the site changed slightly).
+  function anchorNode(a) {
+    if (!a) return null;
+    var node = null; try { node = a.sel && document.querySelector(a.sel); } catch (e) {}
+    if (node) return node;
+    if (a.tx) {
+      var pre = a.tx.trim().slice(0, 30);
+      var els = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,a,span,div,strong,em,button');
+      for (var i = 0; i < els.length; i++) { if ((els[i].textContent || '').trim().indexOf(pre) === 0) return els[i]; }
+    }
+    return null;
+  }
+  // Step-awareness: some sites are click-through "steppers"/slideshows where only
+  // the active section is shown (.step{display:none}/.step.active{display:block}).
+  // If a comment lives on a hidden step, activate it so we can scroll to it. This
+  // ONLY runs when the node has no layout box (display:none) — normal scrollable
+  // pages are untouched, so their behavior (and live reviews) is unchanged.
+  function revealStep(node) {
+    if (!node || node.getClientRects().length) return false;   // visible already → do nothing
+    var chain = [], el = node;
+    while (el && el !== document.body && el !== document.documentElement) {
+      try { if (getComputedStyle(el).display === 'none') chain.unshift(el); } catch (e) {}
+      el = el.parentElement;
+    }
+    if (!chain.length) return false;
+    var MARK = ['active', 'is-active', 'current', 'is-current', 'selected', 'show', 'shown', 'visible', 'open', 'in-view', 'slide-active'];
+    chain.forEach(function (step) {
+      var parent = step.parentElement; if (!parent) return;
+      var sibs = [].filter.call(parent.children, function (s) { return s.nodeType === 1 && s !== step; });
+      var used = {};
+      sibs.forEach(function (s) { MARK.forEach(function (m) { if (s.classList.contains(m)) { used[m] = 1; s.classList.remove(m); } }); });
+      Object.keys(used).forEach(function (m) { step.classList.add(m); });
+      if (getComputedStyle(step).display === 'none') step.style.display = 'block';   // last resort
+    });
+    return true;
+  }
   function scrollToPin(c) {
-    var node = null; try { node = c.anchor && c.anchor.sel && document.querySelector(c.anchor.sel); } catch (e) {}
-    if (node) node.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    else if (c.anchor) window.scrollTo({ top: c.anchor.fpy * document.documentElement.scrollHeight - window.innerHeight / 2, behavior: 'smooth' });
-    setTimeout(schedulePins, 400);
+    var a = c.anchor || {};
+    var node = anchorNode(a);
+    var revealed = revealStep(node);
+    setTimeout(function () {
+      if (node && node.getClientRects().length) node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      else if (a.fpy != null) window.scrollTo({ top: a.fpy * document.documentElement.scrollHeight - window.innerHeight / 2, behavior: 'smooth' });
+      schedulePins();
+    }, revealed ? 80 : 0);   // small beat for the revealed step to lay out
+    setTimeout(schedulePins, 500);
   }
   window.addEventListener('scroll', schedulePins, { passive: true });
   window.addEventListener('resize', schedulePins);
