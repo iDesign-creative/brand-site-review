@@ -65,9 +65,9 @@
 <body>
 <header>
   <span class="dot"></span><h1>All Feedback</h1>
-  <nav class="topnav"><a href="./library.html">📚 Library</a><a href="./hub.html">⚙️ Hub</a><a class="on" href="./dashboard.html">📊 Dashboard</a></nav>
+  <nav class="topnav"><a href="./library.html">Library</a><a href="./hub.html">Hub</a><a class="on" href="./dashboard.html">Dashboard</a></nav>
   <span style="flex:1"></span>
-  <span class="pill" id="live">● live</span>
+  <span class="pill" id="live">Live</span>
 </header>
 <div class="wrap">
   <p style="color:var(--muted);font-size:14px;margin:16px 0 4px">Every comment your reviewers leave, across all items. Use <b>Collections</b> or the item dropdown to narrow it down, then <b>Export CSV</b> to share.</p>
@@ -146,7 +146,7 @@ function syncCollSelector(){
 }
 function render(){
   var sc=$('scope');
-  if(COLLECTION){ sc.className='show'; sc.innerHTML='<span class="k">Collection</span>📦 '+esc(COLLNAME||'—')+'<a href="./dashboard.html">× clear</a>'; }
+  if(COLLECTION){ sc.className='show'; sc.innerHTML='<span class="k">Collection</span>'+esc(COLLNAME||'—')+'<a href="./dashboard.html">clear</a>'; }
   else { sc.className=''; sc.innerHTML=''; }
   var parents=DATA.filter(function(c){return !c.parent_id && inScope(c);});
   var open=parents.filter(function(c){return !c.resolved;}).length;
@@ -160,7 +160,7 @@ function render(){
   var bySite={};shown.forEach(function(c){(bySite[c.project]=bySite[c.project]||[]).push(c);});
   var html='';
   Object.keys(bySite).sort().forEach(function(site){
-    html+='<div class="site">🌐 '+esc(site)+'</div>';
+    html+='<div class="site">'+esc(site)+'</div>';
     var byPage={};bySite[site].forEach(function(c){(byPage[c.page]=byPage[c.page]||[]).push(c);});
     Object.keys(byPage).sort().forEach(function(pg){
       html+='<div class="grp">'+esc(pg)+' <span class="c">· '+byPage[pg].length+'</span></div>';

@@ -118,7 +118,7 @@ function render(){
     return '<div class="card">'
       +'<div class="num">'+(i+1)+'</div>'
       +'<div class="body"><div class="ttl">'+esc(r.name||r.project)+'</div><div class="url">'+esc(r.url)+'</div></div>'
-      +'<span class="statustag '+st+'">'+(st==='approved'?'✓ Approved':st==='changes'?'● Changes requested':'◐ In review')+'</span>'
+      +'<span class="statustag '+st+'">'+(st==='approved'?'Approved':st==='changes'?'Changes requested':'In review')+'</span>'
       +'<span class="ctag">'+kindOf(r.url)+'</span>'
       +pills
       +'<a class="plain" href="'+esc(reviewLink(r))+'" target="_blank"><button class="btn">'+viewLabel(r.url)+' →</button></a>'

@@ -87,8 +87,8 @@
       <button class="btn" id="addBtn" onclick="openComposer()">+ Add comment</button>
       <a class="plain" id="openOrig" href="#" target="_blank" rel="noopener"><button class="btn ghost">Open original ↗</button></a>
       <span class="statustag" id="revStatus" style="display:none"></span>
-      <button class="btn ghost" onclick="setReviewStatus('changes')">● Request changes</button>
-      <button class="btn ghost" onclick="setReviewStatus('approved')">✓ Approve</button>
+      <button class="btn ghost" onclick="setReviewStatus('changes')">Request changes</button>
+      <button class="btn ghost" onclick="setReviewStatus('approved')">Approve</button>
       <span id="hint" style="color:var(--muted);font-size:13px">Add a comment to a page. Click any comment to jump to its page.</span>
     </div>
     <div class="pages" id="pages"><div class="empty" style="margin:auto">Loading PDF…</div></div>
@@ -96,7 +96,7 @@
   <div class="side">
     <div class="side-h"><span>Comments</span><span id="count" class="ago"></span></div>
     <div class="list" id="list"><div class="empty">Loading…</div></div>
-    <div class="foot"><span>● shared</span><button class="link" onclick="load()">refresh</button></div>
+    <div class="foot"><span>Shared</span><button class="link" onclick="load()">refresh</button></div>
   </div>
 </div>
 <div class="pop" id="pop">
@@ -280,7 +280,7 @@ function delc(id){ if(!confirm('Delete this comment?'))return; fetch(SUPA_URL+'/
 // ---- review status (approve / request changes) ----
 // Keyed by project (= the PDF's URL). No-ops gracefully if this file isn't a
 // library review or the status column doesn't exist yet.
-function renderStatus(s){ var el=$('revStatus'); if(!el)return; s=s||'in_review'; el.style.display=''; el.className='statustag '+s; el.textContent=(s==='approved'?'✓ Approved':s==='changes'?'● Changes requested':'◐ In review'); }
+function renderStatus(s){ var el=$('revStatus'); if(!el)return; s=s||'in_review'; el.style.display=''; el.className='statustag '+s; el.textContent=(s==='approved'?'Approved':s==='changes'?'Changes requested':'In review'); }
 function loadStatus(){
   fetch(SUPA_URL+'/rest/v1/reviews?project=eq.'+encodeURIComponent(PROJECT)+'&select=status&limit=1',{headers:H})
     .then(function(r){return r.ok?r.json():[];})

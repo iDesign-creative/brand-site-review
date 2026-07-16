@@ -77,7 +77,7 @@
 <body>
 <header>
   <span class="dot"></span><h1>Creative + Marketing Site Reviewer | iDesign</h1>
-  <nav class="topnav"><a href="./library.html">📚 Library</a><a class="on" href="./hub.html">⚙️ Hub</a><a href="./dashboard.html">📊 Dashboard</a></nav>
+  <nav class="topnav"><a href="./library.html">Library</a><a class="on" href="./hub.html">Hub</a><a href="./dashboard.html">Dashboard</a></nav>
   <span class="spacer"></span>
   <span class="pill" id="ssoNote">SSO: coming (temp passcode)</span>
 </header>
@@ -197,7 +197,7 @@ function renderAll(){
       var ppl=[];
       if(s.assignees) ppl.push(esc(s.assignees)+' <span class="imeta">(reviewer)</span>');
       if(s.approvers) ppl.push('<b>'+esc(s.approvers)+'</b> <span class="imeta">(approver)</span>');
-      var gate=(s.waits?'⏸ waits':'↓ flows');
+      var gate=(s.waits?'waits':'flows');
       return '<div class="swrow"><span class="pos">'+(s.position+1)+'</span><span>'+(ppl.join(' · ')||'<span class="imeta">no people</span>')+' <span class="chip">'+gate+'</span></span></div>';
     }).join('') || '<div class="imeta">No steps.</div>';
     return '<div class="item" style="align-items:flex-start"><div class="grow"><span class="iname">'+esc(w.name)+'</span>'+stg+'</div><button class="btn danger sm" onclick="delRow(\'workflows\',\''+w.id+'\')">Delete</button></div>';
@@ -248,7 +248,7 @@ function updateGate(stepEl){
   var waits=roles.indexOf('approver')>=0;
   var g=stepEl.querySelector('.wgate');
   g.className='wgate '+(waits?'wait':'flow');
-  g.textContent=waits?'⏸ This step waits for the approver to approve.':'↓ This step flows through without waiting.';
+  g.textContent=waits?'This step waits for the approver to approve.':'This step flows through without waiting.';
 }
 function renumberSteps(){
   var steps=[].slice.call(document.querySelectorAll('#stepList .wstep'));

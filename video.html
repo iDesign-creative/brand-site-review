@@ -77,8 +77,8 @@
     <div class="toolbar">
       <button class="btn" id="addBtn" onclick="startComment()">+ Comment at <span class="tcode" id="curTime">0:00</span></button>
       <span class="statustag" id="revStatus" style="display:none"></span>
-      <button class="btn ghost" onclick="setReviewStatus('changes')">● Request changes</button>
-      <button class="btn ghost" onclick="setReviewStatus('approved')">✓ Approve</button>
+      <button class="btn ghost" onclick="setReviewStatus('changes')">Request changes</button>
+      <button class="btn ghost" onclick="setReviewStatus('approved')">Approve</button>
       <span style="color:var(--muted);font-size:13px">Scrub to the moment, then add your note.</span>
     </div>
   </div>
@@ -91,7 +91,7 @@
       <textarea id="ta" placeholder="What should change at this moment?"></textarea>
       <div style="display:flex;gap:8px;margin-top:8px"><button class="btn" id="postBtn" onclick="postComment()">Post</button><button class="btn ghost" onclick="cancelComment()">Cancel</button></div>
     </div>
-    <div class="foot"><span id="statusMode">● shared</span><button class="link" onclick="load()">refresh</button></div>
+    <div class="foot"><span id="statusMode">Shared</span><button class="link" onclick="load()">refresh</button></div>
   </div>
 </div>
 
@@ -225,7 +225,7 @@ function seekTo(t){ seek(t); }
 
 // ---- identity gate ----
 // ---- review status (approve / request changes), keyed by project (video URL) ----
-function renderStatus(s){ var el=$('revStatus'); if(!el)return; s=s||'in_review'; el.style.display=''; el.className='statustag '+s; el.textContent=(s==='approved'?'✓ Approved':s==='changes'?'● Changes requested':'◐ In review'); }
+function renderStatus(s){ var el=$('revStatus'); if(!el)return; s=s||'in_review'; el.style.display=''; el.className='statustag '+s; el.textContent=(s==='approved'?'Approved':s==='changes'?'Changes requested':'In review'); }
 function loadStatus(){
   fetch(SUPA_URL+'/rest/v1/reviews?project=eq.'+encodeURIComponent(PROJECT)+'&select=status&limit=1',{headers:H})
     .then(function(r){return r.ok?r.json():[];})

@@ -84,7 +84,7 @@
   .collchip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
   .collchip .n{font-weight:400;opacity:.75}
   .collchip .cog{display:inline-flex;gap:4px}
-  .collchip .mini{background:rgba(137,242,247,.12);border:none;color:inherit;border-radius:14px;width:22px;height:22px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0}
+  .collchip .mini{background:rgba(137,242,247,.12);border:none;color:inherit;border-radius:12px;padding:3px 9px;font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
   .collchip .mini:hover{background:rgba(137,242,247,.28)}
   .collchip.on .mini{background:rgba(255,255,255,.18)}
   .collnew{background:transparent;border:1.5px dashed var(--line);color:var(--muted);border-radius:20px;padding:6px 14px;font-size:12.5px;font-weight:700;cursor:pointer}
@@ -99,10 +99,10 @@
 <body>
 <header>
   <span class="dot"></span><h1>Creative + Marketing Site Reviewer | iDesign</h1>
-  <nav class="topnav"><a class="on" href="./library.html">📚 Library</a><a href="./hub.html">⚙️ Hub</a><a href="./dashboard.html">📊 Dashboard</a></nav>
+  <nav class="topnav"><a class="on" href="./library.html">Library</a><a href="./hub.html">Hub</a><a href="./dashboard.html">Dashboard</a></nav>
   <span class="spacer"></span>
   <button class="btn ghost" id="adminBtn" onclick="toggleAdmin()">Admin: locked</button>
-  <button class="btn ghost" id="uploadBtn" onclick="document.getElementById('pdffile').click()">⬆ Upload PDF</button>
+  <button class="btn ghost" id="uploadBtn" onclick="document.getElementById('pdffile').click()">Upload PDF</button>
   <button class="btn" onclick="toggleNew()">+ New review</button>
   <input type="file" id="pdffile" accept="application/pdf,.pdf" style="display:none" onchange="uploadPdf(this.files[0]); this.value='';">
 </header>
@@ -115,7 +115,7 @@
     <div class="gstep"><span class="gn">2</span><b>Share the link</b><span>Send one item, or bundle several into a collection and send a single link.</span></div>
     <div class="garrow">→</div>
     <div class="gstep"><span class="gn">3</span><b>Collect &amp; decide</b><span>Feedback lands in the Dashboard. Mark each item Approved or Changes requested.</span></div>
-    <button class="gx" onclick="dismissGuide()">Got it ✕</button>
+    <button class="gx" onclick="dismissGuide()">Got it</button>
   </div>
 
   <div class="newform" id="newform">
@@ -201,10 +201,10 @@ function renderColls(){
     html+='<span class="collchip'+(COLL_FILTER===c.id?' on':'')+'" onclick="setCollFilter(\''+c.id+'\')">'
       +esc(c.name)+' <span class="n">('+collSize(c.id)+')</span>'
       +'<span class="cog" onclick="event.stopPropagation()">'
-        +'<button class="mini" title="Copy reviewer link" onclick="shareCollection(\''+c.id+'\')">🔗</button>'
-        +'<button class="mini" title="View all feedback for this collection" onclick="window.open(\'./dashboard.html?collection='+c.id+'\',\'_blank\')">📊</button>'
-        +'<button class="mini" title="Rename" onclick="renameCollection(\''+c.id+'\')">✎</button>'
-        +(ADMIN?'<button class="mini" title="Delete collection" onclick="delCollection(\''+c.id+'\')">🗑</button>':'')
+        +'<button class="mini" title="Copy reviewer link" onclick="shareCollection(\''+c.id+'\')">Copy link</button>'
+        +'<button class="mini" title="View all feedback for this collection" onclick="window.open(\'./dashboard.html?collection='+c.id+'\',\'_blank\')">Feedback</button>'
+        +'<button class="mini" title="Rename" onclick="renameCollection(\''+c.id+'\')">Rename</button>'
+        +(ADMIN?'<button class="mini" title="Delete collection" onclick="delCollection(\''+c.id+'\')">Delete</button>':'')
       +'</span></span>';
   });
   html+='<button class="collnew" onclick="createCollection()">+ New collection</button>';
@@ -271,7 +271,7 @@ function render(){
     if(FILTER==='done') return c.open===0 && c.res>0;
     return true;
   });
-  if(!list.length){ $('grid').innerHTML='<div class="muted">'+(COLL_FILTER?'No items in this collection yet. Add some with the “+ collection” control on any card below.':(REVIEWS.length?'Nothing matches your search or filter.':'Nothing to review yet.<br>Click <b>⬆ Upload PDF</b> or <b>+ New review</b> up top to add your first item.'))+'</div>'; return; }
+  if(!list.length){ $('grid').innerHTML='<div class="muted">'+(COLL_FILTER?'No items in this collection yet. Add some with the “+ collection” control on any card below.':(REVIEWS.length?'Nothing matches your search or filter.':'Nothing to review yet.<br>Click <b>Upload PDF</b> or <b>+ New review</b> up top to add your first item.'))+'</div>'; return; }
   $('grid').innerHTML=list.map(function(r){
     var c=counts(r.project);
     var pills = (c.open?'<span class="pill open">'+c.open+' open</span>':'')
@@ -296,9 +296,9 @@ function render(){
         +'<a class="plain" href="'+esc(reviewLink(r))+'" target="_blank"><button class="btn sm">'+viewLabel(r.url)+'</button></a>'
         +'<a class="plain" href="./dashboard.html?site='+encodeURIComponent(r.project)+'" target="_blank"><button class="btn ghost sm">Feedback</button></a>'
         +'<select class="addcoll" title="Set review status" onchange="setStatus(\''+r.id+'\',this.value)">'
-          +'<option value="in_review"'+(st==='in_review'?' selected':'')+'>◐ In review</option>'
-          +'<option value="changes"'+(st==='changes'?' selected':'')+'>● Changes requested</option>'
-          +'<option value="approved"'+(st==='approved'?' selected':'')+'>✓ Approved</option>'
+          +'<option value="in_review"'+(st==='in_review'?' selected':'')+'>In review</option>'
+          +'<option value="changes"'+(st==='changes'?' selected':'')+'>Changes requested</option>'
+          +'<option value="approved"'+(st==='approved'?' selected':'')+'>Approved</option>'
         +'</select>'
         +'<button class="btn ghost sm" onclick="renameReview(\''+r.id+'\')">Rename</button>'
         +(ADMIN ? '<button class="btn ghost sm" onclick="setArchived(\''+r.id+'\','+(r.archived?'false':'true')+')">'+(r.archived?'Unarchive':'Archive')+'</button>'
@@ -307,7 +307,7 @@ function render(){
   }).join('');
 }
 function statusOf(r){ return r.status||'in_review'; }
-function statusLabel(s){ return s==='approved'?'✓ Approved':s==='changes'?'● Changes requested':'◐ In review'; }
+function statusLabel(s){ return s==='approved'?'Approved':s==='changes'?'Changes requested':'In review'; }
 function setStatus(id,val){ patchReview(id,{status:val}).then(function(res){ if(!res.ok) alert('Could not set status — run: alter table public.reviews add column if not exists status text not null default \'in_review\';'); load(); }); }
 function patchReview(id,body){ return fetch(CFG.url+'/rest/v1/reviews?id=eq.'+id,{method:'PATCH',headers:Object.assign({'Content-Type':'application/json'},H),body:JSON.stringify(body)}); }
 function renameReview(id){
