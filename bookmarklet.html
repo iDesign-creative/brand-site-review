@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decision bookmarklet | Creative + Marketing Site Reviewer | iDesign</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+  :root{--bg:#001E2E;--surf:#002B40;--field:#00263A;--line:rgba(137,242,247,.16);--primary:#017FAE;--primary2:#00A5E1;--text:#E9F3F7;--muted:#7FA6B8}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Lato',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
+  header{background:linear-gradient(135deg,#00263A,#013A52);color:#fff;padding:16px 28px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+  header .dot{width:14px;height:14px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(1,127,174,.28)}
+  header h1{font-size:15px;margin:0;font-weight:900}
+  .wrap{max-width:640px;margin:0 auto;padding:34px 22px 90px}
+  h2{font-size:22px;color:#fff;margin:0 0 6px}
+  p{color:#CCE5EF;font-size:14px;line-height:1.6}
+  .muted{color:var(--muted)}
+  .bmwrap{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:22px;margin:18px 0;text-align:center}
+  .bm{display:inline-block;background:var(--primary);color:#fff;padding:12px 22px;border-radius:10px;font-weight:900;font-size:15px;text-decoration:none;cursor:grab}
+  .bm:hover{background:var(--primary2)}
+  ol{color:#CCE5EF;font-size:14px;line-height:1.7;padding-left:20px}
+  ol b{color:#fff}
+  .note{background:rgba(255,206,147,.10);border:1px solid rgba(255,206,147,.3);border-radius:10px;padding:12px 14px;color:#FFCE93;font-size:13px;line-height:1.5;margin-top:16px}
+</style>
+</head>
+<body>
+<header><span class="dot"></span><h1>Creative + Marketing Site Reviewer | iDesign</h1></header>
+<div class="wrap">
+  <h2>Decision bookmarklet (Synthesia test)</h2>
+  <p class="muted">This puts a small <b style="color:#fff">Send your decision</b> panel on top of a Synthesia review page, without leaving Synthesia. It runs in your own logged-in tab.</p>
+
+  <div class="bmwrap">
+    <a class="bm" id="bm" href="#">Send Decision (iDesign)</a>
+    <p class="muted" style="margin:12px 0 0;font-size:12.5px">Drag this button up to your bookmarks bar.</p>
+  </div>
+
+  <ol>
+    <li><b>Drag</b> the button above onto your browser's bookmarks bar.</li>
+    <li>Open your <b>Synthesia review link</b> and sign in as usual; leave your comments on the scenes as normal.</li>
+    <li>When you're done, click the <b>Send Decision (iDesign)</b> bookmark. A panel appears in the top-right.</li>
+    <li>Enter your name, choose <b>Approved</b> / <b>Approved with changes</b> / <b>Changes requested and re-review</b>, add an optional note, and it sends the decision to the team.</li>
+  </ol>
+
+  <div class="note">Test note: this is experimental. Synthesia allows it today, but if they change their security settings it could stop working — which is why the standalone <b>decision page</b> is the reliable fallback. Try it and tell us what happens.</div>
+</div>
+
+<script>
+// Self-contained decision widget — everything lives inside this function so the
+// bookmarklet needs no external script (Synthesia's CSP blocks loading ours).
+function IDR_DECISION(){
+  if(document.getElementById('idr-dec')){document.getElementById('idr-dec').remove();return;}
+  var SUPA='https://puytjdeavhowngzqdymh.supabase.co';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY';
+  var nm=localStorage.getItem('idr_dec_name')||'';
+  var b=document.createElement('div');b.id='idr-dec';
+  b.style.cssText='position:fixed;top:16px;right:16px;z-index:2147483647;width:310px;background:#002B40;color:#E9F3F7;border:1px solid rgba(137,242,247,.3);border-radius:14px;padding:16px;font-family:Lato,Arial,sans-serif;box-shadow:0 16px 50px rgba(0,0,0,.6);font-size:14px';
+  function btn(d,l,s,c){return '<button data-d="'+d+'" style="display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:9px;border:1.5px solid rgba(137,242,247,.2);background:#00263A;color:#E9F3F7;font-weight:700;font-size:13.5px;cursor:pointer">'+l+'<span style="display:block;font-weight:400;font-size:11px;color:#7FA6B8">'+s+'</span></button>';}
+  b.innerHTML='<div style="font-weight:900;margin-bottom:8px">Send your decision</div>'
+    +'<input id="idr-n" placeholder="Your name" value="'+nm.replace(/"/g,'&quot;')+'" style="width:100%;padding:9px;border-radius:8px;border:1px solid rgba(137,242,247,.25);background:#00263A;color:#fff;margin-bottom:8px;font-family:inherit">'
+    +'<div style="font-size:12px;color:#7FA6B8;margin-bottom:4px">To complete your review, choose one:</div>'
+    +btn('approved_no_changes','Approved','No changes needed.')
+    +btn('approved_with_changes','Approved with changes','Proceed and make the tweaks.')
+    +btn('changes_rereview','Changes requested and re-review','Make changes, then send back.')
+    +'<textarea id="idr-note" placeholder="Note (optional)" style="width:100%;min-height:52px;margin-top:8px;padding:9px;border-radius:8px;border:1px solid rgba(137,242,247,.25);background:#00263A;color:#fff;font-family:inherit;font-size:13px"></textarea>'
+    +'<div id="idr-msg" style="font-size:12.5px;margin-top:8px;min-height:16px"></div>'
+    +'<div style="text-align:right"><span id="idr-x" style="cursor:pointer;color:#7FA6B8;font-size:12px">close</span></div>';
+  document.body.appendChild(b);
+  document.getElementById('idr-x').onclick=function(){b.remove();};
+  [].forEach.call(b.querySelectorAll('button[data-d]'),function(btn){btn.onclick=function(){
+    var name=document.getElementById('idr-n').value.trim();if(!name){document.getElementById('idr-msg').textContent='Please enter your name.';return;}
+    localStorage.setItem('idr_dec_name',name);
+    var d=btn.getAttribute('data-d');var label=btn.childNodes[0].textContent;var note=document.getElementById('idr-note').value.trim();
+    document.getElementById('idr-msg').textContent='Sending…';
+    fetch(SUPA+'/rest/v1/review_comments',{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify([{project:location.href,page:'decision',author:name,body:label+(note?'\n\n'+note:''),anchor:{type:'decision',decision:d,tx:label},parent_id:null,resolved:false}])})
+      .then(function(r){document.getElementById('idr-msg').textContent=r.ok?'Decision sent — thank you!':'Could not send ('+r.status+').';})
+      .catch(function(e){document.getElementById('idr-msg').textContent='Error: '+e.message;});
+  };});
+}
+document.getElementById('bm').href='javascript:('+IDR_DECISION.toString()+')();void 0;';
+</script>
+</body>
+</html>
