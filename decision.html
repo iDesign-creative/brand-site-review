@@ -17,7 +17,10 @@
   .wrap{max-width:620px;margin:0 auto;padding:34px 22px 90px}
   .title{font-size:22px;font-weight:900;color:#fff;margin:0 0 4px}
   .lead{color:var(--muted);font-size:14px;margin:0 0 26px;line-height:1.5}
-  .step{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:16px}
+  .step{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:16px;transition:border-color .2s,box-shadow .2s}
+  .step.ready{border-color:var(--primary2);box-shadow:0 0 0 3px rgba(0,165,225,.18)}
+  .backhint{display:none;font-size:12.5px;font-weight:700;color:var(--primary2);margin:0 0 8px}
+  .step.ready .backhint{display:block}
   .stepnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font-weight:900;font-size:12px;margin-right:9px}
   .steph{font-size:15px;font-weight:900;color:#fff;display:flex;align-items:center;margin:0 0 8px}
   .stepsub{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 14px}
@@ -66,8 +69,9 @@
     <a class="btn" id="openBtn" href="#" target="_blank" rel="noopener">Open review in Synthesia →</a>
   </div>
 
-  <div class="step">
+  <div class="step" id="decideStep">
     <div class="steph"><span class="stepnum">2</span>Send your decision</div>
+    <div class="backhint" id="backhint">Done reviewing in Synthesia? Send your decision below.</div>
     <div class="stepsub">To complete your review and send your decision, choose one:</div>
     <div class="decisions">
       <button class="dbtn approve" onclick="submitDecision('approved_no_changes','Approved (no changes)')"><span class="mk"></span><span>Approved <span class="sub">No changes needed — good to proceed.</span></span></button>
@@ -98,7 +102,12 @@ var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZ
 var H={apikey:SUPA_KEY,Authorization:'Bearer '+SUPA_KEY,'Content-Type':'application/json'};
 var params=new URLSearchParams(location.search);
 var SRC=params.get('v')||''; var NAME=params.get('name')||'';
+// Identity can be baked into the link by the workflow (who/em) so an assigned
+// reviewer never has to sign in here — one link, review, one click.
+var WHO=params.get('who')||''; var EM=params.get('em')||'';
+if(WHO){ try{ localStorage.setItem('idr_name',WHO); if(EM) localStorage.setItem('idr_email',EM); }catch(e){} }
 var PROJECT=SRC, PAGE='decision';
+var opened=false;
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
 function getName(){return localStorage.getItem('idr_name')||'';}
@@ -134,7 +143,10 @@ function showDone(key,label,note){
 }
 
 if(NAME){ $('title').textContent=NAME; document.title=NAME+' | Video review'; }
-if(SRC){ $('openBtn').href=SRC; } else { $('openBtn').style.display='none'; $('openBtn').insertAdjacentHTML('afterend','<div class="err">No video link provided.</div>'); }
+if(SRC){ $('openBtn').href=SRC; $('openBtn').addEventListener('click',function(){ opened=true; }); }
+else { $('openBtn').style.display='none'; $('openBtn').insertAdjacentHTML('afterend','<div class="err">No video link provided.</div>'); }
+// When they return to this tab after opening Synthesia, highlight the decision step.
+window.addEventListener('focus',function(){ if(opened){ var s=$('decideStep'); if(s){ s.classList.add('ready'); s.scrollIntoView({behavior:'smooth',block:'center'}); } } });
 updateWho();
 if(!getName()) askIdentity();
 </script>
