@@ -80,15 +80,17 @@ function askIdentity(){ $('gName').value=getName(); $('gEmail').value=getEmail()
 function saveIdentity(){ var n=$('gName').value.trim(),e=$('gEmail').value.trim(); if(!n){$('gErr').textContent='Enter your name.';return;} if(!/.+@.+\..+/.test(e)){$('gErr').textContent='Enter a valid email.';return;} localStorage.setItem('idr_name',n); localStorage.setItem('idr_email',e); $('scrim').classList.remove('show'); updateWho(); }
 
 function isVideo(u){ return /vimeo\.com|player\.vimeo|\.(mp4|webm|mov|m4v)(\?|$)/i.test(u||''); }
+function isDecision(u){ return /synthesia\.io|openreel\.com/i.test(u||''); }
 function isDrive(u){ return /drive\.google\.com\/(file\/d\/|open\?|uc\?)|drive\.usercontent\.google\.com|docs\.google\.com\/(document|presentation|spreadsheets)\//i.test(u||''); }
 function isPdf(u){ return /\.pdf(\?|$)/i.test(u||'') || isDrive(u); }
-function kindOf(u){ return isPdf(u)?'PDF':isVideo(u)?'Video':'Website'; }
+function kindOf(u){ return isDecision(u)?'Video review':isPdf(u)?'PDF':isVideo(u)?'Video':'Website'; }
 function reviewLink(r){
+  if(isDecision(r.url)) return 'decision.html?v='+encodeURIComponent(r.url)+'&name='+encodeURIComponent(r.name||'');
   if(isPdf(r.url)) return 'pdf.html?v='+encodeURIComponent(r.url)+'&name='+encodeURIComponent(r.name||'');
   if(isVideo(r.url)) return 'video.html?v='+encodeURIComponent(r.url)+'&name='+encodeURIComponent(r.name||'');
   return PROXY+'?url='+encodeURIComponent(r.url);
 }
-function viewLabel(u){ return isPdf(u)?'Review PDF':isVideo(u)?'Review video':'Review site'; }
+function viewLabel(u){ return isDecision(u)?'Review & decide':isPdf(u)?'Review PDF':isVideo(u)?'Review video':'Review site'; }
 function counts(project){ var open=0,res=0; COMMENTS.forEach(function(c){ if(c.parent_id||c.project!==project) return; if(c.resolved) res++; else open++; }); return {open:open,res:res}; }
 
 function load(){

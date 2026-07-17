@@ -112,6 +112,7 @@ function openReview(id){
   var url;
   if(c.page==='video')      url='./video.html?v='+encodeURIComponent(c.project)+'&focus='+encodeURIComponent(c.id);
   else if(c.page==='pdf')   url='./pdf.html?v='+encodeURIComponent(c.project)+'&focus='+encodeURIComponent(c.id);
+  else if(c.page==='decision') url='./decision.html?v='+encodeURIComponent(c.project);
   else {
     var target=/^https?:\/\//.test(c.project)?c.project:('https://'+c.project);
     target=target.replace(/\/+$/,'')+(c.page||'/');

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Review &amp; Decision | Creative + Marketing Site Reviewer | iDesign</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+  :root{--bg:#001E2E;--surf:#002B40;--surf2:#0A3A52;--field:#00263A;--line:rgba(137,242,247,.16);--primary:#017FAE;--primary2:#00A5E1;--green:#6FEEAC;--amber:#FFCE93;--red:#FF8A7A;--text:#E9F3F7;--muted:#7FA6B8}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Lato',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg)}
+  header{background:linear-gradient(135deg,#00263A,#013A52);color:#fff;padding:16px 28px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+  header .dot{width:14px;height:14px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(1,127,174,.28)}
+  header h1{font-size:15px;margin:0;font-weight:900}
+  header .who{margin-left:auto;font-size:12px;color:var(--muted);display:flex;gap:10px;align-items:center}
+  .link{background:none;border:none;color:var(--primary2);cursor:pointer;font-size:12px;font-weight:700}
+  .wrap{max-width:620px;margin:0 auto;padding:34px 22px 90px}
+  .title{font-size:22px;font-weight:900;color:#fff;margin:0 0 4px}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 26px;line-height:1.5}
+  .step{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:16px}
+  .stepnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font-weight:900;font-size:12px;margin-right:9px}
+  .steph{font-size:15px;font-weight:900;color:#fff;display:flex;align-items:center;margin:0 0 8px}
+  .stepsub{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 14px}
+  .btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block}
+  .btn:hover{background:var(--primary2)}
+  .decisions{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+  .dbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--field);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--text);font-size:14.5px;font-weight:700;cursor:pointer;transition:border-color .12s,background .12s}
+  .dbtn:hover{background:var(--surf2)}
+  .dbtn .mk{width:14px;height:14px;border-radius:50%;flex:none}
+  .dbtn.approve:hover{border-color:var(--green)} .dbtn.approve .mk{background:var(--green)}
+  .dbtn.changes:hover{border-color:var(--primary2)} .dbtn.changes .mk{background:var(--primary2)}
+  .dbtn.reject:hover{border-color:var(--red)} .dbtn.reject .mk{background:var(--red)}
+  .dbtn .sub{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px}
+  textarea{width:100%;min-height:72px;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--text);font-size:14px;font-family:inherit;resize:vertical;margin-top:6px}
+  textarea:focus{outline:none;border-color:var(--primary)}
+  .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#CCE5EF}
+  .done{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:28px 24px;text-align:center}
+  .done .badge{display:inline-block;font-size:12px;font-weight:900;padding:5px 14px;border-radius:20px;margin-bottom:12px}
+  .done .badge.approved{background:rgba(111,238,172,.18);color:var(--green)}
+  .done .badge.changes{background:rgba(1,127,174,.24);color:#7FD3EE}
+  .done .badge.reject{background:rgba(255,138,122,.16);color:var(--red)}
+  .done h2{font-size:19px;color:#fff;margin:0 0 6px}
+  .done p{color:var(--muted);font-size:13.5px;line-height:1.5;margin:0 0 4px}
+  .muted{color:var(--muted);text-align:center;padding:40px 10px;font-size:14px}
+  .scrim{position:fixed;inset:0;background:rgba(0,18,28,.82);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .scrim.show{display:flex}
+  .gate{width:390px;max-width:calc(100vw - 40px);background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:26px 24px;box-shadow:0 30px 80px rgba(0,8,16,.7)}
+  .gate h2{font-size:20px;margin:0 0 6px;color:#fff}.gate p{font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.5}
+  .gate input{width:100%;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--text);font-size:14px;font-family:inherit;margin-bottom:10px}
+  .gate input::placeholder{color:#5C7E90}.gate .btn{width:100%}
+  .err{color:var(--red);font-size:12.5px;margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+  <span class="dot"></span><h1>Creative + Marketing Site Reviewer | iDesign</h1>
+  <span class="who"><span id="whoName">—</span><button class="link" onclick="askIdentity()">change</button></span>
+</header>
+<div class="wrap" id="wrap">
+  <h1 class="title" id="title">Video review</h1>
+  <p class="lead">Review the video in Synthesia, leave any comments there (they go straight to the editor), then send your decision below.</p>
+
+  <div class="step">
+    <div class="steph"><span class="stepnum">1</span>Review in Synthesia</div>
+    <div class="stepsub">Opens the video in Synthesia's reviewer. Add your comments right on the scenes — they connect directly to the editor. When you're done, come back here.</div>
+    <a class="btn" id="openBtn" href="#" target="_blank" rel="noopener">Open review in Synthesia →</a>
+  </div>
+
+  <div class="step">
+    <div class="steph"><span class="stepnum">2</span>Send your decision</div>
+    <div class="stepsub">To complete your review and send your decision, choose one:</div>
+    <div class="decisions">
+      <button class="dbtn approve" onclick="submitDecision('approved_no_changes','Approved (no changes)')"><span class="mk"></span><span>Approved <span class="sub">No changes needed — good to proceed.</span></span></button>
+      <button class="dbtn changes" onclick="submitDecision('approved_with_changes','Approved with changes')"><span class="mk"></span><span>Approved with changes <span class="sub">Proceed and make the noted tweaks — no re-review needed.</span></span></button>
+      <button class="dbtn reject" onclick="submitDecision('changes_rereview','Changes requested and re-review')"><span class="mk"></span><span>Changes requested and re-review <span class="sub">Make the changes, then send it back to me for another look.</span></span></button>
+    </div>
+    <div style="margin-top:14px"><span class="lbl">Add a note (optional)</span>
+      <textarea id="note" placeholder="Anything the editor should know about your decision…"></textarea>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim">
+  <div class="gate">
+    <h2>Before you review</h2>
+    <p>Enter your name so your decision is recorded against you. You'll only do this once.</p>
+    <input id="gName" type="text" placeholder="Your name">
+    <input id="gEmail" type="email" placeholder="you@email.com (optional)">
+    <button class="btn" onclick="saveIdentity()">Start</button>
+    <div class="err" id="gErr"></div>
+  </div>
+</div>
+
+<script>
+var SUPA_URL='https://puytjdeavhowngzqdymh.supabase.co';
+var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY';
+var H={apikey:SUPA_KEY,Authorization:'Bearer '+SUPA_KEY,'Content-Type':'application/json'};
+var params=new URLSearchParams(location.search);
+var SRC=params.get('v')||''; var NAME=params.get('name')||'';
+var PROJECT=SRC, PAGE='decision';
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
+function getName(){return localStorage.getItem('idr_name')||'';}
+function getEmail(){return localStorage.getItem('idr_email')||'';}
+function author(){var n=getName(),e=getEmail();return n?(e?n+' ('+e+')':n):e;}
+function updateWho(){ $('whoName').textContent=author()||'not signed in'; }
+function askIdentity(){ $('gName').value=getName(); $('gEmail').value=getEmail(); $('scrim').classList.add('show'); setTimeout(function(){$('gName').focus();},30); }
+function saveIdentity(){ var n=$('gName').value.trim(),e=$('gEmail').value.trim(); if(!n){$('gErr').textContent='Enter your name.';return;} localStorage.setItem('idr_name',n); localStorage.setItem('idr_email',e); $('scrim').classList.remove('show'); updateWho(); }
+
+var STATUS_OF={approved_no_changes:'approved',approved_with_changes:'approved',changes_rereview:'changes'};
+function submitDecision(key,label){
+  if(!getName()){ askIdentity(); return; }
+  $('err').textContent='';
+  var note=$('note').value.trim();
+  var body=label+(note?'\n\n'+note:'');
+  var c={project:PROJECT,page:PAGE,author:author(),body:body,anchor:{type:'decision',decision:key,tx:label},parent_id:null,resolved:false};
+  fetch(SUPA_URL+'/rest/v1/review_comments',{method:'POST',headers:Object.assign({Prefer:'return=minimal'},H),body:JSON.stringify([c])})
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status);
+      // best-effort: update the library review's status if this video is in the library
+      fetch(SUPA_URL+'/rest/v1/reviews?project=eq.'+encodeURIComponent(PROJECT),{method:'PATCH',headers:H,body:JSON.stringify({status:STATUS_OF[key]||'in_review'})}).catch(function(){});
+      showDone(key,label,note);
+    })
+    .catch(function(e){ $('err').textContent='Could not send your decision ('+e.message+'). Please try again.'; });
+}
+function showDone(key,label,note){
+  var cls=key==='changes_rereview'?'reject':(key==='approved_with_changes'?'changes':'approved');
+  $('wrap').innerHTML='<div class="done"><span class="badge '+cls+'">'+esc(label)+'</span>'
+    +'<h2>Decision recorded</h2>'
+    +'<p>Thanks, '+esc(getName())+'. Your decision has been sent to the team.</p>'
+    +(note?'<p style="margin-top:8px">Your note: “'+esc(note)+'”</p>':'')
+    +'<p style="margin-top:14px"><button class="link" onclick="location.reload()">Change my decision</button></p>'
+    +'</div>';
+}
+
+if(NAME){ $('title').textContent=NAME; document.title=NAME+' | Video review'; }
+if(SRC){ $('openBtn').href=SRC; } else { $('openBtn').style.display='none'; $('openBtn').insertAdjacentHTML('afterend','<div class="err">No video link provided.</div>'); }
+updateWho();
+if(!getName()) askIdentity();
+</script>
+</body>
+</html>
