@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Video Review | Creative + Marketing Site Reviewer | iDesign</title>
+<title>Video Review | Studio Review</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
-  :root{--bg:#001E2E;--surf:#002B40;--surf2:#0A3A52;--field:#00263A;--line:rgba(137,242,247,.16);--primary:#017FAE;--primary2:#00A5E1;--green:#6FEEAC;--text:#E9F3F7;--muted:#7FA6B8}
+  :root{--bg:#00202D;--surf:#002E40;--surf2:#123E4E;--field:#00293A;--line:#20505F;--primary:#33C9FF;--primary2:#5CD4FF;--green:#81C784;--text:#E9F3F7;--muted:#8FA8B4}
   *{box-sizing:border-box}
   body{margin:0;font-family:'Lato',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
   header{background:linear-gradient(135deg,#00263A,#013A52);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
@@ -19,7 +19,7 @@
   .player-wrap{position:relative;width:100%;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:16/9;border:1px solid var(--line)}
   .player-wrap iframe,.player-wrap video{position:absolute;inset:0;width:100%;height:100%;border:0}
   .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-  .btn{background:var(--primary);color:#fff;border:none;border-radius:10px;padding:11px 18px;font-weight:700;font-size:14px;cursor:pointer}
+  .btn{background:var(--primary);color:#00202D;border:none;border-radius:10px;padding:11px 18px;font-weight:700;font-size:14px;cursor:pointer}
   .btn:hover{background:var(--primary2)}
   .btn.ghost{background:transparent;color:var(--text);border:1.5px solid var(--line)}
   .btn:disabled{opacity:.5;cursor:default}
@@ -67,7 +67,7 @@
 </head>
 <body>
 <header>
-  <span class="dot"></span><h1 id="title">Video Review</h1>
+  <img src="studio-review-logo.svg" alt="Studio Review" style="height:22px;display:block"><h1 id="title" style="font-size:14px">Video Review</h1>
   <span class="who"><span id="whoName">—</span><button class="link" id="signBtn" onclick="askIdentity()">change</button></span>
 </header>
 
