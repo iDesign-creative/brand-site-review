@@ -28,7 +28,15 @@
   .kpi .n{font-size:26px;font-weight:900;color:#fff}
   .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
   .sitecard{background:linear-gradient(90deg,rgba(1,80,110,.95) 0%,rgba(0,51,70,.95) 100%);border:1px solid #4DA5C6;border-radius:0 16px 0 16px;box-shadow:0 4px 16px rgba(0,18,26,.25);margin:20px 0;overflow:hidden}
-  .siteh{font-weight:900;font-size:15px;color:#fff;padding:15px 20px 13px}
+  .siteh{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px 13px 20px;background:none;border:none;text-align:left;color:#fff;font-family:inherit;cursor:pointer}
+  .siteh:hover{background:rgba(137,242,247,.05)}
+  .siteh:focus-visible{outline:none;background:rgba(137,242,247,.08)}
+  .sitename{font-weight:900;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sitemeta{flex:none;display:flex;align-items:center;gap:10px}
+  .sitecount{font-size:11px;font-weight:700;color:#002E40;background:#EBFAFF;border-radius:20px;padding:2px 9px}
+  .chev{color:var(--muted);font-size:15px;font-weight:700;line-height:1;transition:transform .15s;transform:rotate(90deg)}
+  .sitecard.collapsed .chev{transform:none}
+  .sitecard.collapsed .grp,.sitecard.collapsed .crow{display:none}
   .grp{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:10px 20px 2px;border-top:1px solid rgba(137,242,247,.12)}
   .grp .c{font-weight:600;color:#5C7E90}
   .crow{display:flex;gap:12px;padding:13px 20px;border-top:1px solid rgba(137,242,247,.10);cursor:pointer;position:relative;transition:background .12s}
@@ -90,6 +98,7 @@
     <button class="tab" data-f="all" onclick="setF('all')">All</button>
     <button class="tab" data-f="resolved" onclick="setF('resolved')">Resolved</button>
     <span class="spacer"></span>
+    <button class="btn" id="colAll" onclick="colAllToggle()">Collapse all</button>
     <button class="btn" onclick="load()">Refresh</button>
     <button class="btn red" onclick="exportCsv()">Export CSV</button>
   </div>
@@ -102,6 +111,7 @@ var CFG = {
   key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1eXRqZGVhdmhvd25nenFkeW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MjYyMzEsImV4cCI6MjA5OTEwMjIzMX0.CqC7Sh6d6dNr6hCiT9tpgKPKWsVJpQhsbaJyAYN-kZY'
 };
 var DATA=[], FILTER='open', SITE='';   // SITE '' = all sites
+var COLLAPSED={};   // site name -> collapsed in the dashboard board
 var COLLECTIONS=[], MEMBERS=[], REVIEWS=[], COLLECTION='', COLLNAME='', COLLPROJECTS=null; // COLLECTION '' = all
 var PROXY='https://funny-eagle-3488.idesign-creative.deno.net/';
 function $(id){return document.getElementById(id);}
@@ -133,6 +143,10 @@ function openReview(id){
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
 function ago(iso){var s=Math.max(1,(Date.now()-new Date(iso))/1000);if(s<60)return'just now';var m=s/60;if(m<60)return Math.floor(m)+'m ago';var h=m/60;if(h<24)return Math.floor(h)+'h ago';return Math.floor(h/24)+'d ago';}
 function setF(f){FILTER=f;[].forEach.call(document.querySelectorAll('.tab'),function(t){t.classList.toggle('on',t.dataset.f===f);});render();}
+function toggleSite(btn){var card=btn.parentNode;var site=btn.getAttribute('data-site');if(card.classList.toggle('collapsed'))COLLAPSED[site]=1;else delete COLLAPSED[site];btn.setAttribute('aria-expanded',card.classList.contains('collapsed')?'false':'true');}
+function toggleAll(collapse){[].forEach.call(document.querySelectorAll('.sitecard'),function(card){var site=card.querySelector('.siteh').getAttribute('data-site');card.classList.toggle('collapsed',collapse);if(collapse)COLLAPSED[site]=1;else delete COLLAPSED[site];});syncColAll();}
+function colAllToggle(){var cards=document.querySelectorAll('.sitecard');var anyOpen=[].some.call(cards,function(c){return !c.classList.contains('collapsed');});toggleAll(anyOpen);}
+function syncColAll(){var b=document.getElementById('colAll');if(!b)return;var cards=document.querySelectorAll('.sitecard');b.style.display=cards.length?'':'none';var allCol=cards.length&&[].every.call(cards,function(c){return c.classList.contains('collapsed');});b.textContent=allCol?'Expand all':'Collapse all';}
 function load(){
   var H={apikey:CFG.key,Authorization:'Bearer '+CFG.key};
   Promise.all([
@@ -166,12 +180,12 @@ function render(){
   var nSites=SITE?1:sites().length;
   $('kpis').innerHTML=kpi(parents.length,'comments')+kpi(open,'open')+kpi(res,'resolved')+kpi(people,'reviewers')+(SITE?'':kpi(nSites,COLLECTION?'items':'sites'));
   var shown=parents.filter(function(c){return FILTER==='all'?true:FILTER==='open'?!c.resolved:c.resolved;});
-  if(!shown.length){$('board').innerHTML='<div class="muted">No '+FILTER+' comments'+(SITE?' for this item':(COLLECTION?' in this collection':''))+' yet.</div>';return;}
+  if(!shown.length){$('board').innerHTML='<div class="muted">No '+FILTER+' comments'+(SITE?' for this item':(COLLECTION?' in this collection':''))+' yet.</div>';syncColAll();return;}
   // group by site -> page
   var bySite={};shown.forEach(function(c){(bySite[c.project]=bySite[c.project]||[]).push(c);});
   var html='';
   Object.keys(bySite).sort().forEach(function(site){
-    html+='<div class="sitecard"><div class="siteh">'+esc(site)+'</div>';
+    html+='<div class="sitecard'+(COLLAPSED[site]?' collapsed':'')+'"><button type="button" class="siteh" data-site="'+esc(site)+'" onclick="toggleSite(this)"><span class="sitename">'+esc(site)+'</span><span class="sitemeta"><span class="sitecount">'+bySite[site].length+'</span><span class="chev">›</span></span></button>';
     var byPage={};bySite[site].forEach(function(c){(byPage[c.page]=byPage[c.page]||[]).push(c);});
     Object.keys(byPage).sort().forEach(function(pg){
       html+='<div class="grp">'+esc(pg)+' <span class="c">· '+byPage[pg].length+'</span></div>';
@@ -191,6 +205,7 @@ function render(){
     html+='</div>';
   });
   $('board').innerHTML=html;
+  syncColAll();
 }
 function kpi(n,l){return '<div class="kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
 function exportCsv(){
